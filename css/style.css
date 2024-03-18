@@ -1,0 +1,21 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+/* --main-font:'Assistant', sans-serif; */
+/* --main-font:"Noto Sans", sans-serif; */
+--main-font:"Nunito", sans-serif;
+}
+
+html {
+font-size: 14px; 
+font-family: var(--main-font);
+}
+
+.hide{
+display: none;
+}
+
