@@ -1,6 +1,8 @@
 import { db } from "./firebaseConfig";
 import { ref, set, get, remove, DatabaseReference } from "firebase/database";
 import { UserType } from "./userType";
+import { handleFirebaseError } from "../utils/errorHandler";
+import { FirebaseError } from "firebase/app";
 
 // Porpuse: This file has the CRUD operations and sends the data to the database.
 
@@ -9,13 +11,16 @@ export const createUser = async (user: UserType) => {
   const dataRef: DatabaseReference = ref(db, "users/" + user.name);
   const exists = await checkUserExists(user.name);
   if (exists) {
-    console.log("User already exists");
     return;
   }
   try {
     await set(dataRef, user);
   } catch (error) {
-    console.log(error);
+    if (error instanceof FirebaseError) {
+      return handleFirebaseError(error);
+    } else {
+      console.log(error);
+    }
   }
 };
 
@@ -30,7 +35,11 @@ export const getAllUsers = async () => {
       return null;
     }
   } catch (error) {
-    console.log(error);
+    if (error instanceof FirebaseError) {
+      return handleFirebaseError(error);
+    } else {
+      console.log(error);
+    }
   }
 };
 
@@ -45,7 +54,11 @@ export const getUserByName = async (name: string) => {
     const data = await get(dataRef);
     return data.val();
   } catch (error) {
-    console.log(error);
+    if (error instanceof FirebaseError) {
+      return handleFirebaseError(error);
+    } else {
+      console.log(error);
+    }
   }
 };
 
@@ -59,7 +72,11 @@ export const deleteUser = async (name: string) => {
   try {
     await remove(dataRef);
   } catch (error) {
-    console.log(error);
+    if (error instanceof FirebaseError) {
+      return handleFirebaseError(error);
+    } else {
+      console.log(error);
+    }
   }
 };
 
@@ -73,7 +90,11 @@ export const updateUser = async (user: UserType) => {
   try {
     await set(dataRef, user);
   } catch (error) {
-    console.log(error);
+    if (error instanceof FirebaseError) {
+      return handleFirebaseError(error);
+    } else {
+      console.log(error);
+    }
   }
 };
 
