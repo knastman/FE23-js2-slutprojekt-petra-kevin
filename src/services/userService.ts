@@ -1,6 +1,6 @@
 import { db } from "./firebaseConfig";
 import { ref, set, get, remove, DatabaseReference } from "firebase/database";
-import { UserType } from "./userType";
+import { UserType } from "../types/userType";
 import { handleFirebaseError } from "../utils/errorHandler";
 import { FirebaseError } from "firebase/app";
 
