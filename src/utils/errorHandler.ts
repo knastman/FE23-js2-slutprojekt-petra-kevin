@@ -1,5 +1,8 @@
 import { FirebaseError } from "firebase/app";
 
+// Porpuse: Error handling for different kind of errors
+
+//Kevin's code
 export function handleFirebaseError(error: FirebaseError): string {
   let message: string;
 
