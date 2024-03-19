@@ -47,9 +47,8 @@ export const getAllUsers = async () => {
 export const getUserByName = async (name: string) => {
   const dataRef: DatabaseReference = ref(db, "users/" + name);
   const exists = await checkUserExists(name);
-  if (!exists) {
-    return;
-  }
+  if (!exists) return;
+
   try {
     const data = await get(dataRef);
     return data.val();
@@ -66,9 +65,8 @@ export const getUserByName = async (name: string) => {
 export const deleteUser = async (name: string) => {
   const dataRef: DatabaseReference = ref(db, "users/" + name);
   const exists = await checkUserExists(name);
-  if (!exists) {
-    return;
-  }
+  if (!exists) return;
+
   try {
     await remove(dataRef);
   } catch (error) {
@@ -84,9 +82,8 @@ export const deleteUser = async (name: string) => {
 export const updateUser = async (user: UserType) => {
   const dataRef: DatabaseReference = ref(db, "users/" + user.name);
   const exists = await checkUserExists(user.name);
-  if (!exists) {
-    return;
-  }
+  if (!exists) return;
+
   try {
     await set(dataRef, user);
   } catch (error) {
@@ -103,4 +100,16 @@ async function checkUserExists(name: string): Promise<boolean> {
   const dataRef: DatabaseReference = ref(db, "users/" + name);
   const snapshot = await get(dataRef);
   return snapshot.exists();
+}
+
+//Kevin's code
+export async function checkUserNameAndPass(
+  inputtedUserName: string,
+  inputtedUserPassworrd: string
+): Promise<boolean> {
+  const user = await getUserByName(inputtedUserName);
+
+  const equals = user && user.password === inputtedUserPassworrd ? true : false;
+
+  return equals;
 }
