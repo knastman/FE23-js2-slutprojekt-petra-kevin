@@ -81,6 +81,13 @@ button{
   align-self:flex-end;
 }
 
+ul a .active {
+  font-weight: 700;
+} 
+
+
+
+
 /****** Header & Menu *******/
 
 header{
@@ -176,6 +183,7 @@ header{
   content: "\f2bd"; /* User circle*/
   content: "\f007";
 }
+
 
 /******* Main *********/
 

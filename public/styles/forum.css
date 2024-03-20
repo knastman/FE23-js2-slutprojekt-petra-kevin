@@ -91,12 +91,10 @@
   cursor: pointer;
 }
 
-
-
-.topicBox {
+/* .topicBox {
   border-bottom:1px solid #ccc;
   padding-bottom:10px;
-}
+} */
 
 .topicBox:last-child {
   border-bottom:none;
@@ -121,7 +119,6 @@
   /* width:95%; */
   /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; */
   /* background-color: #134E5E; */
-
 }
 
 .topicForm form div:last-child{
