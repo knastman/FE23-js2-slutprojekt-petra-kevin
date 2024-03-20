@@ -8,3 +8,8 @@ export function isEmailValid(email: string): boolean {
 export function isInputEmpty(input: string): boolean {
   return input === "";
 }
+
+//Kevin's code
+export function isPasswordValid(password: string): boolean {
+  return password.length >= 6;
+}
