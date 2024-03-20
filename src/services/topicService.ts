@@ -2,7 +2,6 @@
 import { db } from "./firebaseConfig";
 import {
   ref,
-  push,
   get,
   remove,
   update,
@@ -10,9 +9,23 @@ import {
   DatabaseReference,
   getDatabase,
 } from "firebase/database";
-import { CommentType } from "../types/commentType";
+import { topicType } from "../types/topicType";
 
-//TODO Add new Topics?
+//Kevin's code
+export const createTopic = async (topic: topicType) => {
+  const dataRef: DatabaseReference = ref(db, "topics/" + topic.title);
+
+  checkTopicExists(topic.title).then((exists) => {
+    console.log(exists);
+    if (exists) return;
+  });
+
+  try {
+    await set(dataRef, topic);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 //Kevin's code
 export const getTopics = async () => {
@@ -24,6 +37,20 @@ export const getTopics = async () => {
     } else {
       return null;
     }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//Kevin's code
+export const removeTopic = async (topicName: string) => {
+  const dataRef: DatabaseReference = ref(db, "topics/" + topicName);
+  checkTopicExists(topicName).then((exists) => {
+    if (!exists) return;
+  });
+
+  try {
+    await remove(dataRef);
   } catch (error) {
     console.log(error);
   }

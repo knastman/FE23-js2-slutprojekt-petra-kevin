@@ -4,10 +4,8 @@ import {
   push,
   get,
   remove,
-  update,
   set,
   DatabaseReference,
-  getDatabase,
 } from "firebase/database";
 import { CommentType } from "../types/commentType";
 import { checkTopicExists } from "./topicService";
@@ -22,10 +20,26 @@ export function createNewComment(
     userName: userName,
     comment: commenText,
     timeStamp: timeStamp,
-  };
+  } as CommentType;
 }
 
-//TODO GET ALL COMMENTS
+//Kevin's code
+export const getCommentsFromTopic = async (topicName: string) => {
+  const dataRef: DatabaseReference = ref(
+    db,
+    "topics/" + topicName + "/comments"
+  );
+  checkTopicExists(topicName).then((exists) => {
+    if (!exists) return;
+  });
+
+  try {
+    const data = await get(dataRef);
+    return data.val();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 //Kevin's code
 export const addComment = async (comment: CommentType, topicName: string) => {
@@ -34,9 +48,10 @@ export const addComment = async (comment: CommentType, topicName: string) => {
     "topics/" + topicName + "/comments"
   );
 
-  if (!checkTopicExists(topicName)) {
-    return;
-  }
+  checkTopicExists(topicName).then((exists) => {
+    if (!exists) return;
+  });
+
   try {
     await push(dataRef, comment);
   } catch (error) {
@@ -50,12 +65,13 @@ export const removeComment = async (topicName: string, commentKey: string) => {
     db,
     "topics/" + topicName + "/comments/" + commentKey
   );
-  if (
-    !checkTopicExists(topicName) ||
-    !checkCommentKeyExists(topicName, commentKey)
-  ) {
-    return;
-  }
+  checkTopicExists(topicName).then((exists) => {
+    if (!exists) return;
+    checkCommentKeyExists(topicName, commentKey).then((exists) => {
+      if (!exists) return;
+    });
+  });
+
   try {
     await remove(dataRef);
   } catch (error) {
@@ -73,17 +89,31 @@ export const updateComment = async (
     db,
     "topics/" + topicName + "/comments/" + commentKey
   );
-  if (
-    !checkTopicExists(topicName) ||
-    !checkCommentKeyExists(topicName, commentKey)
-  ) {
-    return;
-  }
+  checkTopicExists(topicName).then((exists) => {
+    if (!exists) return;
+    checkCommentKeyExists(topicName, commentKey).then((exists) => {
+      if (!exists) return;
+    });
+  });
 
   try {
     await set(dataRef, comment);
   } catch (error) {
     console.log(error);
+  }
+};
+
+//Kevin's code
+export const getCommentKeys = async (topicName: string) => {
+  const dataRef: DatabaseReference = ref(
+    db,
+    "topics/" + topicName + "/comments"
+  );
+  const data = await get(dataRef);
+  if (data.exists()) {
+    return Object.keys(data.val());
+  } else {
+    return null;
   }
 };
 
