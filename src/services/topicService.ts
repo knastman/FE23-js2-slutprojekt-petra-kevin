@@ -16,7 +16,6 @@ export const createTopic = async (topic: topicType) => {
   const dataRef: DatabaseReference = ref(db, "topics/" + topic.title);
 
   checkTopicExists(topic.title).then((exists) => {
-    console.log(exists);
     if (exists) return;
   });
 
