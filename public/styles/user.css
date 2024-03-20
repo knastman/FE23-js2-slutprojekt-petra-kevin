@@ -1,9 +1,6 @@
 /******* Aside *********/
 
-.userMenu{
-  flex-direction: column;
-  font-size: 1rem;
-}
+
 
 aside{
   color:#dfe4da;
@@ -15,13 +12,47 @@ aside{
   /* height: 100vh; */
   font-family: var(--main-font);
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  background-color: #d7d7d7;
+  background-image: linear-gradient(147deg, #d7d7d7 0%, #353535 74%);
+  background-color: #44b09e;
+  background-image: linear-gradient(315deg, #44b09e 0%, #e0d2c7 74%);
+  background-color: #c3cbdc;
+  background-image: linear-gradient(147deg, #c3cbdc 0%, #edf1f4 74%);
+  background-color: #f9fcff;
+background-image: linear-gradient(147deg, #f9fcff 0%, #dee4ea 74%);
+
+/* background-color: #ffffff;
+background-image: linear-gradient(315deg, #f2f9ff 0%, #335c81 74%); */
+/* background-image: linear-gradient(315deg, #335c81 0%, #ffffff 84%); */
+  /* color:#fff; */
+}
+
+.userMenu{
+  font-size: 1rem;
+}
+.userMenu ul{
+  display: flex;
+  flex-direction: column;
+  gap:5px;
+  width:155px;
+  margin:0 auto;
 }
 
 aside .menu > li a{
   color:#000;
+  /* color:#fff; */
+}
+aside .menu > li a{
+  color:#000;
+  /* color:#fff; */
 }
 
-.userMenu li::before {
+
+.userMenu h4{
+  margin-bottom:15px;
+  margin-top:10px;
+}
+.userMenu h4::before, li::before {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   display: inline-block; 
@@ -30,10 +61,16 @@ aside .menu > li a{
   line-height: 1;
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  font-size: 1.2em;
+  font-size: 1em;
   margin:0 7px 0 5px;
-  content: "\f007"; /* Person */
+}
+/* .userMenu h4::before {
+  content: "\f007"; 
+  content: "\f2bd"; 
+} */
 
+.userMenu li::before {
+  content: "\f044"; /* Person */
 }
 
 .userName{
