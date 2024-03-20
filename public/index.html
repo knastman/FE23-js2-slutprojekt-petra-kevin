@@ -7,94 +7,106 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/3a14b5ad60.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/mainstyles.css" />
+    <link rel="stylesheet" href="./styles/forum.css" />
+    <link rel="stylesheet" href="./styles/user.css" />
     <script src="../src/index.ts" type="module"></script>
     <title>JS Slutprojekt - Social Media</title>
   </head>
   <body>
     <header>
       <div class="top-nav">
-        <div class="topicsMenu">
+        <nav class="mainMenu">
           <ul class="menu">
-            <li><a href="#">Alla ämnen</a></li>
-            <li><a href="#">Poplära ämnen</a></li>
-            <li><a href="#">Nya inlägg</a></li>
+            <li><a href="./">Hem</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Kontakt</a></li>
           </ul>
-        </div>
-        <div>
+        </nav>
+        <div id="search">
           <form>
             <!-- <label for="search"><i class="fa-solid fa-magnifying-glass"></i></label> -->
             <input class="" type="text" name="search" placeholder="Sök ämne, inlägg osv" id="search">
             <button type="submit">Search</button> 
           </form>
         </div>
-
+        <nav id="user">
+          <a href="#">Username</a>
+        </nav>
       </div>  
     </header>
     <div class="pageWrapper">
       <main>
-        <section class="topics">
+        <!--Syns alltid oavsett om inloggad -->
+        <section class="topicsMenu">
           <h2>Ämnen</h2>
-          <div class="topicsWrapper">
-            <div class="topicsBox">Datorer & IT</div>
-            <div class="topicsBox">Hem, bostad & familj</div>
-            <div class="topicsBox">Kultur & Media</div>
-            <div class="topicsBox">Resor</div>
-            <div class="topicsBox">Samhälle</div>
+          <div class="topicsMenuWrapper">
+            <div class="topicMenubox"><a href="#" class="active">Datorer & IT</a></div>
+            <div class="topicMenubox"><a href="#">Hem, bostad & familj</a></div>
+            <div class="topicMenubox"><a href="#">Kultur & Media</a></div>
+            <div class="topicMenubox"><a href="#">Resor</a></div>
+            <div class="topicMenubox"><a href="#">Samhälle</a></div>
           </div>
         </section>
-        <!--OM INLOGGAD - LANDNINGSIDA-->
-        <!-- <section>
-          <h1>Välkommen Username</h1>
-          <p>
-            Välkommen till vår plattform för meddelanden! Här kan du fritt uttrycka dina tankar, dela idéer och kommunicera med andra användare. Vi ser fram emot att höra vad du har att säga. Skriv på och låt konversationen börja!
-          </p>
-        </section> -->
-        <!--OM INLOGGAD - EFTER VALT ÄMNE -->
-        <section class="topicHeader">
-            <div>
-              <h1>Datorer & IT</h1>
-              <p>Ev ngn introtext</p>
-            </div>
-            <!-- <div class="postForm">
-              <form >
-                <h3>Gör ett inlägg</h3>
-                <div>
-                  <label for="postText">Skriv inlägg:</label>
-                  <textarea id="postText" name="Meddelande" placeholder="Ditt meddelande här" rows="5" cols="33" required minlength="4" maxlength="600"></textarea>
-                  <span>Max 600 tecken.</span>
-                </div>
-                <div><button type="submit" id="send-button">Skicka</button></div>
-              </form>
-            </div> -->
-          </section>
-          
-        <!--OM INLOGGAD - EFTER VALT ÄMNE -->
-        <!-- <section class="postForm">
-          <form >
-            <h3>Gör ett inlägg</h3>
-            <div>
-              <label for="postText">Skriv inlägg:</label>
-              <textarea id="postText" name="Meddelande" placeholder="Ditt meddelande här" rows="5" cols="33" required minlength="4" maxlength="600"></textarea>
-              <span>Max 600 tecken.</span>
-              </div>
-            <div><button type="submit" id="send-button">Skicka</button></div>
-          </form>
-        </section> -->
-        
 
-        <section id="messages">
-          <aricle class="message">
-            <div class="messageHeader">
+        <!--OM INLOGGAD - EFTER VALT ÄMNE  OCH INLÄGG -->
+        <section id="topics">
+          <h2>Datorer/IT</h2>
+          <div class="topicsWrapper">
+            <h3>Ämnen</h3>
+            <div>
+              <div class="topicBox">
+                <a href="#"><h4>Project Zomboid - Free roaming zombie survival</h4></a>
+                <p> Who's brave enough to fly into something we all keep calling a death...</p>
+              </div>
+              <div class="topicBox">
+                <a href="#"><h4>Vad tycker ni om stationära datorer</h4></a>
+                <p> Leela's gonna kill me. Can I use the gun? It's a T. It goes "tuh"... </p>
+              </div>
+              <div class="topicBox">
+                <a href="#"><h4>Kan folk sluta med detta!</h4></a>
+                <p> Leela's gonna kill me. Can I use the gun? It's a T. It goes "tuh"... </p>
+              </div>
+              <div class="topicBox">
+                <a href="#"><h4>Hur ska jag tänka vid datorköp av Apple?</h4></a>
+                <p> Leela's gonna kill me. Can I use the gun? It's a T. It goes "tuh"... </p>
+              </div>
+              <div class="topicBox">
+                <a href="#"><h4>Youtube Förklarar Heligt Krig mot Adblockers</h4></a>
+                <p> Leela's gonna kill me. Can I use the gun? It's a T. It goes "tuh"... </p>
+              </div>
+            </div>
+          </div>
+          <div class="topicForm">
+            <h3>Gör ett inlägg</h3>
+            <form>
+              <div>
+                <label for="topicHeader">Ämne:</label>
+                <input class="" type="text" name="topicHeader" placeholder="Vad handlar ditt inlägg om" id="topicHeader">
+              </div>
+              <div>
+                <label for="postText">Inlägg:</label>
+                <textarea id="postText" name="Meddelande" placeholder="Ditt meddelande här" rows="5" cols="33" required minlength="4" maxlength="600"></textarea>
+                
+              </div>
+              <div><button type="submit" id="send-button">Skicka</button></div>
+            </form>
+          </div>
+        </section>
+
+        <section id="posts">
+          <h2>Project Zomboid - Free roaming zombie survival</h2>
+          <aricle class="post">
+            <div class="postHeader">
               <div>
                 14:08 | 25-1-2024
               </div>
               <div>
-                Vet inte om det ska var ngt här
+                <span class="postSubject">Project Zomboid - Free roaming zombie</span>
               </div>
             </div>
             <div>
-              <div class="messageBody">
+              <div class="postBody">
                 <div class="userInfo">
                   <div class="userName">
                     Username
@@ -116,24 +128,25 @@
                 </div>
               </div>
             </div>
-            <div class="messageFooter">
+            <div class="postFooter">
               <div>
-                <a href="#">Kultur & Media</a>
+                <a href="#">Datorer & IT</a>
               </div>
 
             </div>
           </aricle>
-          <aricle class="message">
-            <div class="messageHeader">
+
+          <aricle class="post">
+            <div class="postHeader">
               <div>
                 14:08 | 25-1-2024
               </div>
               <div>
-                Vet inte om det ska var ngt här
+                
               </div>
             </div>
             <div>
-              <div class="messageBody">
+              <div class="postBody">
                 <div class="userInfo">
                   <div class="userName">
                     Yoda
@@ -155,26 +168,27 @@
                 </div>
               </div>
             </div>
-            <div class="messageFooter">
+            <div class="postFooter">
               <div>
-                <a href="#">Hem, bostad & familj</a>
+                <a href="#">Datorer & IT</a> - Project Zomboid - Free roaming zombie survival
               </div>
               <div>
-                <button>Radera inlägg</button>
+                <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
               </div>
             </div>
           </aricle>
-          <aricle class="message">
-            <div class="messageHeader">
+
+          <aricle class="post">
+            <div class="postHeader">
               <div>
                 14:08 | 25-1-2024
               </div>
-              <div>
-                Vet inte om det ska var ngt här
-              </div>
+              <!-- <div>
+    
+              </div> -->
             </div>
             <div>
-              <div class="messageBody">
+              <div class="postBody">
                 <div class="userInfo">
                   <div class="userName">
                     Bender
@@ -193,12 +207,12 @@
                 </div>
               </div>
             </div>
-            <div class="messageFooter">
+            <div class="postFooter">
               <div>
-                <a href="#">Datorer & IT</a>
+                <a href="#">Kultur & Media</a>
               </div>
               <div>
-                <button>Radera inlägg</button>
+                <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
               </div>
             </div>
           </aricle>

@@ -1,0 +1,57 @@
+/******* Aside *********/
+
+.userMenu{
+  flex-direction: column;
+  font-size: 1rem;
+}
+
+aside{
+  color:#dfe4da;
+  color:#000;
+  /* background: linear-gradient(20deg, #c31432, #240b36); */
+  padding:20px;
+  width:20vw;
+  max-width:250px;
+  /* height: 100vh; */
+  font-family: var(--main-font);
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+aside .menu > li a{
+  color:#000;
+}
+
+.userMenu li::before {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block; 
+  text-rendering: auto;
+  font-variant: normal;
+  line-height: 1;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 1.2em;
+  margin:0 7px 0 5px;
+  content: "\f007"; /* Person */
+
+}
+
+.userName{
+  font-size: 1.15em;
+  margin:0;
+  font-weight: 700;
+}
+
+
+
+.userInfo{
+  background-color: #ffffff7e;
+  /* background-color: #0000000e; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:10px;
+  width: 120px;
+  padding:5px;
+}

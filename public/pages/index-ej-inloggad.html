@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3a14b5ad60.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./styles/style.css" />
+    <script src="../src/index.ts" type="module"></script>
+    <title>JS Slutprojekt - Social Media</title>
+  </head>
+  <body>
+    <header>
+      <div class="top-nav">
+        <nav class="mainMenu">
+          <ul class="menu">
+            <li><a href="./">Hem</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Kontakt</a></li>
+          </ul>
+        </nav>
+        <div id="search">
+          <form>
+            <!-- <label for="search"><i class="fa-solid fa-magnifying-glass"></i></label> -->
+            <input class="" type="text" name="search" placeholder="Sök ämne, inlägg osv" id="search">
+            <button type="submit">Search</button> 
+          </form>
+        </div>
+        <nav id="user">
+          <a href="#">Username</a>
+        </nav>
+      </div>  
+    </header>
+    <div class="pageWrapper">
+      <main>
+        <!--Syns alltid oavsett om inloggad -->
+        <section class="topicsMenu">
+          <h2>Ämnen</h2>
+          <div class="topicsMenuWrapper">
+            <div class="topicMenubox"><a href="#" class="active">Datorer & IT</a></div>
+            <div class="topicMenubox"><a href="#">Hem, bostad & familj</a></div>
+            <div class="topicMenubox"><a href="#">Kultur & Media</a></div>
+            <div class="topicMenubox"><a href="#">Resor</a></div>
+            <div class="topicMenubox"><a href="#">Samhälle</a></div>
+          </div>
+        </section>
+
+
+
+        <!--OM INLOGGAD - LANDNINGSIDA-->
+        <section>
+          <h1>Välkommen Username</h1>
+          <p>
+            Välkommen till vår plattform för meddelanden! Här kan du fritt uttrycka dina tankar, dela idéer och kommunicera med andra användare. Vi ser fram emot att höra vad du har att säga. Skriv på och låt konversationen börja!
+          </p>
+        </section>
+
+
+      </main>
+
+      
+      <aside class="mainAside">
+        <h3>Du måste vara inloggad för att se dina uppgifter</h3>
+      </aside>
+    </div>
+    <footer class="mainFooter">
+      <ul>
+        <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+        <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+        <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+        <li><a href="#"><i class="fa-brands fa-github"></i></a></li>
+      </ul>
+      &copy; nånting
+    </footer>
+  </body>
+</html>

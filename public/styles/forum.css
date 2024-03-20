@@ -1,0 +1,242 @@
+/****** Topics Menu *******/
+.topicsMenu{
+
+  color:#e7e9ec;
+  padding:15px;
+}
+.topicsMenu h2{
+  margin:0 0 10px 0;
+  color:#134E5E;
+} 
+
+.topicsMenu a{
+  color:#093637;
+} 
+.topicsMenu .active {
+  font-weight: 700;
+} 
+
+.topicsMenuWrapper{
+  display: grid;
+  width:95%;
+  max-width:800px;
+  margin:0 auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-template-columns: 200px 200px 200px; */
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  gap: 10px 10px;
+  padding:10px 0 10px 0;
+  background-color: #fff;;
+}
+
+
+/****** Subjects/Topics *******/
+
+#topics{
+  margin:15px auto;
+  width:100%;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  border-bottom: 1px solid #ccc;
+  padding-bottom:20px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;}
+
+#topics > div{
+  width:50%;
+}
+
+#topics h2{
+  width:100%;
+  text-align: center;
+  /* background: linear-gradient(20deg,#134E5E, #71B280); */
+  background-color: #134E5E;
+  background: linear-gradient(to left, #203A43, #2C5364);
+  /* background: linear-gradient(50deg, #093637, #44A08D); */
+  color:#e7e9ec;
+}
+
+#topics h4{
+  text-align: left;
+}
+
+#topics h4::before {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block; 
+  text-rendering: auto;
+  font-variant: normal;
+  line-height: 1;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 1.2em;
+  margin:0 7px 0 5px;
+  color:#134E5E;
+  content: "\f075"; /* Comment */
+}
+
+
+.topicsWrapper{
+  padding-left:25px;
+  gap:15px;
+}
+
+.topicsWrapper > div {
+  display: flex;
+  flex-direction: column;
+  gap:10px;
+  cursor: pointer;
+}
+
+
+
+.topicBox {
+  border-bottom:1px solid #ccc;
+  padding-bottom:10px;
+}
+
+.topicBox:last-child {
+  border-bottom:none;
+  padding-bottom:0px;
+}
+
+
+/******* POST FORM ****/
+
+.topicForm{
+  padding-right:25px;
+}
+
+.topicForm form{
+  display: grid;
+  flex-direction: column;
+  text-align: left;
+  justify-content:space-around;
+  gap:10px;
+  /* padding:0 0 0 30px;
+  padding:0 0 0 15%; */
+  /* width:95%; */
+  /* box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; */
+  /* background-color: #134E5E; */
+
+}
+
+.topicForm form div:last-child{
+  justify-self: end;
+}
+
+.topicForm input, .topicForm textarea  {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+  padding: 5px;
+  font-size: 0.9rem;
+  color: #1b2d2d;
+  font-family: inherit;
+}
+
+.topicForm button {
+  background-image: linear-gradient(#f7f8fa, #e7e9ec);
+  border-color: #7a7e84 #797c82 #5a5959#5a5959;
+  border-width: 1px;
+  border-radius: 3px;
+  color: #414e4e;
+  font-size: 0.9rem;
+  padding: 5px 15px;
+  text-align: center;
+  justify-self: end;
+}
+
+.topicForm button:hover {
+  border-bottom-style: solid;
+  border-bottom-color: #a2a6ac;
+}
+
+
+/*******POSTS ******/
+
+.post{
+  width:95%;
+  height:auto;
+  font-size: 1em;
+  color:#33353d;
+  /* background: radial-gradient(circle, #8aecce 0%, #6be8c3 51%, #6be8c3 100%); */
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 5px;
+  display:flex;
+  flex-direction: column;
+  margin:20px auto;
+  /* background: linear-gradient(20deg,#00467F, #A5CC82); */
+  /* background: linear-gradient(70deg, #203A43, #2C5364); */
+  /* color:#fff; */
+} 
+
+.postHeader{
+  background-color: #d7d7d7;
+  background: var(--message-gradient);
+  color:#fff;
+  padding:5px 20px;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.postHeader h5{
+  color:#fff;
+  font-size: 1rem;
+  margin:0;
+}
+
+.postSubject{
+  font-style: italic;
+  font-family: var(--body-font);
+}
+
+.postBody{
+  display: flex;
+  background-color: var(--message-background);
+}
+
+.messageText{
+  padding:10px;
+  font-family: var(--body-font);
+  width:98%;
+  padding:10px 20px;
+}
+
+.postFooter{
+  background: var(--message-gradient);
+  padding:5px 20px;
+  color:#fff;
+  display:flex;
+  justify-content: space-between;
+  align-items:baseline;
+  display:flex;
+  font-size: 0.9rem;
+}
+.postFooter a{
+  color:#fff;
+  font-weight: bold;
+}
+
+.message button{
+  padding:3px 8px;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: .35rem;
+  align-self:flex-end;
+  font-size: 0.8rem;
+}
+
+.message a{
+  color:#eaeaea;
+  text-decoration: none;
+}
+
+.message a:hover{
+  color:#eaeaea;
+  text-decoration: underline;
+}
