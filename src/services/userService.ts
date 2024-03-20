@@ -9,10 +9,9 @@ import { FirebaseError } from "firebase/app";
 //Kevin's code
 export const createUser = async (user: UserType) => {
   const dataRef: DatabaseReference = ref(db, "users/" + user.name);
-  const exists = await checkUserExists(user.name);
-  if (exists) {
-    return;
-  }
+  checkUserExists(user.name).then((exists) => {
+    if (exists) return;
+  });
   try {
     await set(dataRef, user);
   } catch (error) {
@@ -46,9 +45,9 @@ export const getAllUsers = async () => {
 //Kevin's code
 export const getUserByName = async (name: string) => {
   const dataRef: DatabaseReference = ref(db, "users/" + name);
-  const exists = await checkUserExists(name);
-  if (!exists) return;
-
+  checkUserExists(name).then((exists) => {
+    if (!exists) return;
+  });
   try {
     const data = await get(dataRef);
     return data.val();
@@ -64,9 +63,9 @@ export const getUserByName = async (name: string) => {
 //Kevin's code
 export const deleteUser = async (name: string) => {
   const dataRef: DatabaseReference = ref(db, "users/" + name);
-  const exists = await checkUserExists(name);
-  if (!exists) return;
-
+  checkUserExists(name).then((exists) => {
+    if (!exists) return;
+  });
   try {
     await remove(dataRef);
   } catch (error) {
@@ -81,9 +80,9 @@ export const deleteUser = async (name: string) => {
 //Kevin's code
 export const updateUser = async (user: UserType) => {
   const dataRef: DatabaseReference = ref(db, "users/" + user.name);
-  const exists = await checkUserExists(user.name);
-  if (!exists) return;
-
+  checkUserExists(user.name).then((exists) => {
+    if (!exists) return;
+  });
   try {
     await set(dataRef, user);
   } catch (error) {
@@ -105,11 +104,11 @@ async function checkUserExists(name: string): Promise<boolean> {
 //Kevin's code
 export async function checkUserNameAndPass(
   inputtedUserName: string,
-  inputtedUserPassworrd: string
+  inputtedUserPassword: string
 ): Promise<boolean> {
   const user = await getUserByName(inputtedUserName);
 
-  const equals = user && user.password === inputtedUserPassworrd ? true : false;
+  const equals = user && user.password === inputtedUserPassword ? true : false;
 
   return equals;
 }
