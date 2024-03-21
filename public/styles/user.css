@@ -96,10 +96,26 @@ aside .menu > li a{
 
 
 .userMenu form {
-  display: flex;
+  display: grid;
   flex-direction: column;
   text-align: left;
   justify-content:space-around;
-  gap:10px;
+  gap:5px;
   margin-bottom:15px;
+  font-size:0.9rem;
+}
+
+.userMenu label{
+  font-weight: 600;
+}
+.userMenu button {
+  background-image: linear-gradient(#f7f8fa, #e7e9ec);
+  border-color: #7a7e84 #797c82 #5a5959#5a5959;
+  border-width: 1px;
+  border-radius: 3px;
+  color: #414e4e;
+  font-size: 0.9rem;
+  padding: 5px 5px;
+  text-align: center;
+  justify-self: end;
 }

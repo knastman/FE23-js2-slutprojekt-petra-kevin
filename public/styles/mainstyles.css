@@ -69,6 +69,10 @@ a:hover{
 input{
   font-family: var(--main-font);
   padding:2px;
+}
+
+#search input{
+  font-family: var(--main-font);
   width:250px;
 }
 
