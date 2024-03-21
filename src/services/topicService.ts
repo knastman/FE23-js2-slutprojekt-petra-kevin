@@ -8,13 +8,14 @@ import {
   set,
   DatabaseReference,
   getDatabase,
+  DataSnapshot,
 } from "firebase/database";
 import { TopicType } from "../types/topicType";
 
 //Kevin's code
 export const createTopic = async (topic: TopicType): Promise<void> => {
   const dataRef: DatabaseReference = ref(db, "topics/" + topic.title);
-  const exists = await checkTopicExists(topic.title);
+  const exists: Boolean = await checkTopicExists(topic.title);
   if (exists) return;
   try {
     await set(dataRef, topic);
@@ -27,7 +28,7 @@ export const createTopic = async (topic: TopicType): Promise<void> => {
 export const getTopics = async (): Promise<void> => {
   const dataref: DatabaseReference = ref(db, "topics");
   try {
-    const data = await get(dataref);
+    const data: DataSnapshot = await get(dataref);
     if (data.exists()) {
       return data.val();
     } else {
@@ -41,7 +42,7 @@ export const getTopics = async (): Promise<void> => {
 //Kevin's code
 export const removeTopic = async (topicName: string): Promise<void> => {
   const dataRef: DatabaseReference = ref(db, "topics/" + topicName);
-  const exists = await checkTopicExists(topicName);
+  const exists: Boolean = await checkTopicExists(topicName);
   if (!exists) return;
 
   try {
@@ -54,6 +55,6 @@ export const removeTopic = async (topicName: string): Promise<void> => {
 //Kevin's code
 export async function checkTopicExists(topicName: string): Promise<boolean> {
   const dataRef: DatabaseReference = ref(db, "topics/" + topicName);
-  const data = await get(dataRef);
+  const data: DataSnapshot = await get(dataRef);
   return data.exists();
 }

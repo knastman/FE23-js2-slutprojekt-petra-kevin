@@ -1,15 +1,24 @@
 import { db } from "./firebaseConfig";
-import { ref, set, get, remove, DatabaseReference } from "firebase/database";
+import {
+  ref,
+  set,
+  get,
+  remove,
+  DatabaseReference,
+  DataSnapshot,
+} from "firebase/database";
 import { UserType } from "../types/userType";
 import { handleFirebaseError } from "../utils/errorHandler";
 import { FirebaseError } from "firebase/app";
 
 // Porpuse: This file has the CRUD operations and sends the data to the database.
 
+//TODO: Implement error handling
+
 //Kevin's code
 export const createUser = async (user: UserType): Promise<any> => {
   const dataRef: DatabaseReference = ref(db, "users/" + user.name);
-  const userExists = await checkUserExists(user.name);
+  const userExists: Boolean = await checkUserExists(user.name);
   if (userExists) return;
 
   try {
@@ -27,7 +36,7 @@ export const createUser = async (user: UserType): Promise<any> => {
 export const getAllUsers = async (): Promise<any> => {
   const dataRef: DatabaseReference = ref(db, "users");
   try {
-    const data = await get(dataRef);
+    const data: DataSnapshot = await get(dataRef);
     if (data.exists()) {
       return data.val();
     } else {
@@ -45,10 +54,10 @@ export const getAllUsers = async (): Promise<any> => {
 //Kevin's code
 export const getUserByName = async (name: string): Promise<any> => {
   const dataRef: DatabaseReference = ref(db, "users/" + name);
-  const userExists = await checkUserExists(name);
+  const userExists: Boolean = await checkUserExists(name);
   if (!userExists) return;
   try {
-    const data = await get(dataRef);
+    const data: DataSnapshot = await get(dataRef);
     return data.val();
   } catch (error) {
     if (error instanceof FirebaseError) {
@@ -62,7 +71,7 @@ export const getUserByName = async (name: string): Promise<any> => {
 //Kevin's code
 export const deleteUser = async (name: string): Promise<any> => {
   const dataRef: DatabaseReference = ref(db, "users/" + name);
-  const userExists = await checkUserExists(name);
+  const userExists: Boolean = await checkUserExists(name);
   if (!userExists) return;
   try {
     await remove(dataRef);
@@ -78,7 +87,7 @@ export const deleteUser = async (name: string): Promise<any> => {
 //Kevin's code
 export const updateUser = async (user: UserType): Promise<any> => {
   const dataRef: DatabaseReference = ref(db, "users/" + user.name);
-  const userExists = await checkUserExists(user.name);
+  const userExists: Boolean = await checkUserExists(user.name);
   if (!userExists) return;
   try {
     await set(dataRef, user);
@@ -94,8 +103,8 @@ export const updateUser = async (user: UserType): Promise<any> => {
 //Kevin's code
 async function checkUserExists(name: string): Promise<boolean> {
   const dataRef: DatabaseReference = ref(db, "users/" + name);
-  const snapshot = await get(dataRef);
-  return snapshot.exists();
+  const snapshot: DataSnapshot = await get(dataRef);
+  return snapshot.exists() as boolean;
 }
 
 //Kevin's code
@@ -103,9 +112,9 @@ export async function checkUserNameAndPass(
   inputtedUserName: string,
   inputtedUserPassword: string
 ): Promise<boolean> {
-  const user = await getUserByName(inputtedUserName);
+  const user: UserType = await getUserByName(inputtedUserName);
 
   const equals = user && user.password === inputtedUserPassword ? true : false;
 
-  return equals;
+  return equals as boolean;
 }
