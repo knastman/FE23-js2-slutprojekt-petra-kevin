@@ -1,5 +1,5 @@
 //Kevin's code
-export type topicType = {
+export type TopicType = {
   title: string;
   description: string;
 };
