@@ -9,10 +9,10 @@ import {
   DatabaseReference,
   getDatabase,
 } from "firebase/database";
-import { topicType } from "../types/topicType";
+import { TopicType } from "../types/topicType";
 
 //Kevin's code
-export const createTopic = async (topic: topicType) => {
+export const createTopic = async (topic: TopicType) => {
   const dataRef: DatabaseReference = ref(db, "topics/" + topic.title);
 
   checkTopicExists(topic.title).then((exists) => {
