@@ -37,7 +37,13 @@ export const getCommentsFromTopic = async (topicName: string) => {
 
   try {
     const data = await get(dataRef);
-    return data.val();
+    if (data.exists()) {
+      const commentsObject = data.val();
+      const commentsArray = Object.values(commentsObject);
+      return commentsArray;
+    } else {
+      return null;
+    }
   } catch (error) {
     console.log(error);
   }
