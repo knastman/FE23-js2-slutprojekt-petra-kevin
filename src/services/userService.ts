@@ -7,11 +7,11 @@ import { FirebaseError } from "firebase/app";
 // Porpuse: This file has the CRUD operations and sends the data to the database.
 
 //Kevin's code
-export const createUser = async (user: UserType) => {
+export const createUser = async (user: UserType): Promise<any> => {
   const dataRef: DatabaseReference = ref(db, "users/" + user.name);
-  checkUserExists(user.name).then((exists) => {
-    if (exists) return;
-  });
+  const userExists = await checkUserExists(user.name);
+  if (userExists) return;
+
   try {
     await set(dataRef, user);
   } catch (error) {
@@ -24,14 +24,14 @@ export const createUser = async (user: UserType) => {
 };
 
 //Kevin's code
-export const getAllUsers = async () => {
+export const getAllUsers = async (): Promise<any> => {
   const dataRef: DatabaseReference = ref(db, "users");
   try {
     const data = await get(dataRef);
     if (data.exists()) {
       return data.val();
     } else {
-      return null;
+      return;
     }
   } catch (error) {
     if (error instanceof FirebaseError) {
@@ -43,11 +43,10 @@ export const getAllUsers = async () => {
 };
 
 //Kevin's code
-export const getUserByName = async (name: string) => {
+export const getUserByName = async (name: string): Promise<any> => {
   const dataRef: DatabaseReference = ref(db, "users/" + name);
-  checkUserExists(name).then((exists) => {
-    if (!exists) return;
-  });
+  const userExists = await checkUserExists(name);
+  if (!userExists) return;
   try {
     const data = await get(dataRef);
     return data.val();
@@ -61,11 +60,10 @@ export const getUserByName = async (name: string) => {
 };
 
 //Kevin's code
-export const deleteUser = async (name: string) => {
+export const deleteUser = async (name: string): Promise<any> => {
   const dataRef: DatabaseReference = ref(db, "users/" + name);
-  checkUserExists(name).then((exists) => {
-    if (!exists) return;
-  });
+  const userExists = await checkUserExists(name);
+  if (!userExists) return;
   try {
     await remove(dataRef);
   } catch (error) {
@@ -78,11 +76,10 @@ export const deleteUser = async (name: string) => {
 };
 
 //Kevin's code
-export const updateUser = async (user: UserType) => {
+export const updateUser = async (user: UserType): Promise<any> => {
   const dataRef: DatabaseReference = ref(db, "users/" + user.name);
-  checkUserExists(user.name).then((exists) => {
-    if (!exists) return;
-  });
+  const userExists = await checkUserExists(user.name);
+  if (!userExists) return;
   try {
     await set(dataRef, user);
   } catch (error) {

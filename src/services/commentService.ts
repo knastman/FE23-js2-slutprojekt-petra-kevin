@@ -26,21 +26,22 @@ export function createNewComment(
 }
 
 //Kevin's code
+// Returns all comments from a specific topic as an array of CommentType
 export const getCommentsFromTopic = async (topicName: string) => {
   const dataRef: DatabaseReference = ref(
     db,
     "topics/" + topicName + "/comments"
   );
-  checkTopicExists(topicName).then((exists) => {
-    if (!exists) return;
-  });
-
   try {
+    checkTopicExists(topicName).then((exists) => {
+      if (!exists) return;
+    });
+
     const data = await get(dataRef);
     if (data.exists()) {
       const commentsObject = data.val();
       const commentsArray = Object.values(commentsObject);
-      return commentsArray;
+      return commentsArray as CommentType[];
     } else {
       return null;
     }
@@ -50,16 +51,19 @@ export const getCommentsFromTopic = async (topicName: string) => {
 };
 
 //Kevin's code
-export const addComment = async (comment: CommentType, topicName: string) => {
+export const addCommentToTopic = async (
+  comment: CommentType,
+  topicName: string
+): Promise<void> => {
   const dataRef: DatabaseReference = ref(
     db,
     "topics/" + topicName + "/comments"
   );
-
-  checkTopicExists(topicName).then((exists) => {
-    if (!exists) return;
-  });
-
+  const exists = await checkTopicExists(topicName);
+  if (!exists) {
+    console.log("Topic does not exist");
+    return;
+  }
   try {
     await push(dataRef, comment);
   } catch (error) {
@@ -68,18 +72,24 @@ export const addComment = async (comment: CommentType, topicName: string) => {
 };
 
 //Kevin's code
-export const removeComment = async (topicName: string, commentKey: string) => {
+export const removeComment = async (
+  topicName: string,
+  commentKey: string
+): Promise<void> => {
   const dataRef: DatabaseReference = ref(
     db,
     "topics/" + topicName + "/comments/" + commentKey
   );
-  checkTopicExists(topicName).then((exists) => {
-    if (!exists) return;
-    checkCommentKeyExists(topicName, commentKey).then((exists) => {
-      if (!exists) return;
-    });
-  });
-
+  const topicExists = await checkTopicExists(topicName);
+  if (!topicExists) {
+    console.log("Topic does not exist");
+    return;
+  }
+  const commentKeyExists = await checkCommentKeyExists(topicName, commentKey);
+  if (!commentKeyExists) {
+    console.log("Comment key does not exist");
+    return;
+  }
   try {
     await remove(dataRef);
   } catch (error) {
@@ -87,23 +97,21 @@ export const removeComment = async (topicName: string, commentKey: string) => {
   }
 };
 
-//Kevin's code
+// Kevin's code
 export const updateComment = async (
   topicName: string,
   commentKey: string,
   comment: CommentType
-) => {
+): Promise<void> => {
   const dataRef: DatabaseReference = ref(
     db,
     "topics/" + topicName + "/comments/" + commentKey
   );
-  checkTopicExists(topicName).then((exists) => {
-    if (!exists) return;
-    checkCommentKeyExists(topicName, commentKey).then((exists) => {
-      if (!exists) return;
-    });
-  });
-
+  const topicExists = await checkTopicExists(topicName);
+  if (!topicExists) {
+    console.log("Topic does not exist");
+    return;
+  }
   try {
     await set(dataRef, comment);
   } catch (error) {
@@ -111,26 +119,28 @@ export const updateComment = async (
   }
 };
 
-//Kevin's code
+// Kevin's code
+// Returns all comment keys(FirbaseKeys unique "IDs") from a specific topic as an array of strings
 export const getCommentKeys = async (topicName: string) => {
   const dataRef: DatabaseReference = ref(
     db,
     "topics/" + topicName + "/comments"
   );
-  const data = await get(dataRef);
-  if (data.exists()) {
-    return Object.keys(data.val());
-  } else {
-    return null;
+  try {
+    const data = await get(dataRef);
+    return Object.keys(data.val()) as string[];
+  } catch (error) {
+    console.log(error);
   }
 };
 
-//Kevin's code
+// Kevin's code
+// Returns true if the comment key exists in the topic in the firbase DB
 async function checkCommentKeyExists(topicName: string, commentKey: string) {
   const dataRef: DatabaseReference = ref(
     db,
     "topics/" + topicName + "/comments/" + commentKey
   );
   const data = await get(dataRef);
-  return data.exists();
+  return data.exists() as boolean;
 }

@@ -12,13 +12,10 @@ import {
 import { TopicType } from "../types/topicType";
 
 //Kevin's code
-export const createTopic = async (topic: TopicType) => {
+export const createTopic = async (topic: TopicType): Promise<void> => {
   const dataRef: DatabaseReference = ref(db, "topics/" + topic.title);
-
-  checkTopicExists(topic.title).then((exists) => {
-    if (exists) return;
-  });
-
+  const exists = await checkTopicExists(topic.title);
+  if (exists) return;
   try {
     await set(dataRef, topic);
   } catch (error) {
@@ -27,14 +24,14 @@ export const createTopic = async (topic: TopicType) => {
 };
 
 //Kevin's code
-export const getTopics = async () => {
+export const getTopics = async (): Promise<void> => {
   const dataref: DatabaseReference = ref(db, "topics");
   try {
     const data = await get(dataref);
     if (data.exists()) {
       return data.val();
     } else {
-      return null;
+      return;
     }
   } catch (error) {
     console.log(error);
@@ -42,11 +39,10 @@ export const getTopics = async () => {
 };
 
 //Kevin's code
-export const removeTopic = async (topicName: string) => {
+export const removeTopic = async (topicName: string): Promise<void> => {
   const dataRef: DatabaseReference = ref(db, "topics/" + topicName);
-  checkTopicExists(topicName).then((exists) => {
-    if (!exists) return;
-  });
+  const exists = await checkTopicExists(topicName);
+  if (!exists) return;
 
   try {
     await remove(dataRef);
@@ -56,7 +52,7 @@ export const removeTopic = async (topicName: string) => {
 };
 
 //Kevin's code
-export async function checkTopicExists(topicName: string) {
+export async function checkTopicExists(topicName: string): Promise<boolean> {
   const dataRef: DatabaseReference = ref(db, "topics/" + topicName);
   const data = await get(dataRef);
   return data.exists();
