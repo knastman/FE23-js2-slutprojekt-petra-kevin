@@ -119,3 +119,19 @@ aside .menu > li a{
   text-align: center;
   justify-self: end;
 }
+
+
+.users {
+  margin-top:25px;
+  border-top:1px solid #ccc;
+}
+
+.users .menu{
+  display: flex;
+  flex-direction: column;
+}
+
+
+.users h3{
+  margin-bottom:5px;
+}
