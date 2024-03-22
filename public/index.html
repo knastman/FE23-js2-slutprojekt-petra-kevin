@@ -16,12 +16,12 @@
   <body>
 
     <header>
-      <div class="top-nav">
+      <div class="main-nav">
         <nav class="mainMenu">
-          <ul class="menu">
+          <ul class="menu ">
             <li><a href="./">Hem</a></li>
             <li><a href="#">FAQ</a></li>
-            <li><a href="#">User</a></li>
+            <li><a href="#">Kontakt</a></li>
           </ul>
         </nav>
         <div id="search">
@@ -31,7 +31,7 @@
             <button type="submit">Search</button> 
           </form>
         </div>
-        <nav id="user">
+        <nav id="topMenuUser">
           <a href="./user.html">Username</a>
         </nav>
       </div>  
@@ -52,11 +52,12 @@
         </section>
 
         <!--OM INLOGGAD - EFTER VALT ÄMNE  OCH INLÄGG -->
-        <section id="topics">
-          <h2>Datorer/IT</h2>
-          <div class="topicsWrapper">
+        <section id="topics" class="hide">
+          <div id="topicHeader"> <h2>Datorer/IT</h2></div>
+          <!-- <h2>Datorer/IT</h2> -->
+          <div>
             <h3>Ämnen</h3>
-            <div>
+            <div class="topicsWrapper">
               <div class="topicBox">
                 <a href="#"><h4>Project Zomboid - Free roaming zombie survival</h4></a>
                 <p> Who's brave enough to fly into something we all keep calling a death...</p>
@@ -83,8 +84,8 @@
             <h3>Gör ett inlägg</h3>
             <form>
               <div>
-                <label for="topicHeader">Ämne:</label>
-                <input class="" type="text" name="topicHeader" placeholder="Vad handlar ditt inlägg om" id="topicHeader">
+                <label for="topicHeaderInput">Ämne:</label>
+                <input class="" type="text" name="topicHeaderInput" placeholder="Vad handlar ditt inlägg om" id="topicHeaderInput">
               </div>
               <div>
                 <label for="postText">Inlägg:</label>
@@ -96,13 +97,16 @@
           </div>
         </section>
 
+
         <section id="posts">
+          
+          <!-- Posts from chosen subject -->
+        </section>
 
-          <h2>Project Zomboid - Free roaming zombie survival</h2>
+        <!-- <section id="posts"> -->
+          
 
-
-
-          <aricle class="post">
+          <!-- <aricle class="post">
             <div class="postHeader">
               <div class="postDate">
                 14:08 | 25-1-2024
@@ -139,9 +143,9 @@
                 <a href="#">Datorer & IT</a>
               </div>
             </div>
-          </aricle>
+          </aricle> -->
 
-          <aricle class="post">
+          <!-- <aricle class="post">
             <div class="postHeader">
               <div>
                 14:08 | 25-1-2024
@@ -181,7 +185,7 @@
                 <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
               </div>
             </div>
-          </aricle>
+          </aricle> -->
 
           <!-- <aricle class="post">
             <div class="postHeader">
@@ -221,20 +225,33 @@
               </div>
             </div>
           </aricle> -->
-        </section>
+        <!-- </section> -->
+        
       </main>
 
       
       <aside class="mainAside">
-        <div class="userMenu">
+        
+          <nav class="userMenu">
             <h3>Dina uppgifter</h3>
             <h4>Username</h4>
             <ul class="menu userMenu">
               <li><a href="#">Se profil</a></li>
               <li><a href="#">Redigera profil</a></li>
             </ul>
+            </nav>
 
-        </div>
+          <nav class="users">
+            <h3>Alla användare</h3>
+            <ul class="menu users">
+              <li>User1</li>
+              <li><a href="#">User2</2></li>
+              <li><a href="#">User3</2></li>
+              <li><a href="#">User4</2></li>
+              <li><a href="#">User5</2></li>
+            </ul>
+          </nav>
+     
       </aside>
 
 

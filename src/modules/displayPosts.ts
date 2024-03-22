@@ -3,10 +3,17 @@ import { UserType } from "../types/userType.ts";
 
 
 /*********************************
-  Display Posts
+  Display Subject 
 **********************************/
 
+// const postThreadTitle = document.createElement('h2');
+// postThreadTitle.innerText = comments.title;
+// postsContainer.append(postThreadTitle);
 
+
+/*********************************
+  Display Posts
+**********************************/
 
 
 // export function displayPosts(comments: CommentType[]):void{
@@ -14,8 +21,11 @@ import { UserType } from "../types/userType.ts";
 export function displayPosts(comments: CommentType[]):void{
   // console.log(comments);
   // console.log(user);
+
+  
   for(const post in comments){
     // console.log(post);
+
     const postObject = comments[post];
     // console.log(postObject);
     // console.log(postObject.userName);
@@ -27,15 +37,14 @@ export function displayPosts(comments: CommentType[]):void{
 
 function displayPost(post:CommentType):void{
   const postsContainer = document.querySelector('#posts') as HTMLDivElement;
-  console.log(post);
-  console.log(post.title);
-  console.log(post.userName);
-  console.log(post.comment);
-  console.log(post.timeStamp);
-  const postThreadTitle = document.createElement('h2'); 
+  // console.log(post);
+  // console.log(post.title);
+  // console.log(post.userName);
+  // console.log(post.comment);
+  // console.log(post.timeStamp);
+
   const postBox = document.createElement('article'); 
   postBox.classList.add('post');
-
 
   const postHeader = document.createElement('div'); 
   postHeader.classList.add('postHeader');
@@ -67,6 +76,8 @@ function displayPost(post:CommentType):void{
   const postFooterRightDelete = document.createElement('span'); 
   postFooter.classList.add('footerLink');
 
+
+
   postHeaderSubject.innerText = post.title;
 
   const postTimestamp = post.timeStamp;
@@ -79,7 +90,6 @@ function displayPost(post:CommentType):void{
   let postdateAndTime = `${postTime} | ${postDate}`;
 
   postDateContainer.innerText = postdateAndTime;
-  postThreadTitle.innerText = post.title;
   userName.innerText = post.userName;
   // userImgSrc.src = post.userImg;
   // userImgSrc.src = user.userImg;
@@ -95,6 +105,7 @@ function displayPost(post:CommentType):void{
 
 
 
+  
   postsContainer.append(postBox);
   postBox.append(postHeader, postBody, postFooter);
 

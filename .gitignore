@@ -5,3 +5,4 @@ package-lock.json
 docs
 src/modules/display.ts
 src/modules/.DS_Store
+public/.DS_Store

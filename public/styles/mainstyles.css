@@ -36,9 +36,6 @@ h2 {
   margin: 1em 0 0.5em 0;
 }
 
-h3{
-  margin-top:0;
-}
 
 p {
   font-family: var(--body-font);
@@ -100,43 +97,38 @@ header{
 }
 
 header{
-  background-color: #00BAF0;
-  background: linear-gradient(to left, #F78FAD, #FDEB82);
-  background: linear-gradient(5deg, #036564, #033649);
-  background: linear-gradient(#8360c3, #2ebf91);
-  background: linear-gradient(20deg,#8360c3, #2ebf91);
-  background: linear-gradient(20deg,#108dc7, #ef8e38);
-  background: linear-gradient(20deg,#16A085, #F4D03F);
-  background: linear-gradient(20deg,#1D976C, #93F9B9);
+  background-color: #093637;
   background: linear-gradient(to left,#44A08D, #093637);
   background: var(--graident-bg-color);
   background: var(--main-gradient-bg-color);
   color:#0076a5;
-  color: #FFF;
+  color: #fff;
+}
+header a{
+  color:#fff;
 }
 
-.top-nav {
+.main-nav {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   font-weight: 600;
   height: 50px;
   padding: 1em;
   text-align: center;
+  font-size: 1.2rem;
 }
 
-.mainMenu{
-  flex-direction: row;
-}
 
 .menu {
   display: flex;
   list-style-type: none;
   margin: 0;
   padding: 0;
-  font-size: 1.2rem;
+  
 }
+
+
 
 .menu > li {
   margin: 0 1rem;
@@ -144,7 +136,6 @@ header{
 }
 
 .menu > li a{
-  color:#FFF;
   font-weight: 400;
   text-decoration: none;
 }
@@ -158,17 +149,13 @@ header{
   justify-content: space-between;
 }
 
-#user{
+#topMenuUser{
   width:30%;
   width:200px;
-  font-size: 1.2em;
-}
-#user a{
-  color:#fff;
+  font-size: 1.1em;
 }
 
-
-#user a::before {
+#topMenuUser a::before {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   display: inline-block; 
@@ -177,7 +164,7 @@ header{
   line-height: 1;
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
-  font-size: 1.2em;
+  font-size: 1.1em;
   margin:0 7px 0 5px;
   color:#fff;
   

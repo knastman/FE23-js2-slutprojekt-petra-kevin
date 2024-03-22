@@ -41,11 +41,21 @@
   align-items: flex-start;
   border-bottom: 1px solid #ccc;
   padding-bottom:20px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;}
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
 
 #topics > div{
   width:50%;
 }
+
+#topics > div:first-child{
+  width:100%;
+}
+
+#topicHeader{
+  width:100%;
+}
+
 
 #topics h2{
   width:100%;
