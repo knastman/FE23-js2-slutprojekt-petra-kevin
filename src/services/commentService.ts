@@ -35,10 +35,10 @@ export const getCommentsFromTopic = async (topicName: string): Promise<any> => {
     db,
     "topics/" + topicName + "/comments"
   );
-  try {
-    const exists: Boolean = await checkTopicExists(topicName);
-    if (!exists) return;
 
+  const exists: boolean = await checkTopicExists(topicName);
+  if (!exists) return;
+  try {
     const data: DataSnapshot = await get(dataRef);
     if (data.exists()) {
       const commentsObject: Object = data.val();
@@ -62,7 +62,7 @@ export const addCommentToTopic = async (
     "topics/" + topicName + "/comments"
   );
   const exists: boolean = await checkTopicExists(topicName);
-  if (!exists) Boolean;
+  if (!exists) return;
 
   try {
     await push(dataRef, comment);
@@ -80,12 +80,15 @@ export const removeComment = async (
     db,
     "topics/" + topicName + "/comments/" + commentKey
   );
-  const topicExists: Boolean = await checkTopicExists(topicName);
+  const topicExists: boolean = await checkTopicExists(topicName);
   if (!topicExists) {
     console.log("Topic does not exist");
     return;
   }
-  const commentKeyExists = await checkCommentKeyExists(topicName, commentKey);
+  const commentKeyExists: boolean = await checkCommentKeyExists(
+    topicName,
+    commentKey
+  );
   if (!commentKeyExists) {
     console.log("Comment key does not exist");
     return;
@@ -107,9 +110,9 @@ export const updateComment = async (
     db,
     "topics/" + topicName + "/comments/" + commentKey
   );
-  const topicExists: Boolean = await checkTopicExists(topicName);
+  const topicExists: boolean = await checkTopicExists(topicName);
   if (!topicExists) return;
-  const commentKeyExists: Boolean = await checkCommentKeyExists(
+  const commentKeyExists: boolean = await checkCommentKeyExists(
     topicName,
     commentKey
   );
