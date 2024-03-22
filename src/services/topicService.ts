@@ -8,17 +8,15 @@ import {
   set,
   DatabaseReference,
   getDatabase,
+  DataSnapshot,
 } from "firebase/database";
 import { TopicType } from "../types/topicType";
 
 //Kevin's code
-export const createTopic = async (topic: TopicType) => {
+export const createTopic = async (topic: TopicType): Promise<void> => {
   const dataRef: DatabaseReference = ref(db, "topics/" + topic.title);
-
-  checkTopicExists(topic.title).then((exists) => {
-    if (exists) return;
-  });
-
+  const exists: boolean = await checkTopicExists(topic.title);
+  if (exists) return;
   try {
     await set(dataRef, topic);
   } catch (error) {
@@ -27,14 +25,14 @@ export const createTopic = async (topic: TopicType) => {
 };
 
 //Kevin's code
-export const getTopics = async () => {
+export const getTopics = async (): Promise<void> => {
   const dataref: DatabaseReference = ref(db, "topics");
   try {
-    const data = await get(dataref);
+    const data: DataSnapshot = await get(dataref);
     if (data.exists()) {
       return data.val();
     } else {
-      return null;
+      return;
     }
   } catch (error) {
     console.log(error);
@@ -42,13 +40,14 @@ export const getTopics = async () => {
 };
 
 //Kevin's code
-export const removeTopic = async (topicName: string) => {
-  const dataRef: DatabaseReference = ref(db, "topics/" + topicName);
-  checkTopicExists(topicName).then((exists) => {
-    if (!exists) return;
-  });
-
+export const removeTopic = async (topicName: string): Promise<void> => {
+  const exists: boolean = await checkTopicExists(topicName);
+  if (!exists) {
+    console.log("Topic does not exist");
+    return;
+  }
   try {
+    const dataRef: DatabaseReference = ref(db, "topics/" + topicName);
     await remove(dataRef);
   } catch (error) {
     console.log(error);
@@ -56,8 +55,13 @@ export const removeTopic = async (topicName: string) => {
 };
 
 //Kevin's code
-export async function checkTopicExists(topicName: string) {
-  const dataRef: DatabaseReference = ref(db, "topics/" + topicName);
-  const data = await get(dataRef);
-  return data.exists();
+export async function checkTopicExists(topicName: string): Promise<boolean> {
+  try {
+    const dataRef: DatabaseReference = ref(db, "topics/" + topicName);
+    const data: DataSnapshot = await get(dataRef);
+    return data.exists();
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
 }
