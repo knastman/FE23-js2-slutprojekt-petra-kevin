@@ -105,6 +105,12 @@ aside .menu > li a{
   font-size:0.9rem;
 }
 
+.userMenu img{
+  padding:2%;
+  margin-bottom:15px;
+
+}
+
 .userMenu label{
   font-weight: 600;
 }
