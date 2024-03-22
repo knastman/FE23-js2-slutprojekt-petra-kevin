@@ -195,11 +195,19 @@
   display: flex;
   background-color: var(--message-background);
 }
+.userInfo{
+  width:150px;
+}
 
-.messageText{
+.userImg{
+  width:120px;
+  text-align: center;
+}
+
+.postText{
   padding:10px;
   font-family: var(--body-font);
-  width:98%;
+  max-width:97%;
   padding:10px 20px;
 }
 
@@ -213,12 +221,24 @@
   display:flex;
   font-size: 0.9rem;
 }
-.postFooter a{
+
+.postFooter div:first-child{
   color:#fff;
   font-weight: bold;
+  cursor: pointer;
 }
 
-.message button{
+.footerLink{
+  color:#fff;
+  cursor: pointer;
+}
+
+/* .postFooter a{
+  color:#fff;
+  font-weight: bold;
+} */
+
+/* .message button{
   padding:3px 8px;
   cursor: pointer;
   background-color: #fff;
@@ -236,4 +256,4 @@
 .message a:hover{
   color:#eaeaea;
   text-decoration: underline;
-}
+} */
