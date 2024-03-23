@@ -36,6 +36,9 @@ h2 {
   margin: 1em 0 0.5em 0;
 }
 
+h3{
+  margin-top:0;
+}
 
 p {
   font-family: var(--body-font);
@@ -52,8 +55,11 @@ img{
 
 a{
   color:#0F2027;
+  color:#093637;
+  color:#0a5254;
   text-decoration: none;
 }
+
 a:hover{
   /* opacity: 0.6; */
   text-decoration: underline;
@@ -87,8 +93,6 @@ ul a .active {
 } 
 
 
-
-
 /****** Header & Menu *******/
 
 header{
@@ -98,11 +102,14 @@ header{
 
 header{
   background-color: #093637;
+  /* background: linear-gradient(20deg, #c31432, #240b36); */
   background: linear-gradient(to left,#44A08D, #093637);
   background: var(--graident-bg-color);
   background: var(--main-gradient-bg-color);
   color:#0076a5;
   color: #fff;
+
+
 }
 header a{
   color:#fff;
@@ -119,16 +126,12 @@ header a{
   font-size: 1.2rem;
 }
 
-
 .menu {
   display: flex;
   list-style-type: none;
   margin: 0;
-  padding: 0;
-  
+  padding: 0
 }
-
-
 
 .menu > li {
   margin: 0 1rem;
@@ -191,6 +194,29 @@ main{
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   /* padding:0 20px 0 20px; */
 }
+
+
+/******* Aside *********/
+
+aside{
+  padding:20px;
+  width:20vw;
+  max-width:220px;
+  /* height: 100vh; */
+  font-family: var(--main-font);
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  background-color: #c3cbdc;
+  background-image: linear-gradient(147deg, #c3d4dc 0%, #edf1f4 74%);
+  background-color: #c3cbdc;
+  background-image: linear-gradient(147deg, #c3dcdc 0%, #edf1f4 74%);
+  /* background-color: #f9fcff;
+  background-image: linear-gradient(147deg, #f9fcff 0%, #dee4ea 74%); */
+  /* background: linear-gradient(20deg, #c31432, #240b36);
+  color:#fff; */
+}
+/* aside a{
+  color:#fff;
+} */
 
 
 

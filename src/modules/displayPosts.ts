@@ -1,36 +1,19 @@
-import { CommentType}  from "../types/commentType.ts";
-import { UserType } from "../types/userType.ts";
-
-
-/*********************************
-  Display Subject 
-**********************************/
-
-// const postThreadTitle = document.createElement('h2');
-// postThreadTitle.innerText = comments.title;
-// postsContainer.append(postThreadTitle);
-
-
-/*********************************
-  Display Posts
-**********************************/
-
+import { CommentType }  from "../types/commentType.ts";
+// import { UserType } from "../types/userType.ts";
+import { displaySubjects } from "../modules/displayTopics.ts";
 
 // export function displayPosts(comments: CommentType[]):void{
 // export function displayPosts(comments: CommentType[], user: UserType[]):void{
 export function displayPosts(comments: CommentType[]):void{
-  // console.log(comments);
-  // console.log(user);
-
-  
   for(const post in comments){
     // console.log(post);
-
     const postObject = comments[post];
-    // console.log(postObject);
-    // console.log(postObject.userName);
-    // console.log(postObject.title);
     displayPost(postObject);
+  }
+  for(const post in comments.slice(0, 5) ){
+    // console.log(post);
+    const postObject = comments[post];
+    displaySubjects(postObject);
   }
 }
 
@@ -76,8 +59,6 @@ function displayPost(post:CommentType):void{
   const postFooterRightDelete = document.createElement('span'); 
   postFooter.classList.add('footerLink');
 
-
-
   postHeaderSubject.innerText = post.title;
 
   const postTimestamp = post.timeStamp;
@@ -104,8 +85,6 @@ function displayPost(post:CommentType):void{
   postFooterRightDelete.innerText =  '| Radera inlägg';
 
 
-
-  
   postsContainer.append(postBox);
   postBox.append(postHeader, postBody, postFooter);
 
@@ -118,10 +97,3 @@ function displayPost(post:CommentType):void{
   postFooter.append(postFooterDivleft, postFooterDivRight);
   postFooterDivRight.append(postFooterRightEdit, postFooterRightDelete);
 }
-
-
-
-
-
-
-

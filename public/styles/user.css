@@ -1,31 +1,4 @@
-/******* Aside *********/
 
-
-
-aside{
-  color:#dfe4da;
-  color:#000;
-  /* background: linear-gradient(20deg, #c31432, #240b36); */
-  padding:20px;
-  width:20vw;
-  max-width:250px;
-  /* height: 100vh; */
-  font-family: var(--main-font);
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-  background-color: #d7d7d7;
-  background-image: linear-gradient(147deg, #d7d7d7 0%, #353535 74%);
-  background-color: #44b09e;
-  background-image: linear-gradient(315deg, #44b09e 0%, #e0d2c7 74%);
-  background-color: #c3cbdc;
-  background-image: linear-gradient(147deg, #c3cbdc 0%, #edf1f4 74%);
-  background-color: #f9fcff;
-background-image: linear-gradient(147deg, #f9fcff 0%, #dee4ea 74%);
-
-/* background-color: #ffffff;
-background-image: linear-gradient(315deg, #f2f9ff 0%, #335c81 74%); */
-/* background-image: linear-gradient(315deg, #335c81 0%, #ffffff 84%); */
-  /* color:#fff; */
-}
 
 .userMenu{
   font-size: 1rem;
@@ -47,11 +20,17 @@ aside .menu > li a{
   /* color:#fff; */
 }
 
+/* .userMenu h3{
+  text-transform: uppercase;
+} */
 
 .userMenu h4{
   margin-bottom:15px;
   margin-top:10px;
+  font-size: 1.2rem;
+  color:#17868a;
 }
+
 .userMenu h4::before, li::before {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -64,22 +43,17 @@ aside .menu > li a{
   font-size: 1em;
   margin:0 7px 0 5px;
 }
-/* .userMenu h4::before {
-  content: "\f007"; 
-  content: "\f2bd"; 
-} */
+
 
 .userMenu li::before {
   content: "\f044"; /* Person */
 }
 
-.userName{
+/* .userName{
   font-size: 1.15em;
   margin:0;
   font-weight: 700;
-}
-
-
+} */
 
 .userInfo{
   background-color: #ffffff7e;
@@ -92,8 +66,6 @@ aside .menu > li a{
   width: 120px;
   padding:5px;
 }
-
-
 
 .userMenu form {
   display: grid;
@@ -108,28 +80,17 @@ aside .menu > li a{
 .userMenu img{
   padding:2%;
   margin-bottom:15px;
-
+  cursor: pointer;
 }
 
-.userMenu label{
-  font-weight: 600;
-}
-.userMenu button {
-  background-image: linear-gradient(#f7f8fa, #e7e9ec);
-  border-color: #7a7e84 #797c82 #5a5959#5a5959;
-  border-width: 1px;
-  border-radius: 3px;
-  color: #414e4e;
-  font-size: 0.9rem;
-  padding: 5px 5px;
-  text-align: center;
-  justify-self: end;
-}
 
+/****** Users *******/
 
 .users {
-  margin-top:25px;
+  padding-top:15px;
   border-top:1px solid #ccc;
+  width:85%;
+  margin:25px auto;
 }
 
 .users .menu{
@@ -137,7 +98,6 @@ aside .menu > li a{
   flex-direction: column;
 }
 
-
 .users h3{
-  margin-bottom:5px;
+  margin-bottom:10px;
 }
