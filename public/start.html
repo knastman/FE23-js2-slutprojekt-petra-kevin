@@ -7,15 +7,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/3a14b5ad60.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./styles/style.css" />
-    <script src="../src/index.ts" type="module"></script>
+    <link rel="stylesheet" href="./styles/mainstyles.css" />
+    <link rel="stylesheet" href="./styles/forum.css" />
+    <link rel="stylesheet" href="./styles/user.css" />
+    <script src="../src/main.ts" type="module"></script> 
     <title>JS Slutprojekt - Social Media</title>
   </head>
   <body>
+
     <header>
-      <div class="top-nav">
+      <div class="main-nav">
         <nav class="mainMenu">
-          <ul class="menu">
+          <ul class="menu ">
             <li><a href="./">Hem</a></li>
             <li><a href="#">FAQ</a></li>
             <li><a href="#">Kontakt</a></li>
@@ -28,8 +31,8 @@
             <button type="submit">Search</button> 
           </form>
         </div>
-        <nav id="user">
-          <a href="#">Username</a>
+        <nav id="topMenuUser">
+          <a href="./user.html">Ej inloggad</a>
         </nav>
       </div>  
     </header>
@@ -39,23 +42,20 @@
         <section class="topicsMenu">
           <h2>Ämnen</h2>
           <div class="topicsMenuWrapper">
-            <div class="topicMenubox"><a href="#" class="active">Datorer & IT</a></div>
-            <div class="topicMenubox"><a href="#">Hem, bostad & familj</a></div>
-            <div class="topicMenubox"><a href="#">Kultur & Media</a></div>
-            <div class="topicMenubox"><a href="#">Resor</a></div>
-            <div class="topicMenubox"><a href="#">Samhälle</a></div>
+            <!-- Topics from db here -->
           </div>
         </section>
 
 
 
-        <!--OM INLOGGAD - LANDNINGSIDA-->
-        <section>
-          <h1>Välkommen Username</h1>
+        <!--EJ INLOGGAD - LANDNINGSIDA-->
+        <section id="start">
+          <h1>Välkommen till forumet!</h1>
           <p>
-            Välkommen till vår plattform för meddelanden! Här kan du fritt uttrycka dina tankar, dela idéer och kommunicera med andra användare. Vi ser fram emot att höra vad du har att säga. Skriv på och låt konversationen börja!
+            Välkommen till vårt diskussionsforum! Här samlas en mångfald av tankar, åsikter och idéer för att skapa en berikande och givande dialog. Oavsett om du är här för att dela din expertis, lära dig något nytt eller bara utforska olika perspektiv, så är detta platsen för dig. Vi uppmuntrar respektfullt utbyte och öppenhet för att främja en atmosfär av lärande och förståelse. Så dyk in, engagera dig och låt oss tillsammans utforska världen genom diskussion och delat kunnande!
           </p>
         </section>
+
 
 
       </main>
@@ -76,3 +76,4 @@
     </footer>
   </body>
 </html>
+

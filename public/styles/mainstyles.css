@@ -42,7 +42,7 @@ h3{
 
 p {
   font-family: var(--body-font);
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 p:nth-last-child(1) {
@@ -195,6 +195,13 @@ main{
   /* padding:0 20px 0 20px; */
 }
 
+
+#start{
+  margin:0 auto;
+  width: 95%;
+  text-align: center;
+
+}
 
 /******* Aside *********/
 
