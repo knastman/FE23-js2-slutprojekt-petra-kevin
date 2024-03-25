@@ -1,8 +1,7 @@
 //Kevin's code
 export type CommentType = {
-  title: string;
   userName: string;
-  userImg: string; //Tillägg av Petra
+  title: string;
   comment: string;
   timeStamp: number;
 };

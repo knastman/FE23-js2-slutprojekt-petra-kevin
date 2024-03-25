@@ -10,6 +10,7 @@ import {
 } from "firebase/database";
 import { CommentType } from "../types/commentType";
 import { checkTopicExists } from "./topicService";
+import { ThreadType } from "../types/threadType";
 
 //TODO: Implement error handling
 
@@ -30,10 +31,13 @@ export function createNewComment(
 
 //Kevin's code
 // Returns all comments from a specific topic as an array of CommentType
-export const getCommentsFromTopic = async (topicName: string): Promise<any> => {
+export const getCommentsFromThread = async (
+  topicName: string,
+  threadId: string
+): Promise<any> => {
   const dataRef: DatabaseReference = ref(
     db,
-    "topics/" + topicName + "/comments"
+    `topics/${topicName}/threads/${threadId}/comments`
   );
 
   const exists: boolean = await checkTopicExists(topicName);
@@ -53,13 +57,14 @@ export const getCommentsFromTopic = async (topicName: string): Promise<any> => {
 };
 
 //Kevin's code
-export const addCommentToTopic = async (
-  comment: CommentType,
-  topicName: string
+export const addCommentToThread = async (
+  topicName: string,
+  threadId: string,
+  comment: CommentType
 ): Promise<void> => {
   const dataRef: DatabaseReference = ref(
     db,
-    "topics/" + topicName + "/comments"
+    `topics/${topicName}/threads/${threadId}/comments`
   );
   const exists: boolean = await checkTopicExists(topicName);
   if (!exists) return;
@@ -74,11 +79,12 @@ export const addCommentToTopic = async (
 //Kevin's code
 export const removeComment = async (
   topicName: string,
+  threadId: string,
   commentKey: string
 ): Promise<void> => {
   const dataRef: DatabaseReference = ref(
     db,
-    "topics/" + topicName + "/comments/" + commentKey
+    `topics/${topicName}/threads/${threadId}/comments`
   );
   const topicExists: boolean = await checkTopicExists(topicName);
   if (!topicExists) {
@@ -87,6 +93,7 @@ export const removeComment = async (
   }
   const commentKeyExists: boolean = await checkCommentKeyExists(
     topicName,
+    threadId,
     commentKey
   );
   if (!commentKeyExists) {
@@ -103,17 +110,19 @@ export const removeComment = async (
 // Kevin's code
 export const updateComment = async (
   topicName: string,
+  threadId: string,
   commentKey: string,
   comment: CommentType
 ): Promise<void> => {
   const dataRef: DatabaseReference = ref(
     db,
-    "topics/" + topicName + "/comments/" + commentKey
+    `topics/${topicName}/threads/${threadId}/comments`
   );
   const topicExists: boolean = await checkTopicExists(topicName);
   if (!topicExists) return;
   const commentKeyExists: boolean = await checkCommentKeyExists(
     topicName,
+    threadId,
     commentKey
   );
   if (!commentKeyExists) return;
@@ -126,10 +135,10 @@ export const updateComment = async (
 
 // Kevin's code
 // Returns all comment keys(FirbaseKeys unique "IDs") from a specific topic as an array of strings
-export const getCommentKeys = async (topicName: string) => {
+export const getCommentKeys = async (topicName: string, threadId: string) => {
   const dataRef: DatabaseReference = ref(
     db,
-    "topics/" + topicName + "/comments"
+    `topics/${topicName}/threads/${threadId}/comments`
   );
   try {
     const data: DataSnapshot = await get(dataRef);
@@ -143,11 +152,12 @@ export const getCommentKeys = async (topicName: string) => {
 // Returns true if the comment key (Firebase "ID") exists in the topic in the firbase DB
 async function checkCommentKeyExists(
   topicName: string,
+  threadId: string,
   commentKey: string
 ): Promise<boolean> {
   const dataRef: DatabaseReference = ref(
     db,
-    "topics/" + topicName + "/comments/" + commentKey
+    `topics/${topicName}/threads/${threadId}/comments/${commentKey}`
   );
   const data = await get(dataRef);
   return data.exists() as boolean;
