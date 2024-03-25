@@ -1,7 +1,6 @@
 export type ThreadType = {
   user: string;
   title: string;
-  content: string;
   date: number;
 };
 

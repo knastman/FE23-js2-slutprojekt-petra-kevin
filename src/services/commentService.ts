@@ -31,7 +31,7 @@ export function createNewComment(
 
 //Kevin's code
 // Returns all comments from a specific topic as an array of CommentType
-export const getCommentsFromThread = async (
+export const getAllCommentsFromThread = async (
   topicName: string,
   threadId: string
 ): Promise<any> => {
