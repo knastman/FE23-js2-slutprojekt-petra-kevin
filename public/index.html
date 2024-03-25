@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="./styles/mainstyles.css" />
     <link rel="stylesheet" href="./styles/forum.css" />
     <link rel="stylesheet" href="./styles/user.css" />
+    <link rel="stylesheet" href="./styles/login.css" />
     <script src="../src/main.ts" type="module"></script> 
     <title>JS Slutprojekt - Social Media</title>
   </head>
   <body>
-
     <header>
       <div class="main-nav">
         <nav class="mainMenu">
@@ -36,18 +36,20 @@
         </nav>
       </div>  
     </header>
+    <div id="blur-overlay"></div>
+    <div class="login-container"></div>
     <div class="pageWrapper">
       <main>
         <!--Syns alltid oavsett om inloggad -->
         <section class="topicsMenu">
           <h2>Ämnen</h2>
           <div class="topicsMenuWrapper">
-            <!-- Topics from db here -->
-            <!-- <div class="topicMenubox"><a href="#" class="active">Datorer & IT</a></div>
+
+            <div class="topicMenubox"><a href="#" class="active">Datorer & IT</a></div>
             <div class="topicMenubox"><a href="#">Hem, bostad & familj</a></div>
             <div class="topicMenubox"><a href="#">Kultur & Media</a></div>
             <div class="topicMenubox"><a href="#">Resor</a></div>
-            <div class="topicMenubox"><a href="#">Samhälle</a></div> -->
+            <div class="topicMenubox"><a href="#">Samhälle</a></div> -
           </div>
         </section>
 
@@ -253,6 +255,8 @@
 
 
     </div>
+
+    
 
 
 
