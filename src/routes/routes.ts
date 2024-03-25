@@ -1,29 +1,39 @@
 import Navigo from "navigo";
 import {
+  toggleLoginContainer,
   loginTemplate,
   attachLoginEvents,
   isLoggedIn,
 } from "../components/login";
 import { registerTemplate, attachRegisterEvents } from "../components/register";
+import { toggleBlurEffect } from "../utils/utils";
 
-const router = new Navigo("/");
+const router = new Navigo("/", {});
 
+// INTE FÄRDIGT
+//Kevin's code
 export function setupRoutes() {
   router
     .on({
       "/": () => {
-        if (isLoggedIn()) {
-          document.body.innerHTML = homeTemplate();
-          attachHomeEvents(router);
-        } else {
+        if (!isLoggedIn()) {
           router.navigate("/login");
+        } else {
+          toggleBlurEffect(false);
+          toggleLoginContainer(false);
         }
       },
       "/login": () => {
         if (isLoggedIn()) {
           router.navigate("/");
         } else {
-          document.body.innerHTML = loginTemplate();
+          const loginContainer = document.querySelector(".login-container");
+          if (!loginContainer) {
+            return;
+          }
+          toggleLoginContainer(true);
+          toggleBlurEffect(true);
+          loginContainer.innerHTML = loginTemplate();
           attachLoginEvents(router);
         }
       },
@@ -31,29 +41,15 @@ export function setupRoutes() {
         if (isLoggedIn()) {
           router.navigate("/");
         } else {
-          document.body.innerHTML = registerTemplate();
+          const loginContainer = document.querySelector(".login-container");
+          if (!loginContainer) {
+            return;
+          }
+          toggleLoginContainer(true);
+          loginContainer.innerHTML = registerTemplate();
           attachRegisterEvents(router);
         }
       },
     })
     .resolve();
-}
-
-function homeTemplate() {
-  return `
-    <div class="home">
-      <h1>Home</h1>
-      <button id="logout">Logout</button>
-    </div>
-  `;
-}
-
-function attachHomeEvents(router: Navigo) {
-  const logoutButton = document.querySelector("#logout") as HTMLButtonElement;
-  if (logoutButton) {
-    logoutButton.addEventListener("click", () => {
-      localStorage.removeItem("login");
-      router.navigate("/login");
-    });
-  }
 }
