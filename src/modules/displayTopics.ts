@@ -1,6 +1,6 @@
 import { TopicType } from "../types/topicType.ts";
 import { CommentType }  from "../types/commentType.ts";
-import { getCommentsFromTopic } from "../services/commentService.ts";
+// import { getCommentsFromTopic } from "../services/commentService.ts";
 import { displayPosts } from "../modules/displayPosts.ts";
 
 

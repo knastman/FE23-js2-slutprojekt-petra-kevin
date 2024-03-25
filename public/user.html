@@ -10,18 +10,18 @@
     <link rel="stylesheet" href="./styles/mainstyles.css" />
     <link rel="stylesheet" href="./styles/forum.css" />
     <link rel="stylesheet" href="./styles/user.css" />
-    <script src="../src/main.ts" type="module"></script>
+    <script src="../src/main.ts" type="module"></script> 
     <title>JS Slutprojekt - Social Media</title>
   </head>
   <body>
 
     <header>
-      <div class="top-nav">
+      <div class="main-nav">
         <nav class="mainMenu">
-          <ul class="menu">
+          <ul class="menu ">
             <li><a href="./">Hem</a></li>
             <li><a href="#">FAQ</a></li>
-            <li><a href="#">User</a></li>
+            <li><a href="#">Kontakt</a></li>
           </ul>
         </nav>
         <div id="search">
@@ -31,11 +31,8 @@
             <button type="submit">Search</button> 
           </form>
         </div>
-        <nav id="user">
-          <a href="./user.html">Username</a>
-          <!-- <a href="./pages/user.html">Username</a> -->
-          <!-- <a href="./public/pages/user.html">Username</a> -->
-          <!-- <a href="/pages/user.html">Username</a> -->
+        <nav id="topMenuUser">
+          <a href="./user.html">Red panda</a>
         </nav>
       </div>  
     </header>
@@ -45,26 +42,43 @@
         <section class="topicsMenu">
           <h2>Ämnen</h2>
           <div class="topicsMenuWrapper">
-            <div class="topicMenubox"><a href="#">Datorer & IT</a></div>
-            <div class="topicMenubox"><a href="#">Hem, bostad & familj</a></div>
-            <div class="topicMenubox"><a href="#">Kultur & Media</a></div>
-            <div class="topicMenubox"><a href="#">Resor</a></div>
-            <div class="topicMenubox"><a href="#">Samhälle</a></div>
+            <!-- Topics from db here -->
           </div>
         </section>
 
 
+        <section id="start">
+          <h1>Välkommen Red Panda</h1>
+          <p>
+            Nedan ser du dina senaste meddelanden. I menyn till höger kan du redigera dina uppgifter.
+            Klicka in på ett ämne och låt diskussionerna flöda!
+          </p>
+        </section>
 
+
+        <section id="changeUserSetting">
+          <h2>Ändra inställningar</h2>
+          <form>
+            <div>
+              <label for="changeUsername">Ändra ditt användarnamn</label>
+              <input class="" type="text" name="search" placeholder="Nytt användarnamn" id="changeUsername">
+            </div>
+            <div>
+              <button type="submit">Uppdatera</button> 
+            </div>
+          </form>
+        </section>
 
         <section id="posts">
-          <h2>Your latest posts</h2>
+          <h2>Dina senaste inlägg</h2>
+
           <aricle class="post">
             <div class="postHeader">
               <div>
                 14:08 | 25-1-2024
               </div>
               <div>
-                <span class="postSubject">Project Zomboid - Free roaming zombie</span>
+                
               </div>
             </div>
             <div>
@@ -74,53 +88,10 @@
                     Yoda
                   </div>
                   <div class="userImg">
-                  <img src="./media/meme_baby_yoda_drinking_soup.png">
+                    <img src="./media/meme_baby_yoda_drinking_soup.png">
                   </div>
                 </div>
-                <div class="messageText">
-                  <p>
-                    Who's brave enough to fly into something we all keep calling a death sphere? Who am I making this out to? Kids have names? File not found. Yes! In your face, Gandhi!
-                  </p>
-                  <p>
-                    Yep, I remember. They came in last at the Olympics, then retired to promote alcoholic beverages! Belligerent and numerous. Shut up and take my money! For the last time, I don't like lilacs! Your 'first' wife was the one who liked lilacs!
-                  </p>
-                  <p>
-                    Oh dear! She's stuck in an infinite loop, and he's an idiot! Well, that's love for you. What are their names? I just told you! You've killed me! I wish! It's a nickel.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="postFooter">
-              <div>
-                <a href="#">Datorer & IT</a>
-              </div>
-              <div>
-                <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
-              </div>
-
-            </div>
-          </aricle>
-
-          <aricle class="post">
-            <div class="postHeader">
-              <div>
-                14:08 | 25-1-2024
-              </div>
-              <div>
-                <span class="postSubject">Kan folk sluta med detta!</span>
-              </div>
-            </div>
-            <div>
-              <div class="postBody">
-                <div class="userInfo">
-                  <div class="userName">
-                    Yoda
-                  </div>
-                  <div class="userImg">
-                  <img src="./media/meme_baby_yoda_drinking_soup.png">
-                  </div>
-                </div>
-                <div class="messageText">
+                <div class="postText">
                   <p>
                     Leela's gonna kill me. Can I use the gun? It's a T. It goes "tuh". You've killed me! Oh, you've killed me! So, how 'bout them Knicks?
                   </p>
@@ -133,15 +104,54 @@
                 </div>
               </div>
             </div>
-            <div class="postFooter">
+            <footer class="postFooter">
               <div>
                 <a href="#">Datorer & IT</a> - Project Zomboid - Free roaming zombie survival
               </div>
               <div>
                 <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
               </div>
-            </div>
+            </footer>
           </aricle>
+
+        <aricle class="post">
+          <div class="postHeader">
+            <div class="postDate">
+              14:08 | 25-1-2024
+            </div>
+            <div class="postSubject">
+              Project Zomboid - Free roaming zombie
+            </div>
+          </div>
+          <div>
+            <div class="postBody">
+              <div class="userInfo">
+                <div class="userName">
+                  Red Panda
+                </div>
+                <div class="userImg">
+                  <img src="./media/meme_baby_yoda_drinking_soup.png">
+                </div>
+              </div>
+              <div class="postText">
+                <p>
+                  Who's brave enough to fly into something we all keep calling a death sphere? Who am I making this out to? Kids have names? File not found. Yes! In your face, Gandhi!
+                </p>
+                <p>
+                  Yep, I remember. They came in last at the Olympics, then retired to promote alcoholic beverages! Belligerent and numerous. Shut up and take my money! For the last time, I don't like lilacs! Your 'first' wife was the one who liked lilacs!
+                </p>
+                <p>
+                  Oh dear! She's stuck in an infinite loop, and he's an idiot! Well, that's love for you. What are their names? I just told you! You've killed me! I wish! It's a nickel.
+                </p>
+              </div>
+            </div>
+          </div>
+          <footer class="postFooter">
+            <div>
+              <a href="#">Datorer & IT</a>
+            </div>
+          </footer>
+        </aricle>
 
           <aricle class="post">
             <div class="postHeader">
@@ -149,20 +159,20 @@
                 14:08 | 25-1-2024
               </div>
               <div>
-                <span class="postSubject">Kan folk sluta med detta!</span>
-              </div>
+                &nbsp;
+              </div> 
             </div>
             <div>
               <div class="postBody">
                 <div class="userInfo">
                   <div class="userName">
-                    Yoda
+                    Red Panda
                   </div>
                   <div class="userImg">
-                  <img src="./media/meme_baby_yoda_drinking_soup.png">
+                    <img src="./media/meme_baby_yoda_drinking_soup.png">
                   </div>
                 </div>
-                <div class="messageText">
+                <div class="postText">
                   <p>
                     I daresay that Fry has discovered the smelliest object in the known universe! Anyhoo, your net-suits will allow you to experience Fry's worm infested bowels as if you were actually wriggling through them.
                   </p>
@@ -172,27 +182,35 @@
                 </div>
               </div>
             </div>
-            <div class="postFooter">
+            <footer class="postFooter">
               <div>
                 <a href="#">Kultur & Media</a>
               </div>
               <div>
                 <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
               </div>
-            </div>
+            </footer>
           </aricle>
         </section>
       </main>
 
       
       <aside class="mainAside">
+
+        <nav class="userMenu">
+          <h3>Dina uppgifter</h3>
+          <h4>Red panda</h4>
+          <img src="./media/red-panda.png">
+          <ul class="menu userMenu">
+            <li><a href="#">Se profil</a></li>
+            <li><a href="#">Redigera profil</a></li>
+          </ul>
+        </nav>
+
         <div class="userMenu">
             <h3>Dina uppgifter</h3>
             <h4>Username</h4>
-            <!-- <ul class="menu userMenu">
-              <li><a href="#" class="active">Se profil</a></li>
-              <li><a href="#">Redigera profil</a></li>
-            </ul> -->
+
 
             <form>
               <div>
