@@ -228,13 +228,35 @@
   align-items:baseline;
   display:flex;
   font-size: 0.9rem;
+  
 }
 
-.postFooter div:first-child{
+.postFooter .postTopic{
   color:#fff;
-  font-weight: bold;
   cursor: pointer;
 }
+
+.postFooter span:hover{
+  color:#71fff6;
+  cursor: pointer;
+  opacity:0.75;
+  
+}
+
+.postFooter .postSubject{
+  color:#f9fcee;
+  font-weight: 400;
+  font-style: italic;
+  cursor: pointer;
+}
+/* .postFooter .postSubject:hover{
+  color:#f9fcee;
+  font-weight: 400;
+  font-style: italic;
+  cursor: pointer;
+  opacity:0.75;
+} */
+
 
 .footerLink{
   color:#fff;

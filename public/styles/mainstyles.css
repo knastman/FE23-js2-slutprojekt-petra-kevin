@@ -42,7 +42,7 @@ h3{
 
 p {
   font-family: var(--body-font);
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 p:nth-last-child(1) {
