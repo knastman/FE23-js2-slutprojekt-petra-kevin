@@ -1,6 +1,5 @@
 import { createUser } from "../services/UserService";
 import { UserType } from "../types/userType";
-import { setLoginCookie } from "../components/login";
 import * as formatChecker from "../utils/formatChecker";
 import Navigo from "navigo";
 
@@ -54,8 +53,9 @@ export function registerUser(router: Navigo) {
     image: "default1",
   };
 
-  createUser(newUser).then(() => router.navigate("/"));
-  setLoginCookie(1000 * 60 * 60);
+  createUser(newUser)
+    .then(() => router.navigate("/"))
+    .then(() => localStorage.setItem("login", userName));
 }
 
 //Kevin's code
