@@ -29,7 +29,6 @@ export async function loginUser(router: Navigo) {
   const checkBox: HTMLInputElement = document.querySelector(
     "#rememberMe"
   ) as HTMLInputElement;
-  console.log(`userName: ${userName}, password: ${password}`);
   if (
     formatChecker.isInputEmpty(userName) ||
     formatChecker.isInputEmpty(password)
@@ -43,14 +42,13 @@ export async function loginUser(router: Navigo) {
     password
   );
   if (loginSuccessful) {
-    if (!checkBox.checked) {
-      setLoginCookie(1000 * 60 * 60);
-    }
-    if (checkBox.checked) {
-      setLoginCookie(1000 * 60 * 60 * 24);
-    }
+    localStorage.setItem("login", userName);
+
     router.navigate("/");
+    const user = getLoggedInUser();
+    console.log(`User logged in: ${user}`);
   } else {
+    //TODO : Error handling here !
     alert("Login failed");
   }
 }
@@ -77,22 +75,17 @@ export function attachLoginEvents(router: Navigo) {
 }
 
 //Kevin's code
-export function setLoginCookie(time: number): void {
-  const date: Date = new Date();
-  date.setTime(date.getTime() + time);
-  document.cookie = `login=true; expires=${date.toUTCString()}`;
-}
-
-//Kevin's code
-export function setLogoutCookie(): void {
-  document.cookie = "login=; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+export function logoutUser(router: Navigo): void {
+  localStorage.removeItem("login");
+  router.navigate("/login");
 }
 
 // Kevin's code
 export function isLoggedIn(): boolean {
-  const cookies: string[] = document.cookie.split("; ");
-  const loggedInCookie: string | undefined = cookies.find((row) =>
-    row.startsWith("login=")
-  );
-  return loggedInCookie ? loggedInCookie.split("=")[1] === "true" : false;
+  return !!localStorage.getItem("login");
+}
+
+//Kevin's code
+export function getLoggedInUser(): string | null {
+  return localStorage.getItem("login");
 }
