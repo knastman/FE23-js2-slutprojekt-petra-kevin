@@ -5,3 +5,5 @@ import { displayTopicsTitles } from "./modules/displayTopics.ts";
 getTopics()
 .then(displayTopicsTitles); 
 // .catch(displayError);
+
+
