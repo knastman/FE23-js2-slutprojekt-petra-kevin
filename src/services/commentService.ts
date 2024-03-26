@@ -17,13 +17,11 @@ import { ThreadType } from "../types/threadType";
 //Kevin's code
 export function createNewComment(
   userName: string,
-  title: string,
   commenText: string
 ): CommentType {
   const timeStamp = Date.now();
   return {
     userName: userName,
-    title: title,
     comment: commenText,
     timeStamp: timeStamp,
   } as CommentType;

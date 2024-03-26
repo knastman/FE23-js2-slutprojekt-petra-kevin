@@ -12,16 +12,11 @@ import {
 import { checkTopicExists } from "./topicService";
 
 //Kevin's code
-export function createNewThread(
-  title: string,
-  content: string,
-  user: string
-): ThreadType {
+export function createNewThread(title: string, userName: string): ThreadType {
   const date = Date.now();
   return {
     title: title,
-    content: content,
-    user: user,
+    user: userName,
     date: date,
   } as ThreadType;
 }

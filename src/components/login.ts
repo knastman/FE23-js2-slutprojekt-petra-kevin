@@ -1,4 +1,5 @@
 import { checkUserNameAndPass } from "../services/UserService";
+import { toggleBlurEffect } from "../utils/utils";
 import * as formatChecker from "../utils/formatChecker";
 import Navigo from "navigo";
 
@@ -10,7 +11,7 @@ export function loginTemplate(): string {
         <form>
           <input type="text" id="userName" placeholder="Input username">
           <input type="password" id="password" placeholder="Password">
-          <input type="checkbox" id="rememberMe"><label for="rememberMe">Remember me?</label>
+          
           <button type="button" id="login">Login</button>
           <button type="button" id="register">Register</button>
         </form>
@@ -26,9 +27,6 @@ export async function loginUser(router: Navigo) {
   const password: string = (
     document.querySelector("#password") as HTMLInputElement
   ).value;
-  const checkBox: HTMLInputElement = document.querySelector(
-    "#rememberMe"
-  ) as HTMLInputElement;
   if (
     formatChecker.isInputEmpty(userName) ||
     formatChecker.isInputEmpty(password)
@@ -43,10 +41,8 @@ export async function loginUser(router: Navigo) {
   );
   if (loginSuccessful) {
     localStorage.setItem("login", userName);
-
     router.navigate("/");
     const user = getLoggedInUser();
-    console.log(`User logged in: ${user}`);
   } else {
     //TODO : Error handling here !
     alert("Login failed");
@@ -88,4 +84,13 @@ export function isLoggedIn(): boolean {
 //Kevin's code
 export function getLoggedInUser(): string | null {
   return localStorage.getItem("login");
+}
+
+export function toggleLoginContainer(isOn: boolean) {
+  const loginContainer = document.querySelector(
+    ".login-container"
+  ) as HTMLElement;
+  isOn
+    ? (loginContainer.style.display = "block")
+    : (loginContainer.style.display = "none");
 }
