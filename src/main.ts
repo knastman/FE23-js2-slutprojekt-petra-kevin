@@ -1,5 +1,6 @@
+import { getAllCommentsFromThread } from "./services/commentService.ts";
 import { getTopics } from "./services/topicService.ts";
-import { displayTopicsTitles } from "./modules/displayTopics.ts";
+import { displayTopicsTitles } from "./modules/displayTopics.ts"
 
 
 getTopics()
