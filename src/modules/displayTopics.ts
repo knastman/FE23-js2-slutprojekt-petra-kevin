@@ -1,13 +1,11 @@
 import { TopicType } from "../types/topicType.ts";
-import { CommentType }  from "../types/commentType.ts";
-// import { getCommentsFromTopic } from "../services/commentService.ts";
-import { displayPosts } from "../modules/displayPosts.ts";
-
+import { getThreadsFromTopic } from "../services/threadService.ts";
+import { displayThreads } from "../modules/displayThreads.ts";
 
 const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;
  
 // export function displayTopics(topics: object):void{
-export function displayTopicsTitles(topics: TopicType[]):void{
+export function displayTopicsTitles(topics: TopicType):void{
   for(const topic in topics){
     const topicTitle = topics[topic].title;
     // const topicDescription = topics[topic].description; //If needed
@@ -25,7 +23,6 @@ function displayTopicTitle(topic:string):void{
   topicHeaderBox.innerText = topic;
   topicsContainer.append(topicHeaderBox);
 
-
   topicHeaderBox.addEventListener('click', (event) => {
     event.preventDefault();
   
@@ -36,12 +33,49 @@ function displayTopicTitle(topic:string):void{
     clearTopic();
     topicHeaderContainer.append(topicH2);
 
-    getCommentsFromTopic(topicChoice)
-    .then(displayPosts);
-    // .catch(displayError);
+    getThreadsFromTopic(topicChoice)
+    .then(displayThreads);
 
   });
 }
+
+
+
+
+
+
+
+
+// export function displayComment(comment:CommentType):void{
+//   console.log(comment);
+//   console.log(comment.title);
+//   console.log(comment.id);
+//   console.log(comment[0].comments[0]);
+  
+//   console.log('inne i threads');
+  
+//   const threadsContainer = document.querySelector('.subjects') as HTMLDivElement;
+//   const subjectBox = document.createElement('div');
+//   const subjectTitle = document.createElement('h4');
+//   const subjectIncipient= document.createElement('p');
+//   const postUser = document.createElement('p')
+
+//   subjectTitle.innerText = thread.title;
+//   // subjectIncipient.innerText = post.comment.slice(0, 50) + '...';
+//   // postUser.innerText = post.userName;
+
+//   threadsContainer.append(subjectBox);
+//   subjectBox.append(subjectTitle, subjectIncipient );
+
+//   // for(const comment in comments){
+//   //   console.log(thread);
+//   //   const threadObject = threads[thread];
+//   //   const threadComments = threads[thread].comments;
+//   //   console.log(threadComments);
+//   //   console.log(threadObject.comments);
+//   //   // displayThread(threadObject);    
+//   // }
+// }
 
 
 
@@ -49,24 +83,24 @@ function displayTopicTitle(topic:string):void{
   Display Subjects in Topic
 **********************************/
 
-export function displaySubjects(post:CommentType):void{
-  console.log('inne i subject');
+// export function displaySubjects(post:CommentType):void{
+//   console.log('inne i subject');
   
-  const subjectsContainer = document.querySelector('.subjects') as HTMLDivElement;
-  const subjectBox = document.createElement('div');
-  const subjectTitle = document.createElement('h4');
-  const subjectIncipient= document.createElement('p');
-  const postUser = document.createElement('p')
+//   const subjectsContainer = document.querySelector('.subjects') as HTMLDivElement;
+//   const subjectBox = document.createElement('div');
+//   const subjectTitle = document.createElement('h4');
+//   const subjectIncipient= document.createElement('p');
+//   const postUser = document.createElement('p')
 
-  subjectTitle.innerText = post.title;
-  subjectIncipient.innerText = post.comment;
-  subjectIncipient.innerText = post.comment.slice(0, 50) + '...';
-  // postUser.innerText = post.userName;
+//   subjectTitle.innerText = post.title;
+//   subjectIncipient.innerText = post.comment;
+//   subjectIncipient.innerText = post.comment.slice(0, 50) + '...';
+//   // postUser.innerText = post.userName;
 
-  subjectsContainer.append(subjectBox);
-  subjectBox.append(subjectTitle, subjectIncipient );
+//   subjectsContainer.append(subjectBox);
+//   subjectBox.append(subjectTitle, subjectIncipient );
 
-}
+// }
 
 
 /*********************************
