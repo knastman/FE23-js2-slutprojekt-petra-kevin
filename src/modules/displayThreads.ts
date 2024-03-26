@@ -16,7 +16,6 @@ export function displayThreads(threads):void{
   for(const thread in threads ){
   // for(const thread in threads.slice(0, 5) ){
     const threadObject = threads[thread];
-    console.log(threadObject);
     displayThread(threadObject); 
   }
 }

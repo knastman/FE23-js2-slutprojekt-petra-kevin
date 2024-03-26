@@ -35,13 +35,16 @@
 #topic{
   margin:15px auto;
   width:100%;
-  display:flex;
+ 
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
   /* border-bottom: 1px solid #ccc; */
   padding-bottom:20px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.flex{
+  display:flex;
 }
 
 #topic > div{

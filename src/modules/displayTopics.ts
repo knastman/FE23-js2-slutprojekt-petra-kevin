@@ -3,6 +3,9 @@ import { getThreadsFromTopic } from "../services/threadService.ts";
 import { displayThreads } from "../modules/displayThreads.ts";
 
 const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;
+const topicContainer = document.querySelector('#topic') as HTMLDivElement;
+
+
  
 // export function displayTopics(topics: object):void{
 export function displayTopicsTitles(topics: TopicType):void{
@@ -109,6 +112,8 @@ function displayTopicTitle(topic:string):void{
 
 function clearTopic():void{
   console.log('clearAll');
+  topicContainer.classList.remove('hide');
+  topicContainer.classList.add('flex');
   const postsContainer = document.querySelector('#posts') as HTMLDivElement;
   const subjects = document.querySelector('.subjects') as HTMLDivElement;
 

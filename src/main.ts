@@ -1,4 +1,3 @@
-import { getAllCommentsFromThread } from "./services/commentService.ts";
 import { getTopics } from "./services/topicService.ts";
 import { displayTopicsTitles } from "./modules/displayTopics.ts";
 import {
@@ -9,13 +8,6 @@ import {
 import { getAllUsers, createUser } from "./services/UserService";
 import { registerTemplate, attachRegisterEvents } from "./components/register";
 
-//getTopics().then(displayTopicsTitles());
-// .catch(displayError);
-
-
-// getCommentsFromTopic(currentTopic)
-// getCommentsFromTopic('Resor')
-// .then(displayPosts);
 
 ///////////////////////////////////
 
@@ -26,3 +18,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
   setupRoutes();
 });
 
+
+
+
+
+/*********************************
+  Interface 
+**********************************/
+
+//Petra's code
+getTopics()
+.then(displayTopicsTitles); 
+// .catch(displayError);
