@@ -11,3 +11,4 @@ src/services/postService.ts
 src/modules/displayTopics.ts
 
 src/types/postType.ts
+src/services/.DS_Store
