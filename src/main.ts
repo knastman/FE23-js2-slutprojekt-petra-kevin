@@ -2,7 +2,7 @@ import { getTopics } from "./services/topicService";
 import { displayTopicsTitles } from "./modules/displayTopics";
 import { displayStartContent } from "./modules/displayStartContent";
 // import { displayPageInfo } from "./modules/displayInfoPages.ts";
-import { getAllUsers, createUser } from "./services/UserService";
+import { getAllUsers, createUser } from "./services/userService";
 import { attachRegisterEvents } from "./components/renderRegister.js";
 
 ///////////////////////////////////
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const router = new Navigo("/", { hash: false });
   event.preventDefault();
   renderNav(router);
-  setupRoutes();
+  setupRoutes(router);
   renderFooter();
 });
 
@@ -26,6 +26,3 @@ document.addEventListener("DOMContentLoaded", (event) => {
 **********************************/
 //Petra's code
 displayStartContent();
-
-getTopics().then(displayTopicsTitles);
-// .catch(displayError);

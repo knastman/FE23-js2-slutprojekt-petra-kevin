@@ -9,26 +9,15 @@ export const renderNav = (router: Navigo): void => {
   const loggedInUser = getLoggedInUser();
 
   let userLinks = isLoggedInUser
-    ? `<a href=/user/${loggedInUser}">${loggedInUser}</a>`
+    ? `<a href=/user/${loggedInUser} data-navigo>${loggedInUser}</a>`
     : `<a href="/login">Logga in</a>`;
 
   navContainer.innerHTML = `
   <ul class="menu">
-    <li><a href="/">Hem</a></li>
-    <li><a href="/faq">FAQ</a></li>
-    <li><a href="/kontakt">Kontakta oss</a></li>
+    <li><a href="/" data-navigo>Hem</a></li>
+    <li><a href="/faq" data-navigo>FAQ</a></li>
+    <li><a href="/kontakt" data-navigo>Kontakta oss</a></li>
     </ul>`;
 
   userContainer.innerHTML = `${userLinks}`;
 };
-
-function attachLinkEvents(userLink: HTMLAnchorElement, router: Navigo) {
-  userLink.addEventListener("click", (event) => {
-    event.preventDefault();
-    const userId = userLink.dataset.id;
-    if (!userId) {
-      return;
-    }
-    router.navigate(`/user/${userId}`);
-  });
-}

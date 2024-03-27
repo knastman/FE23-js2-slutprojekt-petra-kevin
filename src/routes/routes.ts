@@ -5,12 +5,17 @@ import { renderRegisterForm } from "../components/renderRegister";
 import { renderNav } from "../components/renderNav";
 import { renderSideNav } from "../components/renderSideNav";
 import { toggleContainer } from "../utils/utils";
+import { renderUser } from "../components/renderUser";
 
-const router = new Navigo("/", {});
+type RouteParams = {
+  data: {
+    name: string;
+  };
+};
 
 // INTE FÄRDIGT
 //Kevin's code
-export function setupRoutes() {
+export function setupRoutes(router: Navigo) {
   router
     .on({
       "/": () => {
@@ -50,6 +55,14 @@ export function setupRoutes() {
           toggleContainer(false, "#loginContainer");
           toggleContainer(true, "#start");
           renderRegisterForm(router);
+        }
+      },
+
+      "/user/:name": (params: RouteParams) => {
+        if (!isLoggedIn()) {
+          router.navigate("/login");
+        } else {
+          renderUser(router, params.data.name);
         }
       },
     })
