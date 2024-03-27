@@ -1,72 +1,79 @@
-import { checkUserNameAndPass } from "../services/UserService";
-import { toggleBlurEffect } from "../utils/utils";
+import { log } from "console";
+import { checkUserNameAndPass } from "../services/userService";
+import { showToast } from "../utils/utils";
+
 import * as formatChecker from "../utils/formatChecker";
 import Navigo from "navigo";
 
 //Kevin's code
-export function loginTemplate(): string {
+function loginTemplate(): string {
   return `
     <div class="login">
         <h1>Login</h1>
         <form>
-          <input type="text" id="userName" placeholder="Input username">
-          <input type="password" id="password" placeholder="Password">
+          <input type="text" id="userName" placeholder="Användarnamn">
+          <input type="password" id="password" placeholder="Lösenord">
           
-          <button type="button" id="login">Login</button>
-          <button type="button" id="register">Register</button>
+          <button type="button" id="login">Logga in</button>
+          <button type="button" id="register">Registrera</button>
         </form>
     </div>
     `;
 }
 
+export function renderLoginForm(router: Navigo): void {
+  const loginContainer = document.querySelector("#loginContainer");
+  if (!loginContainer) {
+    return;
+  }
+  loginContainer.innerHTML = loginTemplate();
+  attachLoginEvents(router);
+}
+
 //Kevin's code
-export async function loginUser(router: Navigo) {
-  const userName: string = (
-    document.querySelector("#userName") as HTMLInputElement
-  ).value;
-  const password: string = (
-    document.querySelector("#password") as HTMLInputElement
-  ).value;
+async function loginUser(router: Navigo) {
+  const userName = (document.querySelector("#userName") as HTMLInputElement)
+    ?.value;
+  const password = (document.querySelector("#password") as HTMLInputElement)
+    ?.value;
+
   if (
     formatChecker.isInputEmpty(userName) ||
     formatChecker.isInputEmpty(password)
   ) {
-    alert("Input fields cannot be empty");
+    showToast("Alla fälten måste vara ifyllda", 5000);
     return;
   }
 
-  const loginSuccessful: boolean = await checkUserNameAndPass(
-    userName,
-    password
-  );
+  const loginSuccessful = await checkUserNameAndPass(userName, password);
   if (loginSuccessful) {
     localStorage.setItem("login", userName);
     router.navigate("/");
-    const user = getLoggedInUser();
   } else {
-    //TODO : Error handling here !
-    alert("Login failed");
+    showToast("Fel användarnamn eller lösenord", 5000);
   }
 }
 
 //Kevin's code
-export function attachLoginEvents(router: Navigo) {
-  const loginButton = document.querySelector("#login") as HTMLButtonElement;
-  const registerButton = document.querySelector(
-    "#register"
-  ) as HTMLButtonElement;
+export function attachLoginEvents(router: Navigo): void {
+  const loginButton = document.querySelector("#login");
+  const registerButton = document.querySelector("#register");
 
-  if (loginButton) {
-    loginButton.addEventListener("click", () => loginUser(router));
-  } else {
-    console.error("Login button not found");
+  if (loginButton && !loginButton.getAttribute("data-listener")) {
+    loginButton.setAttribute("data-listener", "true");
+    loginButton.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      loginUser(router);
+    });
   }
-  if (registerButton) {
-    registerButton.addEventListener("click", () =>
-      router.navigate("/register")
-    );
-  } else {
-    console.error("Register button not found");
+
+  if (registerButton && !registerButton.getAttribute("data-listener")) {
+    registerButton.setAttribute("data-listener", "true");
+    registerButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      router.navigate("/register");
+    });
   }
 }
 
@@ -84,13 +91,4 @@ export function isLoggedIn(): boolean {
 //Kevin's code
 export function getLoggedInUser(): string | null {
   return localStorage.getItem("login");
-}
-
-export function toggleLoginContainer(isOn: boolean) {
-  const loginContainer = document.querySelector(
-    ".login-container"
-  ) as HTMLElement;
-  isOn
-    ? (loginContainer.style.display = "block")
-    : (loginContainer.style.display = "none");
 }

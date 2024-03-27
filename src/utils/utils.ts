@@ -47,7 +47,34 @@ export function attachLinkEvents(links: HTMLAnchorElement, router: Navigo) {
 }
 
 // Kevin's code
-export function toggleBlurEffect(isOn: boolean) {
-  const blur = document.querySelector("#blur-overlay") as HTMLElement;
-  isOn ? (blur.style.display = "block") : (blur.style.display = "none");
+export function toggleContainer(isOn: boolean, container: string): void {
+  const credContainer = document.querySelector(container) as HTMLElement;
+  isOn
+    ? (credContainer.style.display = "block")
+    : (credContainer.style.display = "none");
+}
+
+// Kevin's code
+export function showToast(message: string, duration: number = 3000): void {
+  const toastContainer =
+    (document.querySelector("#toastContainer") as HTMLElement) ||
+    createToastContainer();
+  const toast = document.createElement("div");
+  toast.className = "toastMessage";
+  toast.textContent = message;
+
+  toastContainer.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    setTimeout(() => toastContainer.removeChild(toast), 500);
+  }, duration);
+}
+
+// Kevin's code
+function createToastContainer(): HTMLElement {
+  const toastContainer = document.createElement("div");
+  toastContainer.id = "toastContainer";
+  document.body.appendChild(toastContainer);
+  return toastContainer;
 }

@@ -1,12 +1,7 @@
 import Navigo from "navigo";
-import {
-  toggleLoginContainer,
-  loginTemplate,
-  attachLoginEvents,
-  isLoggedIn,
-} from "../components/login";
-import { registerTemplate, attachRegisterEvents } from "../components/register";
-import { toggleBlurEffect } from "../utils/utils";
+import { renderLoginForm, isLoggedIn } from "../components/login";
+import { renderRegisterForm } from "../components/register";
+import { toggleContainer } from "../utils/utils";
 
 const router = new Navigo("/", {});
 
@@ -19,35 +14,34 @@ export function setupRoutes() {
         if (!isLoggedIn()) {
           router.navigate("/login");
         } else {
-          toggleBlurEffect(false);
-          toggleLoginContainer(false);
+          toggleContainer(false, "#loginContainer");
+          toggleContainer(false, "#registerContainer");
         }
       },
       "/login": () => {
         if (isLoggedIn()) {
           router.navigate("/");
         } else {
-          const loginContainer = document.querySelector(".login-container");
+          const loginContainer = document.querySelector("#loginContainer");
           if (!loginContainer) {
             return;
           }
-          toggleLoginContainer(true);
-          toggleBlurEffect(true);
-          loginContainer.innerHTML = loginTemplate();
-          attachLoginEvents(router);
+          toggleContainer(true, "#loginContainer ");
+          toggleContainer(false, "#registerContainer");
+          renderLoginForm(router);
         }
       },
       "/register": () => {
         if (isLoggedIn()) {
           router.navigate("/");
         } else {
-          const loginContainer = document.querySelector(".login-container");
+          const loginContainer = document.querySelector("#registerContainer");
           if (!loginContainer) {
             return;
           }
-          toggleLoginContainer(true);
-          loginContainer.innerHTML = registerTemplate();
-          attachRegisterEvents(router);
+          toggleContainer(true, "#registerContainer");
+          toggleContainer(false, "#loginContainer");
+          renderRegisterForm(router);
         }
       },
     })
