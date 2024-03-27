@@ -42,7 +42,7 @@ aside .menu > li a{
   color:#17868a;
 }
 
-.userMenu h4::before, li::before {
+.userMenu h4::before, li::before, .userLogOut::before {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   display: inline-block; 
@@ -94,6 +94,16 @@ aside .menu > li a{
   cursor: pointer;
 }
 
+.userLogOut{
+  font-weight: 600;
+  margin-top:10px;
+  padding-right:20px;
+  /* text-align: left; */
+}
+
+.userLogOut::before {
+  content: "\f2f6";
+}
 
 /****** Users *******/
 

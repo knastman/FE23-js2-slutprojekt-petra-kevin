@@ -199,19 +199,18 @@
   display: flex;
   
 }
-.userInfo{
+.postUserInfo{
   width:150px;
   padding:10px;
 }
 
-.userName{
+.postUserName{
   padding:0 30px 0 30px;
   cursor: pointer;
   white-space: nowrap; 
 }
 
-
-.userImg{
+.postUserImg{
   width:120px;
   text-align: center;
 }
