@@ -20,15 +20,15 @@ function registerTemplate() {
           <h3 id="regImage">Välj profilbild</h3>
           <div class="imageOptions">
             <label for="image1" class="imageLabel active">
-              <input class="imageRadio" type="radio" id="image1" name="profileImage" value=".media/black-panther.png" checked>
+              <input class="imageRadio" type="radio" id="image1" name="profileImage" value="black-panther" checked>
               <img src="${blackPantherImage}" alt="Profile Image 1">
             </label>
             <label for="image2" class="imageLabel">
-              <input class="imageRadio" type="radio" id="image2" name="profileImage" value="./media/red-panda.png">
+              <input class="imageRadio" type="radio" id="image2" name="profileImage" value="red-panda">
               <img src="${redPandaImage}" alt="Profile Image 2">
             </label>
             <label for="image3" class="imageLabel">
-              <input class="imageRadio" type="radio" id="image3" name="profileImage" value="./media/babirusa.png">
+              <input class="imageRadio" type="radio" id="image3" name="profileImage" value="babirusa">
               <img src="${babirusaImage}" alt="Profile Image 3">
             </label>
           </div>
@@ -84,7 +84,7 @@ export function registerUser(router: Navigo) {
   const newUser: UserType = {
     name: userName,
     password: password,
-    image: selectedImage ? selectedImage.value : "./media/black-panther.png",
+    image: selectedImage ? selectedImage.value : "media/black-panther.png",
   };
 
   createUser(newUser)
