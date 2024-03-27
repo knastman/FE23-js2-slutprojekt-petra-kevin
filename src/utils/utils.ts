@@ -27,10 +27,12 @@ export function generateThreadLink(thread: ThreadWithId): HTMLAnchorElement {
 }
 
 // Kevin's code
-export function generateUserLink(user: UserType): HTMLAnchorElement {
+export function generateUserLink(user: UserType) {
   const link = document.createElement("a");
   link.href = `/user/${user.name}`;
   link.innerText = user.name;
+  link.setAttribute("data-navigo", "");
+
   return link;
 }
 
@@ -77,3 +79,9 @@ function createToastContainer(): HTMLElement {
   document.body.appendChild(toastContainer);
   return toastContainer;
 }
+
+export const emptyContainer = (container: string) => {
+  const emptied = document.querySelector(container);
+  if (!emptied) return;
+  emptied.innerHTML = "";
+};

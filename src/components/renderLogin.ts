@@ -1,9 +1,10 @@
-import { log } from "console";
 import { checkUserNameAndPass } from "../services/userService";
-import { showToast } from "../utils/utils";
+import { showToast, toggleContainer } from "../utils/utils";
 
 import * as formatChecker from "../utils/formatChecker";
 import Navigo from "navigo";
+import { renderNav } from "./renderNav";
+import { renderSideNav } from "./renderSideNav";
 
 //Kevin's code
 function loginTemplate(): string {
@@ -14,7 +15,7 @@ function loginTemplate(): string {
           <input type="text" id="userName" placeholder="Användarnamn">
           <input type="password" id="password" placeholder="Lösenord">
           
-          <button type="button" id="login">Logga in</button>
+          <button type="submit" id="login">Logga in</button>
           <button type="button" id="register">Registrera</button>
         </form>
     </div>
@@ -48,7 +49,10 @@ async function loginUser(router: Navigo) {
   const loginSuccessful = await checkUserNameAndPass(userName, password);
   if (loginSuccessful) {
     localStorage.setItem("login", userName);
+    console.log("login successful");
     router.navigate("/");
+    renderNav(router);
+    renderSideNav(router);
   } else {
     showToast("Fel användarnamn eller lösenord", 5000);
   }
@@ -63,7 +67,6 @@ export function attachLoginEvents(router: Navigo): void {
     loginButton.setAttribute("data-listener", "true");
     loginButton.addEventListener("click", (e) => {
       e.preventDefault();
-
       loginUser(router);
     });
   }
@@ -81,6 +84,16 @@ export function attachLoginEvents(router: Navigo): void {
 export function logoutUser(router: Navigo): void {
   localStorage.removeItem("login");
   router.navigate("/login");
+  const userProfileContainer: HTMLElement | null =
+    document.querySelector(".userProfile");
+  const allUsersContainer: HTMLElement | null =
+    document.querySelector(".allUsers");
+  if (userProfileContainer) userProfileContainer.innerHTML = "";
+  if (allUsersContainer) allUsersContainer.innerHTML = "";
+
+  toggleContainer(true, "#loginContainer");
+  renderNav(router);
+  renderLoginForm(router);
 }
 
 // Kevin's code

@@ -1,4 +1,4 @@
-import { isLoggedIn } from "../components/login.ts";
+import { isLoggedIn } from "../components/renderLogin";
 
 const startContainer = document.querySelector("#start") as HTMLDivElement;
 const loginContainer = document.querySelector(
@@ -33,8 +33,6 @@ export function displayStartContent(): void {
   let asideHeader: string = "";
 
   if (isLoggedIn()) {
-    // startHeader =`Du är inloggad som ${userName}`;
-    startHeader = "Du är inloggad som Red Panda";
     startText =
       "Nedan ser du dina senaste meddelanden. I menyn till höger kan du redigera dina uppgifter.";
     loginContainer.classList.add("hide");
@@ -51,12 +49,10 @@ export function displayStartContent(): void {
     startText =
       "Välkommen till vårt diskussionsforum! Här samlas en mångfald av tankar, åsikter och idéer för att skapa en berikande och givande dialog. Oavsett om du är här för att dela din expertis, lära dig något nytt eller bara utforska olika perspektiv, så är detta platsen för dig. Vi uppmuntrar respektfullt utbyte och öppenhet för att främja en atmosfär av lärande och förståelse. Så dyk in, engagera dig och låt oss tillsammans utforska världen genom diskussion och delat kunnande!";
 
-    asideH3.innerText = "Du måste vara inloggad för att se dina uppgifter";
     loginContainer.classList.remove("hide");
     postsContainer.classList.add("hide");
 
     userMenu.classList.add("hide");
-    navUsers.classList.add("hide");
   }
 
   startHeaderH1.innerText = startHeader;
