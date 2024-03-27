@@ -47,7 +47,9 @@ export function attachLinkEvents(links: HTMLAnchorElement, router: Navigo) {
 }
 
 // Kevin's code
-export function toggleBlurEffect(isOn: boolean) {
-  const blur = document.querySelector("#blur-overlay") as HTMLElement;
-  isOn ? (blur.style.display = "block") : (blur.style.display = "none");
+export function toggleContainer(isOn: boolean, container: string) {
+  const credContainer = document.querySelector(container) as HTMLElement;
+  isOn
+    ? (credContainer.style.display = "block")
+    : (credContainer.style.display = "none");
 }
