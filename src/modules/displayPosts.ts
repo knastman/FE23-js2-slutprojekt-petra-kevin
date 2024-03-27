@@ -61,6 +61,11 @@ function displayPost(post:CommentType):void{
 
   postHeaderSubject.innerText = post.title;
 
+
+  console.log('formatTimestamp(post.timeStamp);');
+  console.log(formatTimestamp(post.timeStamp)); //Kevins formatering
+  
+
   const postTimestamp = post.timeStamp;
   let date = new Date(postTimestamp);
   const hours = date.getHours().toString().padStart(2, '0');

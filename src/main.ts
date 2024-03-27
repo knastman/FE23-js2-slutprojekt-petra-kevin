@@ -1,5 +1,7 @@
 import { getTopics } from "./services/topicService.ts";
 import { displayTopicsTitles } from "./modules/displayTopics.ts";
+import { displayStartContent } from "./modules/displayStartContent.ts";
+// import { displayPageInfo } from "./modules/displayInfoPages.ts";
 import {
   isLoggedIn,
   loginTemplate,
@@ -21,12 +23,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-
 /*********************************
   Interface 
 **********************************/
-
 //Petra's code
+displayStartContent();
+
 getTopics()
 .then(displayTopicsTitles); 
 // .catch(displayError);
+
+
+
+

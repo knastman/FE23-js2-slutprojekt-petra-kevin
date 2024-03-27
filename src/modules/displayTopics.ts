@@ -1,6 +1,7 @@
 import { TopicType } from "../types/topicType.ts";
 import { getThreadsFromTopic } from "../services/threadService.ts";
 import { displayThreads } from "../modules/displayThreads.ts";
+import {isLoggedIn} from "../components/login.ts";
 
 const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;
 const topicContainer = document.querySelector('#topic') as HTMLDivElement;
@@ -38,6 +39,14 @@ function displayTopicTitle(topic:string):void{
 
     getThreadsFromTopic(topicChoice)
     .then(displayThreads);
+
+    // if (isLoggedIn()) {
+    //   // getThreadsFromTopic(topicChoice)
+    //   // .then(displayThreads);
+    // } 
+    // else {
+    //   console.log('Du måste vara inloggad för att se inlägg!');
+    // }
 
   });
 }
@@ -111,7 +120,6 @@ function displayTopicTitle(topic:string):void{
 **********************************/
 
 function clearTopic():void{
-  console.log('clearAll');
   topicContainer.classList.remove('hide');
   topicContainer.classList.add('flex');
   const postsContainer = document.querySelector('#posts') as HTMLDivElement;

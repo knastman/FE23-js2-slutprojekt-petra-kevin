@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./styles/user.css" />
     <link rel="stylesheet" href="./styles/login.css" />
     <script src="../src/main.ts" type="module"></script> 
+    <script src="//unpkg.com/navigo"></script>
     <title>JS Slutprojekt - Social Media</title>
   </head>
   <body>
@@ -20,8 +21,8 @@
         <nav class="mainMenu">
           <ul class="menu ">
             <li><a href="./">Hem</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Kontakt</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/kontakt">Kontakt</a></li>
           </ul>
         </nav>
         <div id="search">
@@ -36,38 +37,32 @@
         </nav>
       </div>  
     </header>
+    
     <div id="blur-overlay"></div>
     <div class="login-container"></div>
+
     <div class="pageWrapper">
+
       <main>
-        <!--Syns alltid oavsett om inloggad -->
         <section class="topicsMenu">
           <h2>Ämnen</h2>
           <div class="topicsMenuWrapper">
             <!-- Topics from db here -->
-
           </div>
         </section>
 
-        <!--EJ INLOGGAD -->
-        <section id="start" class="hide">
-          <h1>Välkommen till forumet nånting!</h1>
-          <p>
-            Välkommen till vårt diskussionsforum! Här samlas en mångfald av tankar, åsikter och idéer för att skapa en berikande och givande dialog. Oavsett om du är här för att dela din expertis, lära dig något nytt eller bara utforska olika perspektiv, så är detta platsen för dig. Vi uppmuntrar respektfullt utbyte och öppenhet för att främja en atmosfär av lärande och förståelse. Så dyk in, engagera dig och låt oss tillsammans utforska världen genom diskussion och delat kunnande!
-          </p>
-        </section>
-        <!--När INLOGGAD - INNAN något val alls -->
         <section id="start">
-          <h1>Välkommen Red Panda</h1>
-          <p>
-            Nedan ser du dina senaste meddelanden. I menyn till höger kan du redigera dina uppgifter.
-          </p>
-          <p>
-            Klicka in på ett ämne och låt diskussionerna flöda!
-          </p>
+          <!-- Header and text -->
         </section>
+
         
-        <!--OM INLOGGAD - EFTER VALT ÄMNE  OCH INLÄGG -->
+        <section id="login">
+          <h2>Login</h2>
+          <!-- Loginform here -->
+        </section>
+
+
+        <!-- INLOGGAD - EFTER VALT ÄMNE  OCH INLÄGG -->
         <section id="topic" class="hide">
           <div id="topicHeader"> 
             <h2>Alla diskussioner</h2>
@@ -115,13 +110,143 @@
         </section>
 
         <!--Direkt efter inlogg - ens senaste inlägg (samma som syns om man/ngn annan går till sin sida) -->
-        <section id="posts" >
+
+        <section id="postsUser" class="hide">
+          <h2>Dina senaste inlägg</h2>
+
+          <aricle class="post">
+            <div class="postHeader">
+              <div>
+                14:08 | 25-1-2024
+              </div>
+              <div>
+                <span class="postSubject">Svt och deras program?</span>
+              </div>
+            </div>
+            <div>
+              <div class="postBody">
+                <div class="userInfo">
+                  <div class="userName">
+                    Red Panda
+                  </div>
+                  <div class="userImg">
+                    <img src="./media/red-panda.png">
+                  </div>
+                </div>
+                <div class="postText">
+                  <p>
+                    Leela's gonna kill me. Can I use the gun? It's a T. It goes "tuh". You've killed me! Oh, you've killed me! So, how 'bout them Knicks?
+                  </p>
+                  <p>
+                    I suppose I could part with 'one' and still be feared… I saw you with those two "ladies of the evening" at Elzars. Explain that. Then we'll go with that data file! I didn't ask for a completely reasonable excuse! I asked you to get busy!
+                  </p>
+                  <p>
+                    That could be 'my' beautiful soul sitting naked on a couch. If I could just learn to play this stupid thing. Hey, tell me something. You've got all this money. How come you always dress like you're doing your laundry?
+                  </p>
+                </div>
+              </div>
+            </div>
+            <footer class="postFooter">
+              <div>
+                <span class="postTopic">Datorer & IT</span>
+              </div>
+              <div>
+                <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
+              </div>
+            </footer>
+          </aricle>
+
+        <aricle class="post">
+          <div class="postHeader">
+            <div class="postDate">
+              14:08 | 25-1-2024
+            </div>
+            <div class="postSubject">
+              <span class="postSubject">Youtube Förklarar Heligt Krig mot Adblockers</span>   
+            </div>
+          </div>
+          <div>
+            <div class="postBody">
+              <div class="userInfo">
+                <div class="userName">
+                  Red Panda
+                </div>
+                <div class="userImg">
+                  <img src="./media/red-panda.png">
+                </div>
+              </div>
+              <div class="postText">
+                <p>
+                  Who's brave enough to fly into something we all keep calling a death sphere? Who am I making this out to? Kids have names? File not found. Yes! In your face, Gandhi!
+                </p>
+                <p>
+                  Yep, I remember. They came in last at the Olympics, then retired to promote alcoholic beverages! Belligerent and numerous. Shut up and take my money! For the last time, I don't like lilacs! Your 'first' wife was the one who liked lilacs!
+                </p>
+                <p>
+                  Oh dear! She's stuck in an infinite loop, and he's an idiot! Well, that's love for you. What are their names? I just told you! You've killed me! I wish! It's a nickel.
+                </p>
+              </div>
+            </div>
+          </div>
+          <footer class="postFooter">
+            <div>
+              <span class="postTopic"><a href="#">Datorer & IT</a> - </span>
+              <span class="postSubject">Youtube Förklarar Heligt Krig mot Adblockers</span>              
+            </div>
+            <div>
+              <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
+            </div>
+          </footer>
+        </aricle>
+
+          <aricle class="post">
+            <div class="postHeader">
+              <div>
+                14:08 | 25-1-2024
+              </div>
+              <div>
+                &nbsp;
+              </div> 
+            </div>
+            <div>
+              <div class="postBody">
+                <div class="userInfo">
+                  <div class="userName">
+                    Red Panda
+                  </div>
+                  <div class="userImg">
+                    <img src="./media/red-panda.png">
+                  </div>
+                </div>
+                <div class="postText">
+                  <p>
+                    I daresay that Fry has discovered the smelliest object in the known universe! Anyhoo, your net-suits will allow you to experience Fry's worm infested bowels as if you were actually wriggling through them.
+                  </p>
+                  <p>
+                    Dear God, they'll be killed on our doorstep! And there's no trash pickup until January 3rd. Goodbye, cruel world. Goodbye, cruel lamp. Goodbye, cruel velvet drapes, lined with what would appear to be some sort of cruel muslin and the cute little pom-pom curtain pull cords. Cruel though they may be…
+                  </p>
+                </div>
+              </div>
+            </div>
+            <footer class="postFooter">
+              <div>
+                <span class="postTopic">Kultur & Media</span> - 
+                <span class="postSubject">Svt och deras program?</span>                
+              </div>
+              <div>
+                <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
+              </div>
+            </footer>
+          </aricle>
+        </section>
+
+        <section id="posts" class="hide">
           <!-- Posts and header from chosen thread -->
 
-           <!-- DUMMY POSTS -->
-          <!-- <h2>Youtube Förklarar Heligt Krig mot Adblockers</h2> -->
+            <!-- DUMMY POSTS -->
+          <h2>Dina senaste inlägg</h2>
           <!-- DUMMY POSTS -->
-          <aricle class="post">
+          <aricle class="post" class="dummy">
             <div class="postHeader">
               <div class="postDate">
                 14:08 | 25-1-2024
@@ -160,7 +285,7 @@
             </footer>
           </aricle>
 
-          <aricle class="post">
+          <aricle class="post" class="dummy">
             <div class="postHeader">
               <div>
                 14:08 | 25-1-2024
@@ -202,7 +327,7 @@
             </footer>
           </aricle>
 
-          <aricle class="post">
+          <aricle class="post" class="dummy">
             <div class="postHeader">
               <div>
                 14:08 | 25-1-2024
@@ -245,20 +370,23 @@
 
       </main>
 
-      
       <aside class="mainAside">
         <!-- OM EJ INLOGGAD -->
         <!-- <h3>Du måste vara inloggad för att se dina uppgifter</h3> -->
         
         <!-- EFTER INLOGG -->
-        <nav class="userMenu">
-          <h3>Dina uppgifter</h3>
+        <h3>Dina uppgifter</h3>
+        <nav class="userMenu" class="hide">
+          
           <h4>Red panda</h4>
           <img src="./media/red-panda.png">
+    
           <ul class="menu userMenu">
             <li><a href="user.html">Se profil</a></li>
             <li><a href="#">Redigera profil</a></li>
           </ul>
+
+          <a href="#">Logga ut</a>
         </nav>
 
         <nav class="users">
@@ -274,13 +402,7 @@
     
       </aside>
 
-
     </div>
-
-    
-
-
-
 
     <footer class="mainFooter">
       <ul>

@@ -33,9 +33,9 @@
 /****** Subjects/Topics *******/
 
 #topic{
-  margin:15px auto;
+  /* display:flex; */
+  margin:25px auto;
   width:100%;
- 
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: flex-start;
@@ -209,6 +209,7 @@
   cursor: pointer;
   white-space: nowrap; 
 }
+
 
 .userImg{
   width:120px;

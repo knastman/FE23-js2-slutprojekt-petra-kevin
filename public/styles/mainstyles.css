@@ -16,10 +16,23 @@
   --message-background: #6aa4bd2c;
 }
 
+
 html {
   font-size: 14px; 
   font-family: var(--main-font);
+  height: 100%;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* .dummy{
+  display:none;
+} */
+
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0.5em 0 0.5em 0;
@@ -32,7 +45,7 @@ h1 {
 }
 
 h2 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin: 1em 0 0.5em 0;
 }
 
@@ -66,7 +79,7 @@ a:hover{
 }
 
 .hide{
-  display: none;
+  display: none !important;
 }
 
 input{
@@ -108,9 +121,8 @@ header{
   background: var(--main-gradient-bg-color);
   color:#0076a5;
   color: #fff;
-
-
 }
+
 header a{
   color:#fff;
 }
@@ -189,18 +201,18 @@ header a{
 
 main{
   width:80%;
+  min-height:80vh;
   margin:0 auto;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   /* padding:0 20px 0 20px; */
+  
 }
-
 
 #start{
   margin:0 auto;
   width: 95%;
   text-align: center;
-
 }
 
 /******* Aside *********/
@@ -243,6 +255,7 @@ aside{
   flex-shrink: 0;
   margin-top: 40px;
   margin-top: auto;
+  flex-shrink: 0;
 }
 
 .copyright {
@@ -271,13 +284,56 @@ aside{
 
 /********************* MEDIA QUERIES ****************/
 
-/* 
-@media only screen and (min-width: 701px) {
 
-  #pageWrapper{
-    width:100%;
+@media only screen and (max-width: 601px) {
+
+  #search{
+    width:150px;
+    width:50%;
+  }
+  #search input{
+    width:150px;
+  }
+
+  #topMenuUser{
+    font-size:0.9rem;
+    width:20%;
+    display:none;
+  }
+
+  .pageWrapper{
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
   }
 
 
+  aside{
+    display:flex;
+    justify-content: flex-start;
+    align-items:flex-start;
+    width:100vw;
+    max-width: 100%;
+  }
 
-} */
+  aside img{
+    max-height: 30vw;
+    margin:0 auto;
+  }
+
+  .userMenu {
+    width:50%;
+    border-right: 1px solid #ccc;
+    display:flex;
+    flex-direction: column;
+  }
+
+  .users {
+    width:40% !important;
+    border-top: none !important;
+    
+    margin: 0 auto;
+    padding-top: 0;
+    padding-left: 15px;
+  }
+
+}

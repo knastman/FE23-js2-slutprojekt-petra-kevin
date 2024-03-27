@@ -65,3 +65,11 @@
 .login-container button:hover {
   opacity: 0.8;
 }
+
+
+
+/*** Tillfälligt ***/
+#login{
+  max-width:400px;
+  margin:00px auto;
+}
