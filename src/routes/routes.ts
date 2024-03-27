@@ -1,6 +1,9 @@
 import Navigo from "navigo";
-import { renderLoginForm, isLoggedIn } from "../components/login";
-import { renderRegisterForm } from "../components/register";
+import { renderLoginForm, isLoggedIn } from "../components/renderLogin";
+import { renderRegisterForm } from "../components/renderRegister";
+
+import { renderNav } from "../components/renderNav";
+import { renderSideNav } from "../components/renderSideNav";
 import { toggleContainer } from "../utils/utils";
 
 const router = new Navigo("/", {});
@@ -16,6 +19,9 @@ export function setupRoutes() {
         } else {
           toggleContainer(false, "#loginContainer");
           toggleContainer(false, "#registerContainer");
+          toggleContainer(false, "#start");
+          renderNav(router);
+          renderSideNav(router);
         }
       },
       "/login": () => {
@@ -28,6 +34,7 @@ export function setupRoutes() {
           }
           toggleContainer(true, "#loginContainer ");
           toggleContainer(false, "#registerContainer");
+          toggleContainer(true, "#start");
           renderLoginForm(router);
         }
       },
@@ -41,6 +48,7 @@ export function setupRoutes() {
           }
           toggleContainer(true, "#registerContainer");
           toggleContainer(false, "#loginContainer");
+          toggleContainer(true, "#start");
           renderRegisterForm(router);
         }
       },
