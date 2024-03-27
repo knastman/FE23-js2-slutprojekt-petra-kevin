@@ -1,8 +1,6 @@
+import { log } from "console";
 import { checkUserNameAndPass } from "../services/userService";
 import { showToast } from "../utils/utils";
-import { renderNav } from "./renderNav";
-import { renderFooter } from "./renderFooter";
-import { renderSideNav } from "./renderSideNav";
 
 import * as formatChecker from "../utils/formatChecker";
 import Navigo from "navigo";
@@ -16,14 +14,13 @@ function loginTemplate(): string {
           <input type="text" id="userName" placeholder="Användarnamn">
           <input type="password" id="password" placeholder="Lösenord">
           
-          <button type="submit" id="login">Logga in</button>
+          <button type="button" id="login">Logga in</button>
           <button type="button" id="register">Registrera</button>
         </form>
     </div>
     `;
 }
 
-//Kevin's code
 export function renderLoginForm(router: Navigo): void {
   const loginContainer = document.querySelector("#loginContainer");
   if (!loginContainer) {
@@ -66,6 +63,7 @@ export function attachLoginEvents(router: Navigo): void {
     loginButton.setAttribute("data-listener", "true");
     loginButton.addEventListener("click", (e) => {
       e.preventDefault();
+
       loginUser(router);
     });
   }
@@ -82,9 +80,6 @@ export function attachLoginEvents(router: Navigo): void {
 //Kevin's code
 export function logoutUser(router: Navigo): void {
   localStorage.removeItem("login");
-  renderFooter();
-  renderNav(router);
-  renderSideNav(router);
   router.navigate("/login");
 }
 
