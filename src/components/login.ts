@@ -1,5 +1,6 @@
 import { log } from "console";
-import { checkUserNameAndPass } from "../services/UserService";
+import { checkUserNameAndPass } from "../services/userService";
+import { showToast } from "../utils/utils";
 
 import * as formatChecker from "../utils/formatChecker";
 import Navigo from "navigo";
@@ -40,7 +41,7 @@ async function loginUser(router: Navigo) {
     formatChecker.isInputEmpty(userName) ||
     formatChecker.isInputEmpty(password)
   ) {
-    alert("Fälten kan inte vara tomma");
+    showToast("Alla fälten måste vara ifyllda", 5000);
     return;
   }
 
@@ -49,7 +50,7 @@ async function loginUser(router: Navigo) {
     localStorage.setItem("login", userName);
     router.navigate("/");
   } else {
-    alert("Login failed");
+    showToast("Fel användarnamn eller lösenord", 5000);
   }
 }
 

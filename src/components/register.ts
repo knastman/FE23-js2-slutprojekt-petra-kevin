@@ -1,7 +1,8 @@
-import { createUser } from "../services/UserService";
+import { createUser } from "../services/userService";
 import { UserType } from "../types/userType";
 import * as formatChecker from "../utils/formatChecker";
 import Navigo from "navigo";
+import { showToast } from "../utils/utils";
 
 import blackPantherImage from "../../public/media/black-panther.png";
 import redPandaImage from "../../public/media/red-panda.png";
@@ -18,7 +19,7 @@ function registerTemplate() {
           <input type="password" id="confirmPassword" placeholder="Bekräfta lösenord">
           <h3 id="regImage">Välj profilbild</h3>
           <div class="imageOptions">
-            <label for="image1" class="imageLabel">
+            <label for="image1" class="imageLabel active">
               <input class="imageRadio" type="radio" id="image1" name="profileImage" value=".media/black-panther.png" checked>
               <img src="${blackPantherImage}" alt="Profile Image 1">
             </label>
@@ -69,21 +70,21 @@ export function registerUser(router: Navigo) {
     formatChecker.isInputEmpty(password) ||
     formatChecker.isInputEmpty(confirmPassword)
   ) {
-    alert("Fälten kan inte vara tomma");
+    showToast("Alla fälten måste vara ifyllda", 5000);
     return;
   }
   if (!formatChecker.isPasswordValid(password)) {
-    alert("Lösenord måste vara minst 6 tecken långt");
+    showToast("Lösenordet måste vara minst 6 tecken långt", 5000);
     return;
   }
   if (password !== confirmPassword) {
-    alert("Lösenorden matchar inte");
+    showToast("Lösenorden matchar inte", 5000);
     return;
   }
   const newUser: UserType = {
     name: userName,
     password: password,
-    image: selectedImage ? selectedImage.value : "image1.jpg",
+    image: selectedImage ? selectedImage.value : "./media/black-panther.png",
   };
 
   createUser(newUser)
