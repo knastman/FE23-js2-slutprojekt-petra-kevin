@@ -1,16 +1,17 @@
-import { TopicType } from "../types/topicType";
+import { TopicType } from '../types/topicType';
 // import { getThreadsFromTopic } from "../services/threadService";
-import { displayThreads } from "../modules/displayThreads";
+import { displayThreads } from '../modules/displayThreads';
 // import {isLoggedIn} from "../components/renderlogin";
-import { ThreadType } from "../types/threadType";
-import { ThreadWithId } from "../types/threadType";
-import { isLoggedIn } from "../components/renderLogin";
-import { showToast } from "../utils/utils";
+import { ThreadType } from '../types/threadType';
+import { ThreadWithId } from '../types/threadType';
+import { isLoggedIn } from '../components/renderLogin';
+import { showToast } from '../utils/utils';
 
+// hejhej
 const topicHeaderContainer = document.querySelector(
-  "#topicHeader"
+  '#topicHeader'
 ) as HTMLDivElement;
-const topicContainer = document.querySelector("#topic") as HTMLDivElement;
+const topicContainer = document.querySelector('#topic') as HTMLDivElement;
 
 // export function displayTopics(topics: object):void{
 // export function displayTopicsTitles(topics: TopicType):void{
@@ -24,25 +25,25 @@ export function displayTopicsTitles(topics: any): void {
 
 function displayTopicTitle(topic: string): void {
   const topicsContainer = document.querySelector(
-    ".topicsMenuWrapper"
+    '.topicsMenuWrapper'
   ) as HTMLDivElement;
 
-  const topicHeaderBox = document.createElement("div");
-  topicHeaderBox.classList.add("topicMenubox");
-  topicHeaderBox.setAttribute("id", topic);
-  topicHeaderBox.setAttribute("data-navigo", "");
+  const topicHeaderBox = document.createElement('div');
+  topicHeaderBox.classList.add('topicMenubox');
+  topicHeaderBox.setAttribute('id', topic);
+  topicHeaderBox.setAttribute('data-navigo', '');
   topicHeaderBox.innerText = topic;
   topicsContainer.append(topicHeaderBox);
 
-  topicHeaderBox.addEventListener("click", (event) => {
+  topicHeaderBox.addEventListener('click', (event) => {
     if (!isLoggedIn()) {
-      showToast("Du måste vara inloggad för att se inlägg!");
+      showToast('Du måste vara inloggad för att se inlägg!');
       return;
     }
     event.preventDefault();
 
     const topicChoice = (event.target as HTMLInputElement).id;
-    const topicH2 = document.createElement("h2");
+    const topicH2 = document.createElement('h2');
     topicH2.innerText = topic;
 
     clearTopic();
@@ -67,9 +68,9 @@ function displayTopicTitle(topic: string): void {
 //Petra's code  //Tillfälligt för test
 async function getThreads(threadTopic: string): Promise<ThreadType[]> {
   const baseUrl =
-    "https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app/";
+    'https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app/';
   const topicUrl = `/topics/${threadTopic}/threads`;
-  const url = baseUrl + topicUrl + ".json";
+  const url = baseUrl + topicUrl + '.json';
   console.log(url);
 
   const res = await fetch(url);
@@ -84,18 +85,18 @@ async function getThreads(threadTopic: string): Promise<ThreadType[]> {
 **********************************/
 
 function clearTopic(): void {
-  topicContainer.classList.remove("hide");
-  topicContainer.classList.add("flex");
-  const postsContainer = document.querySelector("#posts") as HTMLDivElement;
+  topicContainer.classList.remove('hide');
+  topicContainer.classList.add('flex');
+  const postsContainer = document.querySelector('#posts') as HTMLDivElement;
   const postsUserContainer = document.querySelector(
-    "#postsUser"
+    '#postsUser'
   ) as HTMLDivElement;
-  const subjects = document.querySelector(".subjects") as HTMLDivElement;
+  const subjects = document.querySelector('.subjects') as HTMLDivElement;
 
-  postsContainer.innerHTML = "";
-  postsUserContainer.innerHTML = "";
-  subjects.innerHTML = "";
-  topicHeaderContainer.innerHTML = "";
+  postsContainer.innerHTML = '';
+  postsUserContainer.innerHTML = '';
+  subjects.innerHTML = '';
+  topicHeaderContainer.innerHTML = '';
 }
 
 // export function displayComment(comment:CommentType):void{
