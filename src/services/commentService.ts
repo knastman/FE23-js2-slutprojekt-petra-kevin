@@ -11,6 +11,7 @@ import {
 import { CommentType } from "../types/commentType";
 import { checkTopicExists } from "./topicService";
 import { ThreadType } from "../types/threadType";
+import { showToast } from "../utils/utils";
 
 //TODO: Implement error handling
 
@@ -50,6 +51,7 @@ export const getAllCommentsFromThread = async (
       return [] as CommentType[];
     }
   } catch (error) {
+    showToast("Kunde inte hämta kommentarer, testa igen", 5000);
     console.log(error);
   }
 };
@@ -70,6 +72,7 @@ export const addCommentToThread = async (
   try {
     await push(dataRef, comment);
   } catch (error) {
+    showToast("Kunde inte lägga till kommentar, testa igen senare", 5000);
     console.log(error);
   }
 };
@@ -101,6 +104,7 @@ export const removeComment = async (
   try {
     await remove(dataRef);
   } catch (error) {
+    showToast("Kunde inte ta bort kommentar, testa igen senare", 5000);
     console.log(error);
   }
 };
@@ -127,6 +131,7 @@ export const updateComment = async (
   try {
     await set(dataRef, comment);
   } catch (error) {
+    showToast("Kunde inte uppdatera kommentar, testa igen senare", 5000);
     console.log(error);
   }
 };
@@ -142,6 +147,7 @@ export const getCommentKeys = async (topicName: string, threadId: string) => {
     const data: DataSnapshot = await get(dataRef);
     return Object.keys(data.val()) as string[];
   } catch (error) {
+    showToast("Kunde inte hämta kommentar-nycklar, testa igen", 5000);
     console.log(error);
   }
 };
@@ -153,10 +159,16 @@ async function checkCommentKeyExists(
   threadId: string,
   commentKey: string
 ): Promise<boolean> {
-  const dataRef: DatabaseReference = ref(
-    db,
-    `topics/${topicName}/threads/${threadId}/comments/${commentKey}`
-  );
-  const data = await get(dataRef);
-  return data.exists() as boolean;
+  try {
+    const dataRef: DatabaseReference = ref(
+      db,
+      `topics/${topicName}/threads/${threadId}/comments/${commentKey}`
+    );
+    const data = await get(dataRef);
+    return data.exists() as boolean;
+  } catch (error) {
+    showToast("Kunde inte kolla om kommentar-nyckel finns, testa igen", 5000);
+    console.log(error);
+    return false;
+  }
 }

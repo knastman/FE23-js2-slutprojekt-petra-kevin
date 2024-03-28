@@ -17,7 +17,6 @@ const postsUserContainer = document.querySelector(
 const asideContent = document.querySelector(".mainAside") as HTMLDivElement;
 const asideH3 = document.querySelector(".mainAside h3") as HTMLDivElement;
 const userMenu = document.querySelector(".userMenu") as HTMLDivElement;
-const navUsers = document.querySelector(".users") as HTMLDivElement;
 
 /*********************************
   
@@ -41,7 +40,6 @@ export function displayStartContent(): void {
     postsUserContainer.classList.remove("hide");
     // postsContainer.classList.remove('hide');
     userMenu.classList.remove("hide");
-    navUsers.classList.remove("hide");
 
     asideH3.innerText = "Dina uppgifter";
   } else {
@@ -51,8 +49,6 @@ export function displayStartContent(): void {
 
     loginContainer.classList.remove("hide");
     postsContainer.classList.add("hide");
-
-    userMenu.classList.add("hide");
   }
 
   startHeaderH1.innerText = startHeader;

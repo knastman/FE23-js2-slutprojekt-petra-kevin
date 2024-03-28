@@ -22,6 +22,7 @@ export function formatTimestamp(timestamp: number): {
 export function generateThreadLink(thread: ThreadWithId): HTMLAnchorElement {
   const link = document.createElement("a");
   link.href = `/thread/${thread.id}`;
+  link.setAttribute("data-navigo", "");
   link.innerText = thread.title;
   return link;
 }
@@ -56,19 +57,27 @@ export function toggleContainer(isOn: boolean, container: string): void {
 }
 
 // Kevin's code
+// Shows a toast message for a set duration default is 3 seconds
 export function showToast(message: string, duration: number = 3000): void {
-  const toastContainer =
-    (document.querySelector("#toastContainer") as HTMLElement) ||
-    createToastContainer();
-  const toast = document.createElement("div");
-  toast.className = "toastMessage";
-  toast.textContent = message;
+  const toastContainer: HTMLElement =
+    document.querySelector("#toastContainer") || createToastContainer();
+  const existingToast: HTMLCollection =
+    toastContainer.getElementsByClassName("toastMessage");
 
+  if (existingToast.length >= 3) {
+    existingToast[0].parentNode?.removeChild(existingToast[0]);
+  }
+
+  const toast: HTMLDivElement = document.createElement("div");
+  toast.classList.add("toastMessage");
+  toast.innerText = message;
   toastContainer.appendChild(toast);
 
   setTimeout(() => {
     toast.style.opacity = "0";
-    setTimeout(() => toastContainer.removeChild(toast), 500);
+    setTimeout(() => {
+      toast.parentNode?.removeChild(toast);
+    }, 500);
   }, duration);
 }
 
@@ -80,8 +89,11 @@ function createToastContainer(): HTMLElement {
   return toastContainer;
 }
 
-export const emptyContainer = (container: string) => {
-  const emptied = document.querySelector(container);
-  if (!emptied) return;
-  emptied.innerHTML = "";
+// Kevin's code
+export const emptyContainer = (container: string | string[]) => {
+  const elements = typeof container === "string" ? [container] : container;
+  elements.forEach((element) => {
+    const container = document.querySelector(element);
+    if (container) container.innerHTML = "";
+  });
 };

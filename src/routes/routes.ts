@@ -1,11 +1,12 @@
 import Navigo from "navigo";
 import { renderLoginForm, isLoggedIn } from "../components/renderLogin";
 import { renderRegisterForm } from "../components/renderRegister";
-
 import { renderNav } from "../components/renderNav";
 import { renderSideNav } from "../components/renderSideNav";
 import { toggleContainer } from "../utils/utils";
 import { renderUser } from "../components/renderUser";
+
+import { displayStartContent } from "../modules/displayStartContent";
 
 type RouteParams = {
   data: {
@@ -33,13 +34,9 @@ export function setupRoutes(router: Navigo) {
         if (isLoggedIn()) {
           router.navigate("/");
         } else {
-          const loginContainer = document.querySelector("#loginContainer");
-          if (!loginContainer) {
-            return;
-          }
           toggleContainer(true, "#loginContainer ");
           toggleContainer(false, "#registerContainer");
-          toggleContainer(true, "#start");
+          displayStartContent();
           renderLoginForm(router);
         }
       },
@@ -47,10 +44,6 @@ export function setupRoutes(router: Navigo) {
         if (isLoggedIn()) {
           router.navigate("/");
         } else {
-          const loginContainer = document.querySelector("#registerContainer");
-          if (!loginContainer) {
-            return;
-          }
           toggleContainer(true, "#registerContainer");
           toggleContainer(false, "#loginContainer");
           toggleContainer(true, "#start");
@@ -63,8 +56,14 @@ export function setupRoutes(router: Navigo) {
           router.navigate("/login");
         } else {
           renderUser(router, params.data.name);
+          toggleContainer(false, "#loginContainer");
+          toggleContainer(false, "#registerContainer");
+          toggleContainer(false, "#start");
         }
       },
+    })
+    .notFound(() => {
+      router.navigate("/");
     })
     .resolve();
 }
