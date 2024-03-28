@@ -66,5 +66,8 @@ export function setupRoutes(router: Navigo) {
         }
       },
     })
+    .notFound(() => {
+      router.navigate("/");
+    })
     .resolve();
 }

@@ -51,8 +51,6 @@ export function displayStartContent(): void {
 
     loginContainer.classList.remove("hide");
     postsContainer.classList.add("hide");
-
-    userMenu.classList.add("hide");
   }
 
   startHeaderH1.innerText = startHeader;
