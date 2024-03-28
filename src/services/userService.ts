@@ -8,7 +8,6 @@ import {
   DataSnapshot,
 } from "firebase/database";
 import { UserType } from "../types/userType";
-import { FirebaseError } from "firebase/app";
 import { showToast } from "../utils/utils";
 
 // Porpuse: This file has the CRUD operations and sends the data to the database.
