@@ -136,7 +136,6 @@ function clearTopic(): void {
 
 // export function displaySubjects(post:CommentType):void{
 //   console.log('inne i subject');
-
 //   const subjectsContainer = document.querySelector('.subjects') as HTMLDivElement;
 //   const subjectBox = document.createElement('div');
 //   const subjectTitle = document.createElement('h4');

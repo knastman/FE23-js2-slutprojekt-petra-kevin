@@ -1,48 +1,10 @@
 import { CommentType }  from "../types/commentType";
 // import { UserType } from "../types/userType.ts";
-// import { ThreadType } from "../types/threadType";
+import { ThreadType } from "../types/threadType";
 // import { ThreadWithId } from "../types/threadType";
 import { displayComments } from "./displayComments";
 // import { getThreadsFromTopic } from "../services/threadService.ts";
 import { getAllCommentsFromThread } from "../services/commentService";
-
-
-/*********************************
-   ThreadType
-**********************************/
-
-export type ThreadType = {
-  id: string;
-  user: string;
-  title: string;
-  postText: string; //Tillägg av Petra (själva inlägget måste ju vara med)
-  date: number;
-};
-
-
-
-/*********************************
-  Get comments
-**********************************/
-
-//Petra's code 
-async function getComments(threadTopic:string, threadId:string): Promise<CommentType[]>{
-  const baseUrl = 'https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app/';
-  // const topicThreadUrl = `/topics/${threadTopic}/threads`;
-  // const topicThreadUrl = ` /topics/${threadTopic}/threads/-NtfDVeSJSDNiiSvIBgE`;
-  const topicThreadUrl = `/topics/${threadTopic}/threads/${threadId}`;
-  const url = baseUrl + topicThreadUrl + '.json';
-  console.log(url);
-
-  const res = await fetch(url);
-  const comments = await res.json();
-  console.log('comments');
-  console.log(comments);
-
-  return comments as CommentType[];
-}
-
-
 
 /*********************************
   Display Threads in Topic
@@ -100,18 +62,30 @@ threadsContainer.addEventListener('click', (event) => {
 
 });
 
-// https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app//topics/Resor/threads.json
-// https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app//topics/Resor/threads/-NtfDVeSJSDNiiSvIBgE.json
 
 
 
 
 
+/*********************************
+  Get comments OBS TILLFÄLLIG GET 
+**********************************/
 
+//Petra's code 
+async function getComments(threadTopic:string, threadId:string): Promise<CommentType[]>{
+  const baseUrl = 'https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app/';
 
+  const topicThreadUrl = `/topics/${threadTopic}/threads/${threadId}`;
+  const url = baseUrl + topicThreadUrl + '.json';
+  console.log(url);
 
+  const res = await fetch(url);
+  const comments = await res.json();
+  console.log('comments');
+  console.log(comments);
 
-
+  return comments as CommentType[];
+}
 
 
 
