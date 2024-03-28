@@ -48,11 +48,11 @@ const renderLoggedInUser = (user: UserType): string => {
       <h3>Välkommen till din profil</h3>
         <h4>${user.name}</h4>
         <img src="${user.image}" alt="userImage">
-        <ul class="menu userMenu">
-            <li><a href="/user/${user.name}" data-navigo>Se profil</a></li>
+        <div class="menu userMenu">
             <li><a href="/user/${user.name}/edit" data-navigo>Redigera profil</a></li>
-        </ul>
-        <button type="submit" id="logout">Logga ut</button>
+            <button type="submit" id="logout">Logga ut</button>
+        </div>
+       
     </nav>
   `;
 };

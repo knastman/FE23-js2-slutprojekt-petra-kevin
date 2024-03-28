@@ -7,6 +7,7 @@ import { toggleContainer } from "../utils/utils";
 import { renderUser } from "../components/renderUser";
 
 import { displayStartContent } from "../modules/displayStartContent";
+import { renderEditUser } from "../components/renderEditUser";
 
 type RouteParams = {
   data: {
@@ -56,6 +57,17 @@ export function setupRoutes(router: Navigo) {
           router.navigate("/login");
         } else {
           renderUser(router, params.data.name);
+          toggleContainer(false, "#loginContainer");
+          toggleContainer(false, "#registerContainer");
+          toggleContainer(false, "#start");
+        }
+      },
+      "/user/:name/edit": (params: RouteParams) => {
+        if (!isLoggedIn()) {
+          router.navigate("/login");
+        } else {
+          renderEditUser(router, params.data.name);
+          renderSideNav(router);
           toggleContainer(false, "#loginContainer");
           toggleContainer(false, "#registerContainer");
           toggleContainer(false, "#start");

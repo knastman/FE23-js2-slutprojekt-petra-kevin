@@ -1,4 +1,4 @@
-import { db } from "./firebaseConfig";
+import { db } from './firebaseConfig';
 import {
   ref,
   push,
@@ -7,11 +7,11 @@ import {
   set,
   DatabaseReference,
   DataSnapshot,
-} from "firebase/database";
-import { CommentType } from "../types/commentType";
-import { checkTopicExists } from "./topicService";
-import { ThreadType } from "../types/threadType";
-import { showToast } from "../utils/utils";
+} from 'firebase/database';
+import { CommentType } from '../types/commentType';
+import { checkTopicExists } from './topicService';
+import { ThreadType } from '../types/threadType';
+import { showToast } from '../utils/utils';
 
 //TODO: Implement error handling
 
@@ -38,7 +38,6 @@ export const getAllCommentsFromThread = async (
     db,
     `topics/${topicName}/threads/${threadId}/comments`
   );
-
   const exists: boolean = await checkTopicExists(topicName);
   if (!exists) return;
   try {
@@ -51,7 +50,7 @@ export const getAllCommentsFromThread = async (
       return [] as CommentType[];
     }
   } catch (error) {
-    showToast("Kunde inte hämta kommentarer, testa igen", 5000);
+    showToast('Kunde inte hämta kommentarer, testa igen', 5000);
     console.log(error);
   }
 };
@@ -72,7 +71,7 @@ export const addCommentToThread = async (
   try {
     await push(dataRef, comment);
   } catch (error) {
-    showToast("Kunde inte lägga till kommentar, testa igen senare", 5000);
+    showToast('Kunde inte lägga till kommentar, testa igen senare', 5000);
     console.log(error);
   }
 };
@@ -89,7 +88,7 @@ export const removeComment = async (
   );
   const topicExists: boolean = await checkTopicExists(topicName);
   if (!topicExists) {
-    console.log("Topic does not exist");
+    console.log('Topic does not exist');
     return;
   }
   const commentKeyExists: boolean = await checkCommentKeyExists(
@@ -98,13 +97,13 @@ export const removeComment = async (
     commentKey
   );
   if (!commentKeyExists) {
-    console.log("Comment key does not exist");
+    console.log('Comment key does not exist');
     return;
   }
   try {
     await remove(dataRef);
   } catch (error) {
-    showToast("Kunde inte ta bort kommentar, testa igen senare", 5000);
+    showToast('Kunde inte ta bort kommentar, testa igen senare', 5000);
     console.log(error);
   }
 };
@@ -131,7 +130,7 @@ export const updateComment = async (
   try {
     await set(dataRef, comment);
   } catch (error) {
-    showToast("Kunde inte uppdatera kommentar, testa igen senare", 5000);
+    showToast('Kunde inte uppdatera kommentar, testa igen senare', 5000);
     console.log(error);
   }
 };
@@ -147,7 +146,7 @@ export const getCommentKeys = async (topicName: string, threadId: string) => {
     const data: DataSnapshot = await get(dataRef);
     return Object.keys(data.val()) as string[];
   } catch (error) {
-    showToast("Kunde inte hämta kommentar-nycklar, testa igen", 5000);
+    showToast('Kunde inte hämta kommentar-nycklar, testa igen', 5000);
     console.log(error);
   }
 };
@@ -167,7 +166,7 @@ async function checkCommentKeyExists(
     const data = await get(dataRef);
     return data.exists() as boolean;
   } catch (error) {
-    showToast("Kunde inte kolla om kommentar-nyckel finns, testa igen", 5000);
+    showToast('Kunde inte kolla om kommentar-nyckel finns, testa igen', 5000);
     console.log(error);
     return false;
   }
