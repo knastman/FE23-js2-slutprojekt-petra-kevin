@@ -56,7 +56,7 @@ function displayTopicTitle(topic:string):void{
 
 
 /*********************************
-  Get threads
+  Get threads OBS TILLFÄLLIG GET 
 **********************************/
 
 //Petra's code  //Tillfälligt för test
@@ -77,7 +77,7 @@ async function getThreads(threadTopic:string): Promise<ThreadType[]>{
 
 
 /*********************************
- Clear before get
+ Clear before display
 **********************************/
 
 function clearTopic():void{

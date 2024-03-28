@@ -2,14 +2,6 @@ import { CommentType }  from "../types/commentType";
 // import { UserType } from "../types/userType.ts";
 import { formatTimestamp } from "../utils/utils";
 
-
-export type CommentType = {
-  userName: string;
-  comment: string;
-  timeStamp: number;
-  title:string; //Tillägg av petra pga finns med i db. Men titlen ska ju följa med från thread eg? 
-};
-
 export function displayComments(thread: CommentType[]):void{
   console.log(thread);
   console.log(thread.comments);
@@ -60,9 +52,9 @@ export function displayComment(comment:CommentType):void{
   const postBody = document.createElement('div'); 
   postBody.classList.add('postBody');
   
-  const userInfo = document.createElement('div'); 
+  const userInfo = document.createElement('div');
   userInfo.classList.add('userInfo');
-  const userName = document.createElement('div'); 
+  const userName = document.createElement('div');
   userName.classList.add('userName');
   const userImg = document.createElement('div'); 
   const userImgSrc = document.createElement('img'); 
