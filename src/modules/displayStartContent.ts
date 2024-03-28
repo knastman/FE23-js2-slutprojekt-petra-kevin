@@ -45,7 +45,7 @@ export function displayStartContent(): void {
 
     asideH3.innerText = "Dina uppgifter";
   } else {
-    startHeader = "Välkommen till forumet nånting!";
+    startHeader = "Välkommen till Omnitalk!";
     startText =
       "Välkommen till vårt diskussionsforum! Här samlas en mångfald av tankar, åsikter och idéer för att skapa en berikande och givande dialog. Oavsett om du är här för att dela din expertis, lära dig något nytt eller bara utforska olika perspektiv, så är detta platsen för dig. Vi uppmuntrar respektfullt utbyte och öppenhet för att främja en atmosfär av lärande och förståelse. Så dyk in, engagera dig och låt oss tillsammans utforska världen genom diskussion och delat kunnande!";
 

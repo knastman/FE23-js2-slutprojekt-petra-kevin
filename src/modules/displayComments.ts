@@ -1,27 +1,52 @@
-import { CommentType }  from "../types/commentType.ts";
-import { UserType } from "../types/userType.ts";
+import { CommentType }  from "../types/commentType";
+// import { UserType } from "../types/userType.ts";
+import { formatTimestamp } from "../utils/utils";
 
 
-export function displayComments(comments: CommentType[]):void{
-  for(const comment in comments){
-    const commentObject = comments[comment];
+export type CommentType = {
+  userName: string;
+  comment: string;
+  timeStamp: number;
+  title:string; //Tillägg av petra pga finns med i db. Men titlen ska ju följa med från thread eg? 
+};
+
+export function displayComments(thread: CommentType[]):void{
+  console.log(thread);
+  console.log(thread.comments);
+  const threadComments = thread.comments;
+  
+  for(const comment in threadComments){
+    // console.log(comment);
+    const commentObject = threadComments[comment];
+    // console.log(commentObject);
+    // displayComment(commentObject);
     displayComment(commentObject);
+
   }
+
+  // for(const comment in thread){
+  //   console.log(comment);
+  //   const commentObject = thread[comment];
+  //   console.log(commentObject);
+  //   // displayComment(commentObject);
+  //   displayComment(comment);
+  // }
 }
 
 export function displayComment(comment:CommentType):void{
   const postsContainer = document.querySelector('#posts') as HTMLDivElement;
-  const user:UserType = comment.userName;
-
+  console.log(postsContainer);
+  postsContainer.classList.remove('hide');
   
-  // console.log(post);
-  // console.log(post.title);
-  // console.log(post.userName);
-  // console.log(post.comment);
-  // console.log(post.timeStamp);
+  // console.log(comment.userName);
+  // const user = comment.userName;
+
+  // console.log(comment);
+  // console.log(comment.title);
+  // console.log(comment.userName);
+  // console.log(comment.comment);
+  // console.log(comment.timeStamp);
   
-
-
   const postBox = document.createElement('article'); 
   postBox.classList.add('post');
 
@@ -59,22 +84,27 @@ export function displayComment(comment:CommentType):void{
 
   postHeaderSubject.innerText = comment.title;
 
-  const postTimestamp = comment.timeStamp;
-  let date = new Date(postTimestamp);
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  let postTime = `${hours}:${minutes}`;
-  let postDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-  // let postdateAndTime = `${hours}:${minutes} | ${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-  let postdateAndTime = `${postTime} | ${postDate}`;
+  // const postTimestamp = comment.timeStamp;
+  // let date = new Date(postTimestamp);
+  // const hours = date.getHours().toString().padStart(2, '0');
+  // const minutes = date.getMinutes().toString().padStart(2, '0');
+  // let postTime = `${hours}:${minutes}`;
+  // let postDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  // // let postdateAndTime = `${hours}:${minutes} | ${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  const commentDate = formatTimestamp(comment.timeStamp);
+  const time = commentDate.time;
+  const date = commentDate.date;
+
+  // let postdateAndTime = `${postTime} | ${postDate}`;
+  let postdateAndTime = `${time}} | ${date}`;
 
   postDateContainer.innerText = postdateAndTime;
   userName.innerText = comment.userName;
   // userImgSrc.src = post.userImg;
-  userImgSrc.src = user.image;
-  if (user.image === undefined){
-    userImgSrc.src = './babirusa.e25ca78f.png';
-  }
+  // userImgSrc.src = user.image;
+  // if (user.image === undefined){
+  //   userImgSrc.src = './babirusa.png';
+  // }
   postText.innerText = comment.comment;
   // postFooterDivleft.innerText = post.topic;
   // postFooterDivleft.innerText = topics.topic;
@@ -95,3 +125,5 @@ export function displayComment(comment:CommentType):void{
   postFooter.append(postFooterDivleft, postFooterDivRight);
   postFooterDivRight.append(postFooterRightEdit, postFooterRightDelete);
 }
+
+

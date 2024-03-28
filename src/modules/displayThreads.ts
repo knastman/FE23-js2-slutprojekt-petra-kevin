@@ -1,59 +1,109 @@
-import { CommentType }  from "../types/commentType.ts";
+import { CommentType }  from "../types/commentType";
 // import { UserType } from "../types/userType.ts";
-import { ThreadType } from "../types/threadType.ts";
-import { ThreadWithId } from "../types/threadType.ts";
-import { displayComments } from "../modules/displayComments.ts";
-import { displayComment } from "../modules/displayComments.ts";
-import { getThreadsFromTopic } from "../services/threadService.ts";
-import { getAllCommentsFromThread } from "../services/commentService.ts";
+// import { ThreadType } from "../types/threadType";
+// import { ThreadWithId } from "../types/threadType";
+import { displayComments } from "./displayComments";
+// import { getThreadsFromTopic } from "../services/threadService.ts";
+import { getAllCommentsFromThread } from "../services/commentService";
+
+
+/*********************************
+   ThreadType
+**********************************/
+
+export type ThreadType = {
+  id: string;
+  user: string;
+  title: string;
+  postText: string; //Tillägg av Petra (själva inlägget måste ju vara med)
+  date: number;
+};
+
+
+
+/*********************************
+  Get comments
+**********************************/
+
+//Petra's code 
+async function getComments(threadTopic:string, threadId:string): Promise<CommentType[]>{
+  const baseUrl = 'https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app/';
+  // const topicThreadUrl = `/topics/${threadTopic}/threads`;
+  // const topicThreadUrl = ` /topics/${threadTopic}/threads/-NtfDVeSJSDNiiSvIBgE`;
+  const topicThreadUrl = `/topics/${threadTopic}/threads/${threadId}`;
+  const url = baseUrl + topicThreadUrl + '.json';
+  console.log(url);
+
+  const res = await fetch(url);
+  const comments = await res.json();
+  console.log('comments');
+  console.log(comments);
+
+  return comments as CommentType[];
+}
+
 
 
 /*********************************
   Display Threads in Topic
 **********************************/
 
-export function displayThreads(threads):void{
+// export function displayThreads(threads: ThreadType[]):void{
+export function displayThreads(threads: ThreadType[]):void{
   for(const thread in threads ){
+    // console.log(thread);
   // for(const thread in threads.slice(0, 5) ){
     const threadObject = threads[thread];
-    displayThread(threadObject); 
-  }
-}
-const threadsContainer = document.querySelector('.subjects') as HTMLDivElement;
-  function displayThread(thread:ThreadWithId):void{
-    const threadId = thread.id;
-    // const threadsContainer = document.querySelector('.subjects') as HTMLDivElement;
-    const subjectBox = document.createElement('div');
-    const subjectTitle = document.createElement('h4');
-    subjectTitle.setAttribute('id', threadId);
-    const subjectIncipient= document.createElement('p');
-    const postUser = document.createElement('p')
-
-    subjectTitle.innerText = thread.title;
-    subjectIncipient.innerText = thread.postText.slice(0, 50) + '...';
-    // postUser.innerText = post.userName;
-
-    threadsContainer.append(subjectBox);
-    subjectBox.append(subjectTitle, subjectIncipient );
-
-    const postContainer = document.querySelector('#posts') as HTMLDivElement;
+    displayThread(threadObject, thread); 
     
   }
+}
 
+const threadsContainer = document.querySelector('.subjects') as HTMLDivElement;
 
-  threadsContainer.addEventListener('click', (event) => {
-    event.preventDefault();
+function displayThread(thread:ThreadType, threadId:string):void{
+  // console.log(threadId);
   
-    const threadChoice = ((event.target as HTMLInputElement).id);
-    // const threadH2 = document.createElement('h2'); 
-    // threadH2.innerText = thread.title;
-    // clearThread();
-    // postContainer.append(threadH2);
+  // const threadsContainer = document.querySelector('.subjects') as HTMLDivElement;
+  const subjectBox = document.createElement('div');
+  const subjectTitle = document.createElement('h4');
+  subjectTitle.setAttribute('id', threadId);
+  const subjectIncipient= document.createElement('p');
+  const postUser = document.createElement('p')
 
-    getAllCommentsFromThread('Resor', threadChoice) //Fixa in så att topic följer med hit
-    .then(displayComments); //Thread.title måste skickas med 
- 
-  });
+  subjectTitle.innerText = thread.title;
+  subjectIncipient.innerText = thread.postText.slice(0, 50) + '...';
+  // postUser.innerText = post.userName;
+
+  threadsContainer.append(subjectBox);
+  subjectBox.append(subjectTitle, subjectIncipient );
+
+  const postContainer = document.querySelector('#posts') as HTMLDivElement;
+  
+}
+
+
+threadsContainer.addEventListener('click', (event) => {
+  const postsContainer = document.querySelector('#posts') as HTMLDivElement;
+  event.preventDefault();
+
+  const threadChoice = ((event.target as HTMLInputElement).id);
+  console.log(threadChoice);
+  
+  // const threadH2 = document.createElement('h2'); 
+  // threadH2.innerText = thread.title;
+  // clearThread();
+  // postsContainer.append(threadH2);
+
+  getComments('Resor', threadChoice) //Fixa in så att topic följer med hit
+  .then(displayComments); //Thread.title måste skickas med 
+
+});
+
+// https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app//topics/Resor/threads.json
+// https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app//topics/Resor/threads/-NtfDVeSJSDNiiSvIBgE.json
+
+
 
 
 

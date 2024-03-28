@@ -1,7 +1,9 @@
-import { TopicType } from "../types/topicType.ts";
-import { getThreadsFromTopic } from "../services/threadService.ts";
-import { displayThreads } from "../modules/displayThreads.ts";
-import {isLoggedIn} from "../components/login.ts";
+import { TopicType } from "../types/topicType";
+// import { getThreadsFromTopic } from "../services/threadService";
+import { displayThreads } from "../modules/displayThreads";
+// import {isLoggedIn} from "../components/renderlogin";
+import { ThreadType } from "../types/threadType";
+import { ThreadWithId } from "../types/threadType";
 
 const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;
 const topicContainer = document.querySelector('#topic') as HTMLDivElement;
@@ -9,7 +11,8 @@ const topicContainer = document.querySelector('#topic') as HTMLDivElement;
 
  
 // export function displayTopics(topics: object):void{
-export function displayTopicsTitles(topics: TopicType):void{
+// export function displayTopicsTitles(topics: TopicType):void{
+export function displayTopicsTitles(topics: any):void{
   for(const topic in topics){
     const topicTitle = topics[topic].title;
     // const topicDescription = topics[topic].description; //If needed
@@ -37,12 +40,12 @@ function displayTopicTitle(topic:string):void{
     clearTopic();
     topicHeaderContainer.append(topicH2);
 
-    getThreadsFromTopic(topicChoice)
+    // getThreadsFromTopic(topicChoice)
+    getThreads(topicChoice)
     .then(displayThreads);
 
     // if (isLoggedIn()) {
-    //   // getThreadsFromTopic(topicChoice)
-    //   // .then(displayThreads);
+    //   getThreads(topicChoice).then(displayThreads);
     // } 
     // else {
     //   console.log('Du måste vara inloggad för att se inlägg!');
@@ -52,9 +55,43 @@ function displayTopicTitle(topic:string):void{
 }
 
 
+/*********************************
+  Get threads
+**********************************/
+
+//Petra's code  //Tillfälligt för test
+async function getThreads(threadTopic:string): Promise<ThreadType[]>{
+  const baseUrl = 'https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app/';
+  const topicUrl = `/topics/${threadTopic}/threads`;
+  const url = baseUrl + topicUrl + '.json';
+  console.log(url);
+  
 
 
+  const res = await fetch(url);
+  const thread = await res.json();
+  console.log(thread);
 
+  return thread as ThreadType[];
+}
+
+
+/*********************************
+ Clear before get
+**********************************/
+
+function clearTopic():void{
+  topicContainer.classList.remove('hide');
+  topicContainer.classList.add('flex');
+  const postsContainer = document.querySelector('#posts') as HTMLDivElement;
+  const postsUserContainer = document.querySelector('#postsUser') as HTMLDivElement;
+  const subjects = document.querySelector('.subjects') as HTMLDivElement;
+
+  postsContainer.innerHTML = '';
+  postsUserContainer.innerHTML = '';
+  subjects.innerHTML = '';
+  topicHeaderContainer.innerHTML = '';
+}
 
 
 
@@ -115,20 +152,7 @@ function displayTopicTitle(topic:string):void{
 // }
 
 
-/*********************************
- Clear before get
-**********************************/
 
-function clearTopic():void{
-  topicContainer.classList.remove('hide');
-  topicContainer.classList.add('flex');
-  const postsContainer = document.querySelector('#posts') as HTMLDivElement;
-  const subjects = document.querySelector('.subjects') as HTMLDivElement;
-
-  postsContainer.innerHTML = '';
-  subjects.innerHTML = '';
-  topicHeaderContainer.innerHTML = '';
-}
 
 
 

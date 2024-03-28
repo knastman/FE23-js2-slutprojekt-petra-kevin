@@ -26,3 +26,5 @@ document.addEventListener("DOMContentLoaded", (event) => {
 **********************************/
 //Petra's code
 displayStartContent();
+
+getTopics().then(displayTopicsTitles);
