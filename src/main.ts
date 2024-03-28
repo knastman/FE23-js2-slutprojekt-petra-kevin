@@ -25,6 +25,5 @@ document.addEventListener("DOMContentLoaded", (event) => {
   Interface 
 **********************************/
 //Petra's code
-displayStartContent();
 
 getTopics().then(displayTopicsTitles);

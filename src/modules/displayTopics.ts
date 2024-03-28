@@ -4,69 +4,73 @@ import { displayThreads } from "../modules/displayThreads";
 // import {isLoggedIn} from "../components/renderlogin";
 import { ThreadType } from "../types/threadType";
 import { ThreadWithId } from "../types/threadType";
+import { isLoggedIn } from "../components/renderLogin";
+import { showToast } from "../utils/utils";
 
-const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;
-const topicContainer = document.querySelector('#topic') as HTMLDivElement;
+const topicHeaderContainer = document.querySelector(
+  "#topicHeader"
+) as HTMLDivElement;
+const topicContainer = document.querySelector("#topic") as HTMLDivElement;
 
-
- 
 // export function displayTopics(topics: object):void{
 // export function displayTopicsTitles(topics: TopicType):void{
-export function displayTopicsTitles(topics: any):void{
-  for(const topic in topics){
+export function displayTopicsTitles(topics: any): void {
+  for (const topic in topics) {
     const topicTitle = topics[topic].title;
     // const topicDescription = topics[topic].description; //If needed
     displayTopicTitle(topicTitle);
   }
 }
 
+function displayTopicTitle(topic: string): void {
+  const topicsContainer = document.querySelector(
+    ".topicsMenuWrapper"
+  ) as HTMLDivElement;
 
-function displayTopicTitle(topic:string):void{
-  const topicsContainer = document.querySelector('.topicsMenuWrapper') as HTMLDivElement;
-  
-  const topicHeaderBox = document.createElement('div'); 
-  topicHeaderBox.classList.add('topicMenubox');
-  topicHeaderBox.setAttribute('id', topic);
+  const topicHeaderBox = document.createElement("div");
+  topicHeaderBox.classList.add("topicMenubox");
+  topicHeaderBox.setAttribute("id", topic);
+  topicHeaderBox.setAttribute("data-navigo", "");
   topicHeaderBox.innerText = topic;
   topicsContainer.append(topicHeaderBox);
 
-  topicHeaderBox.addEventListener('click', (event) => {
+  topicHeaderBox.addEventListener("click", (event) => {
+    if (!isLoggedIn()) {
+      showToast("Du måste vara inloggad för att se inlägg!");
+      return;
+    }
     event.preventDefault();
-  
-    const topicChoice = ((event.target as HTMLInputElement).id);
-    const topicH2 = document.createElement('h2'); 
+
+    const topicChoice = (event.target as HTMLInputElement).id;
+    const topicH2 = document.createElement("h2");
     topicH2.innerText = topic;
- 
+
     clearTopic();
     topicHeaderContainer.append(topicH2);
 
     // getThreadsFromTopic(topicChoice)
-    getThreads(topicChoice)
-    .then(displayThreads);
+    getThreads(topicChoice).then(displayThreads);
 
     // if (isLoggedIn()) {
     //   getThreads(topicChoice).then(displayThreads);
-    // } 
+    // }
     // else {
     //   console.log('Du måste vara inloggad för att se inlägg!');
     // }
-
   });
 }
-
 
 /*********************************
   Get threads
 **********************************/
 
 //Petra's code  //Tillfälligt för test
-async function getThreads(threadTopic:string): Promise<ThreadType[]>{
-  const baseUrl = 'https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app/';
+async function getThreads(threadTopic: string): Promise<ThreadType[]> {
+  const baseUrl =
+    "https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app/";
   const topicUrl = `/topics/${threadTopic}/threads`;
-  const url = baseUrl + topicUrl + '.json';
+  const url = baseUrl + topicUrl + ".json";
   console.log(url);
-  
-
 
   const res = await fetch(url);
   const thread = await res.json();
@@ -75,34 +79,33 @@ async function getThreads(threadTopic:string): Promise<ThreadType[]>{
   return thread as ThreadType[];
 }
 
-
 /*********************************
  Clear before get
 **********************************/
 
-function clearTopic():void{
-  topicContainer.classList.remove('hide');
-  topicContainer.classList.add('flex');
-  const postsContainer = document.querySelector('#posts') as HTMLDivElement;
-  const postsUserContainer = document.querySelector('#postsUser') as HTMLDivElement;
-  const subjects = document.querySelector('.subjects') as HTMLDivElement;
+function clearTopic(): void {
+  topicContainer.classList.remove("hide");
+  topicContainer.classList.add("flex");
+  const postsContainer = document.querySelector("#posts") as HTMLDivElement;
+  const postsUserContainer = document.querySelector(
+    "#postsUser"
+  ) as HTMLDivElement;
+  const subjects = document.querySelector(".subjects") as HTMLDivElement;
 
-  postsContainer.innerHTML = '';
-  postsUserContainer.innerHTML = '';
-  subjects.innerHTML = '';
-  topicHeaderContainer.innerHTML = '';
+  postsContainer.innerHTML = "";
+  postsUserContainer.innerHTML = "";
+  subjects.innerHTML = "";
+  topicHeaderContainer.innerHTML = "";
 }
-
-
 
 // export function displayComment(comment:CommentType):void{
 //   console.log(comment);
 //   console.log(comment.title);
 //   console.log(comment.id);
 //   console.log(comment[0].comments[0]);
-  
+
 //   console.log('inne i threads');
-  
+
 //   const threadsContainer = document.querySelector('.subjects') as HTMLDivElement;
 //   const subjectBox = document.createElement('div');
 //   const subjectTitle = document.createElement('h4');
@@ -122,11 +125,9 @@ function clearTopic():void{
 //   //   const threadComments = threads[thread].comments;
 //   //   console.log(threadComments);
 //   //   console.log(threadObject.comments);
-//   //   // displayThread(threadObject);    
+//   //   // displayThread(threadObject);
 //   // }
 // }
-
-
 
 /*********************************
   Display Subjects in Topic
@@ -134,7 +135,7 @@ function clearTopic():void{
 
 // export function displaySubjects(post:CommentType):void{
 //   console.log('inne i subject');
-  
+
 //   const subjectsContainer = document.querySelector('.subjects') as HTMLDivElement;
 //   const subjectBox = document.createElement('div');
 //   const subjectTitle = document.createElement('h4');
@@ -150,9 +151,3 @@ function clearTopic():void{
 //   subjectBox.append(subjectTitle, subjectIncipient );
 
 // }
-
-
-
-
-
-
