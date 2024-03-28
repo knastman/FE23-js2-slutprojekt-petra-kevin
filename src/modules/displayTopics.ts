@@ -5,6 +5,9 @@ import { displayThreads } from "../modules/displayThreads";
 import { ThreadType } from "../types/threadType";
 import { ThreadWithId } from "../types/threadType";
 
+import { showToast } from "../utils/utils";
+import {isLoggedIn } from "../components/renderLogin";
+
 const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;
 const topicContainer = document.querySelector('#topic') as HTMLDivElement;
  
@@ -25,10 +28,17 @@ function displayTopicTitle(topic:string):void{
   const topicHeaderBox = document.createElement('div'); 
   topicHeaderBox.classList.add('topicMenubox');
   topicHeaderBox.setAttribute('id', topic);
+  topicHeaderBox.setAttribute('data-navigo', ''); //Kevins tillägg
   topicHeaderBox.innerText = topic;
   topicsContainer.append(topicHeaderBox);
 
   topicHeaderBox.addEventListener('click', (event) => {
+
+    if (!isLoggedIn()) {
+      showToast('Du måste vara inloggad för att se inlägg!');
+      return;
+    } //Kevins tillägg
+
     event.preventDefault();
   
     const topicChoice = ((event.target as HTMLInputElement).id);
@@ -51,6 +61,9 @@ function displayTopicTitle(topic:string):void{
 
   });
 }
+
+
+
 
 
 /*********************************
