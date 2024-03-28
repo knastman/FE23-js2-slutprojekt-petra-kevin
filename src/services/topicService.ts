@@ -1,4 +1,5 @@
 // Data managetment and APi calls for forum data
+import { showToast } from "../utils/utils";
 import { db } from "./firebaseConfig";
 import { ref, get, DatabaseReference, DataSnapshot } from "firebase/database";
 
@@ -13,6 +14,7 @@ export const getTopics = async (): Promise<void> => {
       return;
     }
   } catch (error) {
+    showToast("Kunde inte hämta ämnen, testa igen", 5000);
     console.log(error);
   }
 };
@@ -24,6 +26,7 @@ export async function checkTopicExists(topicName: string): Promise<boolean> {
     const data: DataSnapshot = await get(dataRef);
     return data.exists();
   } catch (error) {
+    showToast("Kunde inte hitta ämnet, testa igen", 5000);
     console.log(error);
     return false;
   }

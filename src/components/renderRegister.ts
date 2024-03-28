@@ -1,39 +1,41 @@
-import { createUser } from "../services/userService";
+import { createUser, getUserByName } from "../services/userService";
 import { UserType } from "../types/userType";
 import * as formatChecker from "../utils/formatChecker";
 import Navigo from "navigo";
-import { showToast } from "../utils/utils";
+import { showToast, toggleContainer } from "../utils/utils";
 
 import blackPantherImage from "../../public/media/black-panther.png";
 import redPandaImage from "../../public/media/red-panda.png";
 import babirusaImage from "../../public/media/babirusa.png";
+import { renderNav } from "./renderNav";
+import { renderSideNav } from "./renderSideNav";
 
 //Kevin's code
 function registerTemplate() {
   return `
     <div class="register">
-        <h1>Register</h1>
+        <h1>Registrera dig</h1>
         <form>
-          <input type="text" id="regUserName" placeholder="Användarnamn">
+          <input type="text" id="regUserName" placeholder="Användarnamn" autocomplete="off">
           <input type="password" id="regPassword" placeholder="Lösenord">
           <input type="password" id="confirmPassword" placeholder="Bekräfta lösenord">
           <h3 id="regImage">Välj profilbild</h3>
           <div class="imageOptions">
             <label for="image1" class="imageLabel active">
-              <input class="imageRadio" type="radio" id="image1" name="profileImage" value=".media/black-panther.png" checked>
+              <input class="imageRadio" type="radio" id="image1" name="profileImage" value="black-panther" checked>
               <img src="${blackPantherImage}" alt="Profile Image 1">
             </label>
             <label for="image2" class="imageLabel">
-              <input class="imageRadio" type="radio" id="image2" name="profileImage" value="./media/red-panda.png">
+              <input class="imageRadio" type="radio" id="image2" name="profileImage" value="red-panda">
               <img src="${redPandaImage}" alt="Profile Image 2">
             </label>
             <label for="image3" class="imageLabel">
-              <input class="imageRadio" type="radio" id="image3" name="profileImage" value="./media/babirusa.png">
+              <input class="imageRadio" type="radio" id="image3" name="profileImage" value="babirusa">
               <img src="${babirusaImage}" alt="Profile Image 3">
             </label>
           </div>
 
-          <button type="button" id="registerBtn">Registrera</button>
+          <button type="submit" id="registerBtn">Registrera</button>
           <button type="button" id="backBtn">Tillbaka</button>
 
         </form>
@@ -51,7 +53,7 @@ export function renderRegisterForm(router: Navigo): void {
 }
 
 //Kevin's code
-export function registerUser(router: Navigo) {
+export async function registerUser(router: Navigo) {
   const userName: string = (
     document.querySelector("#regUserName") as HTMLInputElement
   ).value;
@@ -81,15 +83,27 @@ export function registerUser(router: Navigo) {
     showToast("Lösenorden matchar inte", 5000);
     return;
   }
+
+  if (await getUserByName(userName)) {
+    showToast("Användarnamnet är redan taget", 5000);
+    return;
+  }
   const newUser: UserType = {
     name: userName,
     password: password,
-    image: selectedImage ? selectedImage.value : "./media/black-panther.png",
+    image: selectedImage ? selectedImage.value : "black-panther",
   };
 
   createUser(newUser)
-    .then(() => router.navigate("/"))
-    .then(() => localStorage.setItem("login", userName));
+    .then(() => localStorage.setItem("login", userName))
+    .then(() => router.navigate(`/user/${userName}`))
+    .then(() => showToast("Användare skapad", 5000))
+    .then(() => renderNav(router))
+    .then(() => renderSideNav(router))
+    .catch((error) => {
+      console.error("Registration error:", error);
+      showToast("Ett fel uppstod under registreringen", 5000);
+    });
 }
 
 //Kevin's code
@@ -123,16 +137,15 @@ export function attachRegisterEvents(router: Navigo): void {
   highlightSelectedImage();
 }
 
+//Kevin's code
 function highlightSelectedImage(): void {
   document
     .querySelectorAll<HTMLInputElement>(".imageRadio")
     .forEach((radio) => {
       radio.addEventListener("change", function () {
-        // Clear 'active' class from all labels
         document.querySelectorAll(".imageLabel").forEach((label) => {
           label.classList.remove("active");
         });
-        // Add 'active' class to this radio button's parent label if it's checked
         if (this.checked) {
           const parentLabel = this.closest(".imageLabel");
           if (parentLabel) {

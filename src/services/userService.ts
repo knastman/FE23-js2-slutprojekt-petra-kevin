@@ -8,8 +8,7 @@ import {
   DataSnapshot,
 } from "firebase/database";
 import { UserType } from "../types/userType";
-import { handleFirebaseError } from "../utils/errorHandler";
-import { FirebaseError } from "firebase/app";
+import { showToast } from "../utils/utils";
 
 // Porpuse: This file has the CRUD operations and sends the data to the database.
 
@@ -24,11 +23,8 @@ export const createUser = async (user: UserType): Promise<any> => {
   try {
     await set(dataRef, user);
   } catch (error) {
-    if (error instanceof FirebaseError) {
-      return handleFirebaseError(error);
-    } else {
-      console.log(error);
-    }
+    showToast("Kunde inte skapa användare, försök igen senare", 5000);
+    console.log(error);
   }
 };
 
@@ -43,11 +39,8 @@ export const getAllUsers = async (): Promise<any> => {
       return;
     }
   } catch (error) {
-    if (error instanceof FirebaseError) {
-      return handleFirebaseError(error);
-    } else {
-      console.log(error);
-    }
+    showToast("Kunde inte hämta alla användare, testa igen", 5000);
+    console.log(error);
   }
 };
 
@@ -60,11 +53,8 @@ export const getUserByName = async (name: string): Promise<any> => {
     const data: DataSnapshot = await get(dataRef);
     return data.val();
   } catch (error) {
-    if (error instanceof FirebaseError) {
-      return handleFirebaseError(error);
-    } else {
-      console.log(error);
-    }
+    showToast("Kunde inte hämta användare, testa igen", 5000);
+    console.log(error);
   }
 };
 
@@ -76,11 +66,8 @@ export const deleteUser = async (name: string): Promise<any> => {
   try {
     await remove(dataRef);
   } catch (error) {
-    if (error instanceof FirebaseError) {
-      return handleFirebaseError(error);
-    } else {
-      console.log(error);
-    }
+    showToast("Kunde inte ta bort användare, testa igen", 5000);
+    console.log(error);
   }
 };
 
@@ -92,19 +79,22 @@ export const updateUser = async (user: UserType): Promise<any> => {
   try {
     await set(dataRef, user);
   } catch (error) {
-    if (error instanceof FirebaseError) {
-      return handleFirebaseError(error);
-    } else {
-      console.log(error);
-    }
+    showToast("Kunde inte uppdatera användare, testa igen", 5000);
+    console.log(error);
   }
 };
 
 //Kevin's code
 async function checkUserExists(name: string): Promise<boolean> {
-  const dataRef: DatabaseReference = ref(db, "users/" + name);
-  const snapshot: DataSnapshot = await get(dataRef);
-  return snapshot.exists() as boolean;
+  try {
+    const dataRef: DatabaseReference = ref(db, "users/" + name);
+    const snapshot: DataSnapshot = await get(dataRef);
+    return snapshot.exists() as boolean;
+  } catch (error) {
+    showToast("Kunde inte hitta användare, testa igen", 5000);
+    console.log(error);
+    return false;
+  }
 }
 
 //Kevin's code
@@ -112,9 +102,14 @@ export async function checkUserNameAndPass(
   inputtedUserName: string,
   inputtedUserPassword: string
 ): Promise<boolean> {
-  const user: UserType = await getUserByName(inputtedUserName);
-
-  const equals = user && user.password === inputtedUserPassword ? true : false;
-
-  return equals as boolean;
+  try {
+    const user: UserType = await getUserByName(inputtedUserName);
+    const equals =
+      user && user.password === inputtedUserPassword ? true : false;
+    return equals as boolean;
+  } catch (error) {
+    showToast("Kunde inte verifiera användare, testa igen", 5000);
+    console.log(error);
+    return false;
+  }
 }

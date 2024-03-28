@@ -10,6 +10,7 @@ import {
   DataSnapshot,
 } from "firebase/database";
 import { checkTopicExists } from "./topicService";
+import { showToast } from "../utils/utils";
 
 //Kevin's code
 export function createNewThread(title: string, userName: string): ThreadType {
@@ -45,6 +46,7 @@ export const getThreadsFromTopic = async (
       return [];
     }
   } catch (error) {
+    showToast("Kunde inte hämta trådar, testa igen", 5000);
     console.log(error);
     return undefined;
   }
@@ -63,7 +65,8 @@ export const addThreadToTopic = async (
     const newThreadRef = await push(dataRef, thread);
     return newThreadRef.key;
   } catch (error) {
-    return error.message;
+    showToast("Kunde inte skapa tråd, testa igen", 5000);
+    return null;
   }
 };
 
@@ -89,6 +92,7 @@ export const removeThread = async (
       }
     }
   } catch (error) {
+    showToast("Kunde inte ta bort tråd, testa igen", 5000);
     console.log(error);
   }
 };
@@ -112,6 +116,7 @@ export const updateThread = async (
       await set(dataRef, newThread);
     }
   } catch (error) {
+    showToast("Kunde inte uppdatera tråd, testa igen", 5000);
     console.log(error);
   }
 };
@@ -135,6 +140,7 @@ export const getThreadById = async (
       return thread;
     }
   } catch (error) {
+    showToast("Kunde inte hämta tråd, testa igen", 5000);
     console.log(error);
   }
 };
