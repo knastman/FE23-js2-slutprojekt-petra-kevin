@@ -1,5 +1,5 @@
 import { checkUserNameAndPass } from "../services/userService";
-import { showToast, toggleContainer } from "../utils/utils";
+import { showToast, toggleContainer, emptyContainer } from "../utils/utils";
 
 import * as formatChecker from "../utils/formatChecker";
 import Navigo from "navigo";
@@ -84,13 +84,7 @@ export function attachLoginEvents(router: Navigo): void {
 export function logoutUser(router: Navigo): void {
   localStorage.removeItem("login");
   router.navigate("/login");
-  const userProfileContainer: HTMLElement | null =
-    document.querySelector(".userProfile");
-  const allUsersContainer: HTMLElement | null =
-    document.querySelector(".allUsers");
-  if (userProfileContainer) userProfileContainer.innerHTML = "";
-  if (allUsersContainer) allUsersContainer.innerHTML = "";
-
+  emptyContainer([".userProfile", ".allUsers", "#topic, #postsUser"]);
   toggleContainer(true, "#loginContainer");
   renderNav(router);
   renderLoginForm(router);

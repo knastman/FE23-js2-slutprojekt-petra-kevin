@@ -80,8 +80,11 @@ function createToastContainer(): HTMLElement {
   return toastContainer;
 }
 
-export const emptyContainer = (container: string) => {
-  const emptied = document.querySelector(container);
-  if (!emptied) return;
-  emptied.innerHTML = "";
+export const emptyContainer = (container: string | string[]) => {
+  const elements = typeof container === "string" ? [container] : container;
+
+  elements.forEach((element) => {
+    const container = document.querySelector(element);
+    if (container) container.innerHTML = "";
+  });
 };

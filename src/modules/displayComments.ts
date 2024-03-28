@@ -1,27 +1,18 @@
-import { CommentType }  from "../types/commentType";
+import { CommentType } from "../types/commentType";
 // import { UserType } from "../types/userType.ts";
 import { formatTimestamp } from "../utils/utils";
 
-
-export type CommentType = {
-  userName: string;
-  comment: string;
-  timeStamp: number;
-  title:string; //Tillägg av petra pga finns med i db. Men titlen ska ju följa med från thread eg? 
-};
-
-export function displayComments(thread: CommentType[]):void{
+export function displayComments(thread: CommentType[]): void {
   console.log(thread);
   console.log(thread.comments);
   const threadComments = thread.comments;
-  
-  for(const comment in threadComments){
+
+  for (const comment in threadComments) {
     // console.log(comment);
     const commentObject = threadComments[comment];
     // console.log(commentObject);
     // displayComment(commentObject);
     displayComment(commentObject);
-
   }
 
   // for(const comment in thread){
@@ -33,11 +24,11 @@ export function displayComments(thread: CommentType[]):void{
   // }
 }
 
-export function displayComment(comment:CommentType):void{
-  const postsContainer = document.querySelector('#posts') as HTMLDivElement;
+export function displayComment(comment: CommentType): void {
+  const postsContainer = document.querySelector("#posts") as HTMLDivElement;
   console.log(postsContainer);
-  postsContainer.classList.remove('hide');
-  
+  postsContainer.classList.remove("hide");
+
   // console.log(comment.userName);
   // const user = comment.userName;
 
@@ -46,41 +37,41 @@ export function displayComment(comment:CommentType):void{
   // console.log(comment.userName);
   // console.log(comment.comment);
   // console.log(comment.timeStamp);
-  
-  const postBox = document.createElement('article'); 
-  postBox.classList.add('post');
 
-  const postHeader = document.createElement('div'); 
-  postHeader.classList.add('postHeader');
-  const postDateContainer = document.createElement('div'); 
-  postDateContainer.classList.add('postDate');
-  const postHeaderSubject = document.createElement('div'); 
-  postHeaderSubject.classList.add('postSubject');
+  const postBox = document.createElement("article");
+  postBox.classList.add("post");
 
-  const postBody = document.createElement('div'); 
-  postBody.classList.add('postBody');
-  
-  const userInfo = document.createElement('div'); 
-  userInfo.classList.add('userInfo');
-  const userName = document.createElement('div'); 
-  userName.classList.add('userName');
-  const userImg = document.createElement('div'); 
-  const userImgSrc = document.createElement('img'); 
-  userImg.classList.add('userImg');
+  const postHeader = document.createElement("div");
+  postHeader.classList.add("postHeader");
+  const postDateContainer = document.createElement("div");
+  postDateContainer.classList.add("postDate");
+  const postHeaderSubject = document.createElement("div");
+  postHeaderSubject.classList.add("postSubject");
 
-  const postTextDiv = document.createElement('div'); 
-  const postText = document.createElement('p'); 
-  postText.classList.add('postText');
+  const postBody = document.createElement("div");
+  postBody.classList.add("postBody");
 
-  const postFooter = document.createElement('div'); 
-  postFooter.classList.add('postFooter');
-  const postFooterDivleft = document.createElement('div'); 
-  const postTopic = document.createElement('span'); 
-  const postSubject = document.createElement('span'); 
-  const postFooterDivRight = document.createElement('div'); 
-  const postFooterRightEdit = document.createElement('span'); 
-  const postFooterRightDelete = document.createElement('span'); 
-  postFooter.classList.add('footerLink');
+  const userInfo = document.createElement("div");
+  userInfo.classList.add("userInfo");
+  const userName = document.createElement("div");
+  userName.classList.add("userName");
+  const userImg = document.createElement("div");
+  const userImgSrc = document.createElement("img");
+  userImg.classList.add("userImg");
+
+  const postTextDiv = document.createElement("div");
+  const postText = document.createElement("p");
+  postText.classList.add("postText");
+
+  const postFooter = document.createElement("div");
+  postFooter.classList.add("postFooter");
+  const postFooterDivleft = document.createElement("div");
+  const postTopic = document.createElement("span");
+  const postSubject = document.createElement("span");
+  const postFooterDivRight = document.createElement("div");
+  const postFooterRightEdit = document.createElement("span");
+  const postFooterRightDelete = document.createElement("span");
+  postFooter.classList.add("footerLink");
 
   postHeaderSubject.innerText = comment.title;
 
@@ -108,10 +99,9 @@ export function displayComment(comment:CommentType):void{
   postText.innerText = comment.comment;
   // postFooterDivleft.innerText = post.topic;
   // postFooterDivleft.innerText = topics.topic;
-  postFooterDivleft.innerText = 'Datorer/IT'; //Hämta dynamiskt
-  postFooterRightEdit.innerText = 'Redigera inlägg';
-  postFooterRightDelete.innerText =  '| Radera inlägg';
-
+  postFooterDivleft.innerText = "Datorer/IT"; //Hämta dynamiskt
+  postFooterRightEdit.innerText = "Redigera inlägg";
+  postFooterRightDelete.innerText = "| Radera inlägg";
 
   postsContainer.append(postBox);
   postBox.append(postHeader, postBody, postFooter);
@@ -125,5 +115,3 @@ export function displayComment(comment:CommentType):void{
   postFooter.append(postFooterDivleft, postFooterDivRight);
   postFooterDivRight.append(postFooterRightEdit, postFooterRightDelete);
 }
-
-

@@ -63,7 +63,7 @@ export const addThreadToTopic = async (
     const newThreadRef = await push(dataRef, thread);
     return newThreadRef.key;
   } catch (error) {
-    return error.message;
+    return null;
   }
 };
 
