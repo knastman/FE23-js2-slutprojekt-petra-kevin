@@ -62,7 +62,7 @@ const renderPublicUserProfile = (user: UserType): string => {
   return `
   <nav class="userMenu">
   <h3>Välkommen till</h3>
-    <h4>${user.name}'s</h4>
+    <h4>${user.name}'s profil</h4>
     <img src="${user.image}" alt="userImage">
     </nav>
   `;

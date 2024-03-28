@@ -49,8 +49,7 @@ async function loginUser(router: Navigo) {
   const loginSuccessful = await checkUserNameAndPass(userName, password);
   if (loginSuccessful) {
     localStorage.setItem("login", userName);
-    console.log("login successful");
-    router.navigate("/");
+    router.navigate(`/user/${userName}`);
     renderNav(router);
     renderSideNav(router);
   } else {

@@ -34,10 +34,6 @@ export function setupRoutes(router: Navigo) {
         if (isLoggedIn()) {
           router.navigate("/");
         } else {
-          const loginContainer = document.querySelector("#loginContainer");
-          if (!loginContainer) {
-            return;
-          }
           toggleContainer(true, "#loginContainer ");
           toggleContainer(false, "#registerContainer");
           displayStartContent();
@@ -48,10 +44,6 @@ export function setupRoutes(router: Navigo) {
         if (isLoggedIn()) {
           router.navigate("/");
         } else {
-          const loginContainer = document.querySelector("#registerContainer");
-          if (!loginContainer) {
-            return;
-          }
           toggleContainer(true, "#registerContainer");
           toggleContainer(false, "#loginContainer");
           toggleContainer(true, "#start");
@@ -64,6 +56,9 @@ export function setupRoutes(router: Navigo) {
           router.navigate("/login");
         } else {
           renderUser(router, params.data.name);
+          toggleContainer(false, "#loginContainer");
+          toggleContainer(false, "#registerContainer");
+          toggleContainer(false, "#start");
         }
       },
     })
