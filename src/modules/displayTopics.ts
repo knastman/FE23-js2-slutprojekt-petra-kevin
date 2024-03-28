@@ -7,9 +7,6 @@ import { ThreadWithId } from "../types/threadType";
 
 const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;
 const topicContainer = document.querySelector('#topic') as HTMLDivElement;
-//Gör än ändring så att det syns
-
-
  
 // export function displayTopics(topics: object):void{
 // export function displayTopicsTitles(topics: TopicType):void{
