@@ -7,7 +7,7 @@ import { ThreadWithId } from '../types/threadType';
 import { isLoggedIn } from '../components/renderLogin';
 import { showToast } from '../utils/utils';
 
-// hejhej
+// hejhejhå
 const topicHeaderContainer = document.querySelector(
   '#topicHeader'
 ) as HTMLDivElement;

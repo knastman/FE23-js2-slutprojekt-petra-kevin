@@ -1,7 +1,7 @@
 import { CommentType } from '../types/commentType';
 // import { UserType } from "../types/userType.ts";
 import { formatTimestamp } from '../utils/utils';
-//hejhej
+//hejhejhå
 export function displayComments(thread: CommentType[]): void {
   console.log(thread);
   console.log(thread.comments);
