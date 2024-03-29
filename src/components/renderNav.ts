@@ -16,7 +16,7 @@ export const renderNav = (router: Navigo): void => {
   <ul class="menu">
     <li><a href="/" data-navigo>Hem</a></li>
     <li><a href="/faq" data-navigo>FAQ</a></li>
-    <li><a href="/kontakt" data-navigo>Kontakta oss</a></li>
+    <li><a href="/kontakt" data-navigo>Kontakt</a></li>
     </ul>`;
 
   userContainer.innerHTML = `${userLinks}`;
