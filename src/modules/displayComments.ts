@@ -1,38 +1,45 @@
+import { TopicType } from "../types/topicType";
+import { ThreadType } from "../types/threadType";
 import { CommentType }  from "../types/commentType";
+import { UserType }  from "../types/userType";
+
+import { getThreadsFromTopic } from "../services/threadService";
+import { getUserByName } from "../services/userService";
+
 // import { UserType } from "../types/userType.ts";
 import { formatTimestamp } from "../utils/utils";
 
-export function displayComments(thread: CommentType[]):void{
-  console.log(thread);
-  console.log(thread.comments);
-  const threadComments = thread.comments;
-  
-  for(const comment in threadComments){
-    // console.log(comment);
-    const commentObject = threadComments[comment];
-    // console.log(commentObject);
-    // displayComment(commentObject);
-    displayComment(commentObject);
+import { showToast } from "../utils/utils";
+import {isLoggedIn } from "../components/renderLogin";
+import { getImagePath } from "../utils/imageIdentifier";
 
+
+
+
+export function displayComments(threadArray: string):void{
+  console.log(threadArray);
+  // const threadComments = threadArray.comments;
+  // const threadText = 
+  for(const threadObject of threadArray){
+  // for(const threadCommentsId in threadId){
+    // console.log(threadObject);// Inte ett object, är 0 elelr 1 osv
+    displayComment(threadObject);
+    
   }
 
-  // for(const comment in thread){
-  //   console.log(comment);
-  //   const commentObject = thread[comment];
-  //   console.log(commentObject);
-  //   // displayComment(commentObject);
-  //   displayComment(comment);
-  // }
 }
+ 
 
-export function displayComment(comment:CommentType):void{
+
+// export function displayComment(comment:CommentType):void{
+export function displayComment(commentId:CommentType):void{
+  console.log(commentId);
+  console.log(commentId.userName);
+  
   const postsContainer = document.querySelector('#posts') as HTMLDivElement;
-  console.log(postsContainer);
+  // console.log(postsContainer);
   postsContainer.classList.remove('hide');
   
-  // console.log(comment.userName);
-  // const user = comment.userName;
-
   // console.log(comment);
   // console.log(comment.title);
   // console.log(comment.userName);
@@ -53,12 +60,12 @@ export function displayComment(comment:CommentType):void{
   postBody.classList.add('postBody');
   
   const userInfo = document.createElement('div');
-  userInfo.classList.add('userInfo');
-  const userName = document.createElement('div');
-  userName.classList.add('userName');
-  const userImg = document.createElement('div'); 
-  const userImgSrc = document.createElement('img'); 
-  userImg.classList.add('userImg');
+  userInfo.classList.add('postUserInfo');
+  const postUserName = document.createElement('div');
+  postUserName.classList.add('postUserName');
+  const postUserImg = document.createElement('div'); 
+  const postUserImgSrc = document.createElement('img'); 
+  postUserImg.classList.add('postUserImg');
 
   const postTextDiv = document.createElement('div'); 
   const postText = document.createElement('p'); 
@@ -74,33 +81,22 @@ export function displayComment(comment:CommentType):void{
   const postFooterRightDelete = document.createElement('span'); 
   postFooter.classList.add('footerLink');
 
-  postHeaderSubject.innerText = comment.title;
+  postHeaderSubject.innerText = commentId.title;
 
-  // const postTimestamp = comment.timeStamp;
-  // let date = new Date(postTimestamp);
-  // const hours = date.getHours().toString().padStart(2, '0');
-  // const minutes = date.getMinutes().toString().padStart(2, '0');
-  // let postTime = `${hours}:${minutes}`;
-  // let postDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-  // // let postdateAndTime = `${hours}:${minutes} | ${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
-  const commentDate = formatTimestamp(comment.timeStamp);
+  const commentDate = formatTimestamp(commentId.timeStamp);
   const time = commentDate.time;
   const date = commentDate.date;
 
-  // let postdateAndTime = `${postTime} | ${postDate}`;
-  let postdateAndTime = `${time}} | ${date}`;
+  let postdateAndTime = `${time} | ${date}`;
 
   postDateContainer.innerText = postdateAndTime;
-  userName.innerText = comment.userName;
-  // userImgSrc.src = post.userImg;
-  // userImgSrc.src = user.image;
-  // if (user.image === undefined){
-  //   userImgSrc.src = './babirusa.png';
-  // }
-  postText.innerText = comment.comment;
+  postUserName.innerText = commentId.userName;
+  postUserImgSrc.src = getImagePath(commentId.userName);
+  postText.innerText = commentId.comment;
   // postFooterDivleft.innerText = post.topic;
   // postFooterDivleft.innerText = topics.topic;
   postFooterDivleft.innerText = 'Datorer/IT'; //Hämta dynamiskt
+  // postFooterDivleft.innerText = Topic; //Hämta dynamiskt
   postFooterRightEdit.innerText = 'Redigera inlägg';
   postFooterRightDelete.innerText =  '| Radera inlägg';
 
@@ -110,8 +106,8 @@ export function displayComment(comment:CommentType):void{
 
   postHeader.append(postDateContainer, postHeaderSubject);
   postBody.append(userInfo, postTextDiv);
-  userInfo.append(userName, userImg);
-  userImg.append(userImgSrc);
+  userInfo.append(postUserName, postUserImg);
+  postUserImg.append(postUserImgSrc);
   postTextDiv.append(postText);
 
   postFooter.append(postFooterDivleft, postFooterDivRight);

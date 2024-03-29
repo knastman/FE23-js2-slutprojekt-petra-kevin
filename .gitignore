@@ -8,7 +8,6 @@ src/modules/.DS_Store
 public/.DS_Store
 src/.DS_Store
 src/services/postService.ts
-src/modules/displayTopics.ts
 
 src/types/postType.ts
 src/services/.DS_Store

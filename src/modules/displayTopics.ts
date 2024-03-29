@@ -1,5 +1,5 @@
 import { TopicType } from "../types/topicType";
-// import { getThreadsFromTopic } from "../services/threadService";
+import { getThreadsFromTopic, getThreadById } from "../services/threadService";
 import { displayThreads } from "../modules/displayThreads";
 // import {isLoggedIn} from "../components/renderlogin";
 import { ThreadType } from "../types/threadType";
@@ -26,11 +26,14 @@ function displayTopicTitle(topic:string):void{
   const topicsContainer = document.querySelector('.topicsMenuWrapper') as HTMLDivElement;
   
   const topicHeaderBox = document.createElement('div'); 
+  // const topicHeaderBoxLink = document.createElement('a'); 
   topicHeaderBox.classList.add('topicMenubox');
   topicHeaderBox.setAttribute('id', topic);
   topicHeaderBox.setAttribute('data-navigo', ''); //Kevins tillägg
   topicHeaderBox.innerText = topic;
+  // topicHeaderBox.innerHTML = `<a href="${topic}" data-navigo>${topic}</a>`;
   topicsContainer.append(topicHeaderBox);
+  // topicHeaderBox.append(topicHeaderBoxLink);
 
   topicHeaderBox.addEventListener('click', (event) => {
 
@@ -48,9 +51,11 @@ function displayTopicTitle(topic:string):void{
     clearTopic();
     topicHeaderContainer.append(topicH2);
 
-    // getThreadsFromTopic(topicChoice)
-    getThreads(topicChoice)
+    getThreadsFromTopic(topicChoice)
+    // getThreads(topicChoice)
     .then(displayThreads);
+    
+
 
     // if (isLoggedIn()) {
     //   getThreads(topicChoice).then(displayThreads);
@@ -71,20 +76,20 @@ function displayTopicTitle(topic:string):void{
 **********************************/
 
 //Petra's code  //Tillfälligt för test
-async function getThreads(threadTopic:string): Promise<ThreadType[]>{
-  const baseUrl = 'https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app/';
-  const topicUrl = `/topics/${threadTopic}/threads`;
-  const url = baseUrl + topicUrl + '.json';
-  console.log(url);
+// async function getThreads(threadTopic:string): Promise<ThreadType[]>{
+//   const baseUrl = 'https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app/';
+//   const topicUrl = `/topics/${threadTopic}/threads`;
+//   const url = baseUrl + topicUrl + '.json';
+//   console.log(url);
   
 
 
-  const res = await fetch(url);
-  const thread = await res.json();
-  console.log(thread);
+//   const res = await fetch(url);
+//   const thread = await res.json();
+//   console.log(thread);
 
-  return thread as ThreadType[];
-}
+//   return thread as ThreadType[];
+// }
 
 
 /*********************************
@@ -96,8 +101,10 @@ function clearTopic():void{
   topicContainer.classList.add('flex');
   const postsContainer = document.querySelector('#posts') as HTMLDivElement;
   const postsUserContainer = document.querySelector('#postsUser') as HTMLDivElement;
+  const mainUserProfile = document.querySelector('#mainUserProfile') as HTMLDivElement;
   const subjects = document.querySelector('.subjects') as HTMLDivElement;
 
+  mainUserProfile.innerHTML = '';
   postsContainer.innerHTML = '';
   postsUserContainer.innerHTML = '';
   subjects.innerHTML = '';
