@@ -84,12 +84,26 @@ a:hover{
 
 input{
   font-family: var(--main-font);
-  padding:2px;
+  padding:3px;
 }
 
 #search input{
   font-family: var(--main-font);
   width:250px;
+}
+
+.searchIcon {
+  /* display:inline-block; */
+  position: relative;
+}
+
+.searchIcon:after {
+  font-family: 'FontAwesome';
+  content: '\f002';
+  position: absolute;
+  right: 6px;
+  margin-top:-24px;
+  color:#0F2027;
 }
 
 button{
@@ -98,12 +112,9 @@ button{
   background-color: #fff;;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: .35rem;
-  align-self:flex-end;
+  /* align-self:flex-end; */
 }
 
-ul a .active {
-  font-weight: 700;
-} 
 
 
 /****** Header & Menu *******/
@@ -159,6 +170,11 @@ header a{
   text-decoration: underline;
 }
 
+ul a .active {
+  font-weight: 700;
+} 
+
+
 .search{
   display:flex;
   justify-content: space-between;
@@ -211,7 +227,8 @@ main{
 
 #start{
   margin:0 auto;
-  width: 95%;
+  width: 80%;
+  max-width:800px;
   text-align: center;
 }
 
@@ -291,9 +308,12 @@ aside{
     width:150px;
     width:50%;
   }
+
   #search input{
     width:150px;
   }
+
+
 
   #topMenuUser{
     font-size:0.9rem;
