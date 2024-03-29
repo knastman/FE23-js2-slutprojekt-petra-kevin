@@ -16,14 +16,16 @@ import { getImagePath } from "../utils/imageIdentifier";
 
 
 
-export function displayComments(threadArray: string):void{
+export function displayComments(threadArray: CommentType[]):void{
   console.log(threadArray);
   // const threadComments = threadArray.comments;
   // const threadText = 
-  for(const threadObject of threadArray){
+  for(const commentObject of threadArray){
   // for(const threadCommentsId in threadId){
     // console.log(threadObject);// Inte ett object, är 0 elelr 1 osv
-    displayComment(threadObject);
+    console.log(commentObject);
+  
+    displayComment(commentObject);
     
   }
 
@@ -32,10 +34,9 @@ export function displayComments(threadArray: string):void{
 
 
 // export function displayComment(comment:CommentType):void{
-export function displayComment(commentId:CommentType):void{
-  console.log(commentId);
-  console.log(commentId.userName);
-  
+export function displayComment(comment:CommentType):void{
+  console.log(comment);
+
   const postsContainer = document.querySelector('#posts') as HTMLDivElement;
   // console.log(postsContainer);
   postsContainer.classList.remove('hide');
@@ -81,18 +82,18 @@ export function displayComment(commentId:CommentType):void{
   const postFooterRightDelete = document.createElement('span'); 
   postFooter.classList.add('footerLink');
 
-  postHeaderSubject.innerText = commentId.title;
+  postHeaderSubject.innerText = comment.title;
 
-  const commentDate = formatTimestamp(commentId.timeStamp);
+  const commentDate = formatTimestamp(comment.timeStamp);
   const time = commentDate.time;
   const date = commentDate.date;
 
   let postdateAndTime = `${time} | ${date}`;
 
   postDateContainer.innerText = postdateAndTime;
-  postUserName.innerText = commentId.userName;
-  postUserImgSrc.src = getImagePath(commentId.userName);
-  postText.innerText = commentId.comment;
+  postUserName.innerText = comment.userName;
+  postUserImgSrc.src = getImagePath(comment.userName);
+  postText.innerText = comment.comment;
   // postFooterDivleft.innerText = post.topic;
   // postFooterDivleft.innerText = topics.topic;
   postFooterDivleft.innerText = 'Datorer/IT'; //Hämta dynamiskt

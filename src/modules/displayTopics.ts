@@ -35,7 +35,10 @@ function displayTopicTitle(topic:string):void{
   topicsContainer.append(topicHeaderBox);
   // topicHeaderBox.append(topicHeaderBoxLink);
 
+
+
   topicHeaderBox.addEventListener('click', (event) => {
+    console.log(topic);
 
     if (!isLoggedIn()) {
       showToast('Du måste vara inloggad för att se inlägg!');
