@@ -83,7 +83,7 @@ export function attachLoginEvents(router: Navigo): void {
 export function logoutUser(router: Navigo): void {
   localStorage.removeItem("login");
   router.navigate("/login");
-  emptyContainer([".userProfile", ".allUsers", "#topic, #postsUser"]);
+  emptyContainer([".sideUserProfile", ".allUsers", "#topic, #postsUser"]);
   toggleContainer(true, "#loginContainer");
   renderNav(router);
   renderLoginForm(router);
