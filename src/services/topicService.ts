@@ -1,21 +1,24 @@
 // Data managetment and APi calls for forum data
+import { TopicType } from "../types/topicType";
 import { showToast } from "../utils/utils";
 import { db } from "./firebaseConfig";
 import { ref, get, DatabaseReference, DataSnapshot } from "firebase/database";
 
 //Kevin's code
-export const getTopics = async (): Promise<void> => {
+// Returns all topics as an object with topic names as keys
+export const getTopics = async (): Promise<{[key:string]: TopicType}> => {
   const dataref: DatabaseReference = ref(db, "topics");
   try {
     const data: DataSnapshot = await get(dataref);
     if (data.exists()) {
       return data.val();
     } else {
-      return;
+      return {};
     }
   } catch (error) {
     showToast("Kunde inte hämta ämnen, testa igen", 5000);
     console.log(error);
+    return {};
   }
 };
 

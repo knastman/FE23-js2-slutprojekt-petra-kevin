@@ -2,7 +2,7 @@ import { getUserByName } from "../services/userService";
 import { isLoggedIn, getLoggedInUser, logoutUser } from "./renderLogin";
 import { UserType } from "../types/userType";
 import Navigo from "navigo";
-import { showToast, toggleContainer, emptyContainer } from "../utils/utils";
+import { showToast, toggleContainer } from "../utils/utils";
 import { getImagePath } from "../utils/imageIdentifier";
 
 // Kevin's code
@@ -11,7 +11,7 @@ export const renderUser = async (
   router: Navigo,
   userName: string
 ): Promise<void> => {
-  const userProfileContainer = document.querySelector(".userProfile");
+  const userProfileContainer = document.querySelector(".sideUserProfile");
   if (!userProfileContainer) {
     showToast("Det blev fel, försök igen", 5000);
     return;
@@ -29,11 +29,7 @@ export const renderUser = async (
       showToast("Användaren finns inte", 5000);
       return;
     }
-
-    userProfileContainer.innerHTML =
-      loggedInuser === userName
-        ? renderLoggedInUser(user)
-        : renderPublicUserProfile(user);
+    userProfileContainer.innerHTML = renderLoggedInUser(user);
 
     attachLinkEvents(router);
   } catch (error) {
@@ -57,16 +53,6 @@ const renderLoggedInUser = (user: UserType): string => {
   `;
 };
 
-const renderPublicUserProfile = (user: UserType): string => {
-  user.image = getImagePath(user.image);
-  return `
-  <nav class="userMenu">
-  <h3>Välkommen till</h3>
-    <h4>${user.name}'s profil</h4>
-    <img src="${user.image}" alt="userImage">
-    </nav>
-  `;
-};
 
 const attachLinkEvents = (router: Navigo) => {
   const logoutButton = document.querySelector("#logout") as HTMLButtonElement;
@@ -74,5 +60,7 @@ const attachLinkEvents = (router: Navigo) => {
   logoutButton.addEventListener("click", (e) => {
     e.preventDefault();
     logoutUser(router);
+    toggleContainer(true, "#loginContainer");
+    toggleContainer(false, "#editUserContainer");
   });
 };
