@@ -9,7 +9,7 @@ import { getImagePath } from "../utils/imageIdentifier";
 
 const postsContainer = document.querySelector('#posts') as HTMLDivElement;
 
-function displayThreadPost(thread: ThreadType, topic:string): void {
+function displayThreadPost(thread: ThreadWithId, topic:string): void {
   clearPosts()
   const dateTime = formatTimestamp(thread.date);
   const imgUrl = getImagePath(thread.user);
@@ -20,7 +20,7 @@ function displayThreadPost(thread: ThreadType, topic:string): void {
   postBox.innerHTML = `
     <div class="postHeader">
         <div class="postDate">${dateTime.date} | ${dateTime.time}</div>
-        <div class="postSubject"><a href="/topic/${thread.title}" data-navigo>${thread.title}</a></div>
+        <div class="postSubject"><a href="/topic/thread/${thread.id}" data-navigo>${thread.title}</a></div>
     </div>
     <div class="postBody">
       <div class="postUserInfo">
@@ -37,7 +37,7 @@ function displayThreadPost(thread: ThreadType, topic:string): void {
     </div>
     <div class="postFooter">
       <div>
-        <span class="postTopic"><a href="/topic/${thread.title}">${topic}</a></span>
+        <span class="postTopic" data-navigo><a href="/topic/${topic}">${topic}</a></span>
       </div>
       <div>
         <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
@@ -52,11 +52,11 @@ export function displayComments(threadArray: CommentType[], threadObject:ThreadT
   displayThreadPost(threadObject, topic);
 
   for(const commentObject of threadArray){
-    displayComment(commentObject);  
+    displayComment(commentObject, topic);  
   }
 }
  
-export function displayComment(comment:CommentType):void{
+export function displayComment(comment:CommentType, topic:string):void{
   postsContainer.classList.remove('hide');
   
   const postBox = document.createElement('article'); 
@@ -88,6 +88,7 @@ export function displayComment(comment:CommentType):void{
   postFooter.classList.add('postFooter');
   const postFooterDivleft = document.createElement('div'); 
   const postTopic = document.createElement('span'); 
+  postTopic.classList.add('postTopic');
   const postSubject = document.createElement('span'); 
   const postFooterDivRight = document.createElement('div'); 
   const postFooterRightEdit = document.createElement('span'); 
@@ -95,35 +96,27 @@ export function displayComment(comment:CommentType):void{
   postFooter.classList.add('footerLink');
 
   postHeaderSubject.innerText = comment.title;
-
   const commentDate = formatTimestamp(comment.timeStamp);
   const time = commentDate.time;
   const date = commentDate.date;
-
   let postdateAndTime = `${time} | ${date}`;
-
   postDateContainer.innerText = postdateAndTime;
   postUserName.innerText = comment.userName;
   postUserImgSrc.src = getImagePath(comment.userName);
   postText.innerText = comment.comment;
-  // postFooterDivleft.innerText = post.topic;
-  // postFooterDivleft.innerText = topics.topic;
-  postFooterDivleft.innerText = 'Datorer/IT'; //Hämta dynamiskt
-  // postFooterDivleft.innerText = topic; //Hämta dynamiskt
+  postTopic.innerText = topic;
   postFooterRightEdit.innerText = 'Redigera inlägg';
   postFooterRightDelete.innerText =  '| Radera inlägg';
 
-
   postsContainer.append(postBox);
   postBox.append(postHeader, postBody, postFooter);
-
   postHeader.append(postDateContainer, postHeaderSubject);
   postBody.append(userInfo, postTextDiv);
   userInfo.append(postUserName, postUserImg);
   postUserImg.append(postUserImgSrc);
   postTextDiv.append(postText);
-
   postFooter.append(postFooterDivleft, postFooterDivRight);
+  postFooterDivleft.append(postTopic);
   postFooterDivRight.append(postFooterRightEdit, postFooterRightDelete);
 }
 
