@@ -1,13 +1,10 @@
 import { CommentType }  from "../types/commentType";
-// import { UserType } from "../types/userType.ts";
 import { ThreadType, ThreadWithId } from "../types/threadType";
-// import { ThreadWithId } from "../types/threadType";
 import { displayComments, clearPosts } from "./displayComments";
-import { getThreadsFromTopic, getThreadById } from "../services/threadService";
 import { getAllCommentsFromThread } from "../services/commentService";
 
 import { showToast } from "../utils/utils";
-import {isLoggedIn } from "../components/renderLogin";
+import { isLoggedIn } from "../components/renderLogin";
 
 /*********************************
   Display Threads in Topic
@@ -23,8 +20,6 @@ export function displayThreads(topic:string, threads: ThreadWithId[]):void{
     const threadObject = threads[thread];
     const threadText = threadObject.postText;
     const threadId = threadObject.id;
-    // console.log(threadId);
-    // getThreadById(threadId, topicName);
     displayThread(threadObject, threadId, topic); 
   }
 }
@@ -34,13 +29,6 @@ let threadText='';
 
 
 function displayThread(thread:ThreadType, threadId:string, topic:string):void{  
-  // console.log(threadId);
-  // const url = 
-
-  // console.log(thread);
-  
-  
-  // const threadsContainer = document.querySelector('.subjects') as HTMLDivElement;
   const subjectBox = document.createElement('div');
   const subjectTitle = document.createElement('h4');
   subjectTitle.setAttribute('id', threadId);
@@ -51,7 +39,6 @@ function displayThread(thread:ThreadType, threadId:string, topic:string):void{
   threadText = thread.postText;
   
   subjectIncipient.innerText = threadText.slice(0, 50) + '...';
-  // postUser.innerText = post.userName;
 
   threadsContainer.append(subjectBox);
   subjectBox.append(subjectTitle, subjectIncipient );
@@ -70,44 +57,12 @@ function displayThread(thread:ThreadType, threadId:string, topic:string):void{
     }
   
     const threadId = ((event.target as HTMLInputElement).id);
-    // console.log(thread);
-    
-    // console.log(threadId);
-    // console.log(thread.postText);
-    // console.log(getThreadById(threadId));
 
-
-
-    // getThreadById(threadId, topicName)
-    // .then(displayThreadText); 
-    
-    // console.log(threadChoice); //Nummer på vilken thread
-    // console.log(threadId;)
-    
-    // const threadH2 = document.createElement('h2'); 
-    // threadH2.innerText = thread.title;
-    // clearThread();
-    // postsContainer.append(threadH2);
-  
-    // getComments('Resor', threadId) //Fixa in så att topic följer med hit
     getAllCommentsFromThread(topic, threadId)
-    // .then(displayComments);
     .then(threads => displayComments(threads, thread, topic)); 
   
   });
 }
-// function displayThreadText(threadId){
-//   console.log(threadId);
- 
-// }
-
-
-// const postsContainer = document.querySelector('#posts') as HTMLDivElement;
-// function clearPosts():void{
-
-//   postsContainer.innerHTML = '';
-
-// }
 
 
 
