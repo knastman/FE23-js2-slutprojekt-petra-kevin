@@ -54,9 +54,13 @@ function displayTopicTitle(topic:string):void{
     clearTopic();
     topicHeaderContainer.append(topicH2);
 
+    // getThreadsFromTopic(topicChoice)
+    // // getThreads(topicChoice)
+    // .then(displayThreads);
+
+
     getThreadsFromTopic(topicChoice)
-    // getThreads(topicChoice)
-    .then(displayThreads);
+    .then(threads => displayThreads(topicChoice, threads));
     
 
 

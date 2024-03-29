@@ -1,51 +1,63 @@
-import { TopicType } from "../types/topicType";
 import { ThreadType } from "../types/threadType";
 import { CommentType }  from "../types/commentType";
-import { UserType }  from "../types/userType";
 
-import { getThreadsFromTopic } from "../services/threadService";
-import { getUserByName } from "../services/userService";
-
-// import { UserType } from "../types/userType.ts";
 import { formatTimestamp } from "../utils/utils";
 
 import { showToast } from "../utils/utils";
-import {isLoggedIn } from "../components/renderLogin";
+import { isLoggedIn } from "../components/renderLogin";
 import { getImagePath } from "../utils/imageIdentifier";
 
+const postsContainer = document.querySelector('#posts') as HTMLDivElement;
 
-
-
-export function displayComments(threadArray: CommentType[]):void{
-  console.log(threadArray);
-  // const threadComments = threadArray.comments;
-  // const threadText = 
-  for(const commentObject of threadArray){
-  // for(const threadCommentsId in threadId){
-    // console.log(threadObject);// Inte ett object, är 0 elelr 1 osv
-    console.log(commentObject);
-  
-    displayComment(commentObject);
-    
-  }
+function displayThreadPost(thread: ThreadType, topic:string): void {
+  clearPosts()
+  const dateTime = formatTimestamp(thread.date);
+  const imgUrl = getImagePath(thread.user);
+  const postBox = document.createElement('article'); 
+  postBox.classList.add('post');
+  const threadHeader = document.createElement('h2'); 
+  threadHeader.innerText = thread.title;
+  postBox.innerHTML = `
+    <div class="postHeader">
+        <div class="postDate">${dateTime.date} | ${dateTime.time}</div>
+        <div class="postSubject"><a href="/topic/${thread.title}" data-navigo>${thread.title}</a></div>
+    </div>
+    <div class="postBody">
+      <div class="postUserInfo">
+          <div class="postUserName">
+            ${thread.user}
+          </div>
+          <div class="postUserImg">
+            <img src="${imgUrl}" alt="userImage">
+          </div>
+      </div>
+      <div class="postText">
+        <p>${thread.postText}</p>
+      </div>
+    </div>
+    <div class="postFooter">
+      <div>
+        <span class="postTopic"><a href="/topic/${thread.title}">${topic}</a></span>
+      </div>
+      <div>
+        <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
+      </div>
+    </div>
+`;
+  postsContainer.append(threadHeader, postBox);
 
 }
+
+export function displayComments(threadArray: CommentType[], threadObject:ThreadType, topic:string):void{
+  displayThreadPost(threadObject, topic);
+
+  for(const commentObject of threadArray){
+    displayComment(commentObject);  
+  }
+}
  
-
-
-// export function displayComment(comment:CommentType):void{
 export function displayComment(comment:CommentType):void{
-  console.log(comment);
-
-  const postsContainer = document.querySelector('#posts') as HTMLDivElement;
-  // console.log(postsContainer);
   postsContainer.classList.remove('hide');
-  
-  // console.log(comment);
-  // console.log(comment.title);
-  // console.log(comment.userName);
-  // console.log(comment.comment);
-  // console.log(comment.timeStamp);
   
   const postBox = document.createElement('article'); 
   postBox.classList.add('post');
@@ -97,7 +109,7 @@ export function displayComment(comment:CommentType):void{
   // postFooterDivleft.innerText = post.topic;
   // postFooterDivleft.innerText = topics.topic;
   postFooterDivleft.innerText = 'Datorer/IT'; //Hämta dynamiskt
-  // postFooterDivleft.innerText = Topic; //Hämta dynamiskt
+  // postFooterDivleft.innerText = topic; //Hämta dynamiskt
   postFooterRightEdit.innerText = 'Redigera inlägg';
   postFooterRightDelete.innerText =  '| Radera inlägg';
 
@@ -113,6 +125,12 @@ export function displayComment(comment:CommentType):void{
 
   postFooter.append(postFooterDivleft, postFooterDivRight);
   postFooterDivRight.append(postFooterRightEdit, postFooterRightDelete);
+}
+
+
+
+export function clearPosts():void{
+  postsContainer.innerHTML = '';
 }
 
 
