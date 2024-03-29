@@ -79,8 +79,8 @@
   font-size: 1.2em;
   margin:0 7px 0 5px;
   color:#134E5E;
-  content: "\f075"; /* Comment */
-  content: "\f086"; /* Comments */
+  content: "\f075"; 
+  content: "\f086"; 
 }
 
 .subjects{
@@ -199,10 +199,20 @@
   display: flex;
   
 }
+
 .postUserInfo{
   width:150px;
+  background-color: #ffffff7e;
+  /* background-color: #0000000e; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap:10px;
+  width: 120px;
   padding:10px;
 }
+
 
 .postUserName{
   padding:0 30px 0 30px;
