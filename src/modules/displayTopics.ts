@@ -68,30 +68,6 @@ function displayTopicTitle(topic:string):void{
 }
 
 
-
-
-
-/*********************************
-  Get threads OBS TILLFÄLLIG GET 
-**********************************/
-
-//Petra's code  //Tillfälligt för test
-// async function getThreads(threadTopic:string): Promise<ThreadType[]>{
-//   const baseUrl = 'https://fe23-slutprojekt-userdb-default-rtdb.europe-west1.firebasedatabase.app/';
-//   const topicUrl = `/topics/${threadTopic}/threads`;
-//   const url = baseUrl + topicUrl + '.json';
-//   console.log(url);
-  
-
-
-//   const res = await fetch(url);
-//   const thread = await res.json();
-//   console.log(thread);
-
-//   return thread as ThreadType[];
-// }
-
-
 /*********************************
  Clear before display
 **********************************/
@@ -111,63 +87,6 @@ function clearTopic():void{
   topicHeaderContainer.innerHTML = '';
 }
 
-
-
-// export function displayComment(comment:CommentType):void{
-//   console.log(comment);
-//   console.log(comment.title);
-//   console.log(comment.id);
-//   console.log(comment[0].comments[0]);
-  
-//   console.log('inne i threads');
-  
-//   const threadsContainer = document.querySelector('.subjects') as HTMLDivElement;
-//   const subjectBox = document.createElement('div');
-//   const subjectTitle = document.createElement('h4');
-//   const subjectIncipient= document.createElement('p');
-//   const postUser = document.createElement('p')
-
-//   subjectTitle.innerText = thread.title;
-//   // subjectIncipient.innerText = post.comment.slice(0, 50) + '...';
-//   // postUser.innerText = post.userName;
-
-//   threadsContainer.append(subjectBox);
-//   subjectBox.append(subjectTitle, subjectIncipient );
-
-//   // for(const comment in comments){
-//   //   console.log(thread);
-//   //   const threadObject = threads[thread];
-//   //   const threadComments = threads[thread].comments;
-//   //   console.log(threadComments);
-//   //   console.log(threadObject.comments);
-//   //   // displayThread(threadObject);    
-//   // }
-// }
-
-
-
-/*********************************
-  Display Subjects in Topic
-**********************************/
-
-// export function displaySubjects(post:CommentType):void{
-//   console.log('inne i subject');
-  
-//   const subjectsContainer = document.querySelector('.subjects') as HTMLDivElement;
-//   const subjectBox = document.createElement('div');
-//   const subjectTitle = document.createElement('h4');
-//   const subjectIncipient= document.createElement('p');
-//   const postUser = document.createElement('p')
-
-//   subjectTitle.innerText = post.title;
-//   subjectIncipient.innerText = post.comment;
-//   subjectIncipient.innerText = post.comment.slice(0, 50) + '...';
-//   // postUser.innerText = post.userName;
-
-//   subjectsContainer.append(subjectBox);
-//   subjectBox.append(subjectTitle, subjectIncipient );
-
-// }
 
 
 

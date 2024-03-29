@@ -58,10 +58,10 @@ threadsContainer.addEventListener('click', (event) => {
   event.preventDefault();
   clearPosts();
 
-  // if (!isLoggedIn()) {
-  //   showToast('Du måste vara inloggad för att se inlägg!');
-  //   return;
-  // }
+  if (!isLoggedIn()) {
+    showToast('Du måste vara inloggad för att se inlägg!');
+    return;
+  }
 
   const threadId = ((event.target as HTMLInputElement).id);
   // console.log(threadChoice); //Nummer på vilken thread
