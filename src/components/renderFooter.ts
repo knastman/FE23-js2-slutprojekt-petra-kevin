@@ -2,20 +2,11 @@ export const renderFooter = (): void => {
   const footerContainer = document.querySelector(".mainFooter") as HTMLElement;
   if (!footerContainer) return;
   const footerContent = `
-    <ul class="footerMenu">
-      <li>
-        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-      </li>
-      <li>
-        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-      </li>
-      <li>
-        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-      </li>
-      <li>
-        <a href="#"><i class="fa-brands fa-github"></i></a>
-      </li>
-    </ul>
+  <ul class="footerMenu">
+    <li><a href="#">Om Omnitalk</a></li>
+    <li><a href="#">Cookies</a></li>
+    <li><a href="#">Integritet</a></li>
+  </ul>
     &copy; Omnitalk
   `;
 
