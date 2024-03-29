@@ -11,6 +11,31 @@
   flex-direction: column;
   text-align: center;
   gap:10px;
+  margin-bottom:25px;
+  
+  
+}
+
+.profile{
+  margin:0 auto;
+  width: 70%;
+  max-width:800px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap:30px;
+  background-color: #134e5e0a;
+  padding:30px;
+
+
+}
+#userProfile h2{
+  width: 100%;
+  color: #17868a;
+  font-size: 1.3rem;
+  margin-bottom:25px;
 }
 
 .userMenu ul{
@@ -20,6 +45,7 @@
   width:155px;
   margin:0 auto;
   text-align: left;
+  margin-bottom:20px;
 }
 
 aside .menu > li a{
@@ -30,10 +56,6 @@ aside .menu > li a{
   color:#000;
   /* color:#fff; */
 }
-
-/* .userMenu h3{
-  text-transform: uppercase;
-} */
 
 .userMenu h4{
   margin-bottom:15px;
@@ -66,17 +88,7 @@ aside .menu > li a{
   font-weight: 700;
 } */
 
-.userInfo{
-  background-color: #ffffff7e;
-  /* background-color: #0000000e; */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap:10px;
-  width: 120px;
-  padding:5px;
-}
+
 
 .userMenu form {
   display: grid;
@@ -107,20 +119,52 @@ aside .menu > li a{
 
 /****** Users *******/
 
-.users {
+.userList {
   padding-top:15px;
-  border-top:1px solid #ccc;
   width:85%;
   margin:25px auto;
 }
 
-.users .menu{
+/* .users .menu{
   display: flex;
   flex-direction: column;
+} */
+
+/* .users .menu li{
+  margin-bottom:10px;
+} */
+
+.allUsers h3{
+  margin-bottom:15px;
+  font-size:1rem;
 }
 
-.users h3{
-  margin-bottom:10px;
+.allUsers ul li::before {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block; 
+  text-rendering: auto;
+  font-variant: normal;
+  line-height: 1;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 0.9em;
+  margin:0 7px 0 5px;
+  color:#134E5E;
+  content: "\f007"; 
+}
+
+.userList{
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  gap:3px;
+  margin: 0;
+  padding: 0
+}
+
+.userList > li a:hover{
+  text-decoration: underline;
 }
 
 
