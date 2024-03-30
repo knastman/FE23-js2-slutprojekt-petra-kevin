@@ -3,7 +3,7 @@ import { displayTopicsTitles } from "./modules/displayTopics";
 import { displayStartContent } from "./modules/displayStartContent";
 // import { displayPageInfo } from "./modules/displayInfoPages.ts";
 import { getAllUsers, createUser } from "./services/userService";
-import { attachRegisterEvents } from "./components/renderRegister.js";
+// import { attachRegisterEvents } from "./components/renderRegister.js";
 
 ///////////////////////////////////
 

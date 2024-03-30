@@ -1,18 +1,12 @@
 import { isLoggedIn } from "../components/renderLogin";
 
 const startContainer = document.querySelector("#start") as HTMLDivElement;
-const loginContainer = document.querySelector(
-  "#loginContainer"
-) as HTMLDivElement;
-const registerContainer = document.querySelector(
-  "#registerContainer"
-) as HTMLDivElement;
+const loginContainer = document.querySelector("#loginContainer") as HTMLDivElement;
+const registerContainer = document.querySelector("#registerContainer") as HTMLDivElement;
 
 const topicContainer = document.querySelector("#topic") as HTMLDivElement;
 const postsContainer = document.querySelector("#posts") as HTMLDivElement;
-const postsUserContainer = document.querySelector(
-  "#postsUser"
-) as HTMLDivElement;
+const postsUserContainer = document.querySelector("#postsUser") as HTMLDivElement;
 
 const asideContent = document.querySelector(".mainAside") as HTMLDivElement;
 const asideH3 = document.querySelector(".mainAside h3") as HTMLDivElement;

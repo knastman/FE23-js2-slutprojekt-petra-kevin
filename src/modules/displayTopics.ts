@@ -19,47 +19,39 @@ export function displayTopicsTitles(topics: any):void{
 
 function displayTopicTitle(topic:string):void{
   const topicsContainer = document.querySelector('.topicsMenuWrapper') as HTMLDivElement;
-  const topicHeaderBox = document.createElement('div'); 
+  const topicHeaderBox = document.createElement('div');
   topicHeaderBox.classList.add('topicMenubox');
-  topicHeaderBox.setAttribute('id', topic);
-  topicHeaderBox.setAttribute('data-navigo', ''); //Kevins tillägg
-  topicHeaderBox.innerText = topic;
+  const topicHeaderBoxLink = document.createElement('a'); 
+  topicHeaderBoxLink.setAttribute('id', topic);
+  topicHeaderBoxLink.setAttribute('href', `/topic/${topic}`);        
+  topicHeaderBoxLink.setAttribute('data-navigo', '');   
+
+  topicHeaderBoxLink.innerText = topic;
   // topicHeaderBox.innerHTML = `<a href="${topic}" data-navigo>${topic}</a>`;
   topicsContainer.append(topicHeaderBox);
-  // topicHeaderBox.append(topicHeaderBoxLink);
+  topicHeaderBox.append(topicHeaderBoxLink);
 
-
-
-  topicHeaderBox.addEventListener('click', (event) => {
+  topicHeaderBoxLink.addEventListener('click', (event) => {
     event.preventDefault();
 
-    const topicChoice = ((event.target as HTMLInputElement).id);
-    const topicH2 = document.createElement('h2'); 
-    topicH2.innerText = topic;
-    clearAll();
-    topicHeaderContainer.append(topicH2);
+    // getThreadsFromTopic(topicChoice)
+    // .then(threads => displayThreads(topicChoice, threads)); 
 
-    if (!isLoggedIn()) {
+    if (isLoggedIn()) {
+      const topicChoice = ((event.target as HTMLInputElement).id);
+      const topicH2 = document.createElement('h2'); 
+      topicH2.innerText = topic;
+      clearAll();
+      topicHeaderContainer.append(topicH2);
+
+      getThreadsFromTopic(topicChoice)
+      .then(threads => displayThreads(topicChoice, threads)); 
+
+    } 
+    else {
       showToast('Du måste vara inloggad för att se inlägg!');
       return;
-    } //Kevins tillägg
-
-    // getThreadsFromTopic(topicChoice)
-    // // getThreads(topicChoice)
-    // .then(displayThreads);
-
-
-    getThreadsFromTopic(topicChoice)
-    .then(threads => displayThreads(topicChoice, threads)); 
-    
-
-
-    // if (isLoggedIn()) {
-    //   getThreads(topicChoice).then(displayThreads);
-    // } 
-    // else {
-    //   console.log('Du måste vara inloggad för att se inlägg!');
-    // }
+    }
 
   });
 }
