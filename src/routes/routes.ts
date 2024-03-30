@@ -23,7 +23,9 @@ export function setupRoutes(router: Navigo) {
       },
       "/user/:name/edit": (params: RouteParams) => { handleEditUserProfileRoute(router, params); 
       },
-
+      // "/topic/:title/": () => { 
+      //   console.log('info');
+      // },
     })
     .notFound(() => {
       router.navigate("/");

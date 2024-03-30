@@ -5,9 +5,12 @@ import { displayThreads } from "../modules/displayThreads";
 import { showToast } from "../utils/utils";
 import { isLoggedIn } from "../components/renderLogin";
 
+
+//Petra's code
 const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;
 const topicContainer = document.querySelector('#topic') as HTMLDivElement;
  
+//Petra's code
 // export function displayTopicsTitles(topics: TopicType):void{
 export function displayTopicsTitles(topics: any):void{
   for(const topic in topics){
@@ -17,6 +20,7 @@ export function displayTopicsTitles(topics: any):void{
   }
 }
 
+//Petra's code
 function displayTopicTitle(topic:string):void{
   const topicsContainer = document.querySelector('.topicsMenuWrapper') as HTMLDivElement;
   const topicHeaderBox = document.createElement('div');
@@ -61,6 +65,7 @@ function displayTopicTitle(topic:string):void{
  Clear before display
 **********************************/
 
+//Petra's code
 function clearAll():void{
   topicContainer.classList.remove('hide');
   topicContainer.classList.add('flex');

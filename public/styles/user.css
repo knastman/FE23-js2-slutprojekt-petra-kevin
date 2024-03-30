@@ -5,18 +5,7 @@
   flex-direction: column;
 }
 
-.userMenu{
-  font-size: 1rem;
-  display:flex;
-  flex-direction: column;
-  text-align: center;
-  gap:10px;
-  margin-bottom:25px;
-  
-  
-}
-
-.profile{
+.profile, .userProfile{
   margin:0 auto;
   width: 70%;
   max-width:800px;
@@ -28,13 +17,25 @@
   gap:30px;
   background-color: #134e5e0a;
   padding:30px;
-
-
 }
-#userProfile h2{
+
+#userProfile h2, #mainUserProfile h2{
   width: 100%;
   color: #17868a;
   font-size: 1.3rem;
+  margin-bottom:25px;
+}
+
+#userProfile img, #mainUserProfile img{
+  max-width: 200px;;
+}
+
+.userMenu{
+  font-size: 1rem;
+  display:flex;
+  flex-direction: column;
+  text-align: center;
+  gap:10px;
   margin-bottom:25px;
 }
 

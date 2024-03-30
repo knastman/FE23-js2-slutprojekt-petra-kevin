@@ -1,4 +1,5 @@
 import { ThreadWithId } from '../types/threadType';
+import { TopicType } from '../types/topicType';
 import { UserType } from '../types/userType';
 import Navigo from 'navigo';
 
@@ -26,6 +27,15 @@ export function generateThreadLink(thread: ThreadWithId): HTMLAnchorElement {
   link.innerText = thread.title;
   return link;
 }
+
+// // Copy of Kevin's code by Petra - TEST
+// export function generateTopicLink(topic: TopicType): HTMLAnchorElement {
+//   const link = document.createElement('a');
+//   link.href = `/topic/${topic.title}`;
+//   link.setAttribute('data-navigo', '');
+//   link.innerText = topic.title;
+//   return link;
+// }
 
 // Kevin's code
 export function generateUserLink(user: UserType) {

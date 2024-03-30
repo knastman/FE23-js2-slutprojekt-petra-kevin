@@ -1,6 +1,8 @@
 import { ThreadType, ThreadWithId } from "../types/threadType";
 import { CommentType }  from "../types/commentType";
 import { formatTimestamp } from "../utils/utils";
+import { getThreadById } from "../services/threadService";
+
 
 import { showToast } from "../utils/utils";
 import { isLoggedIn } from "../components/renderLogin";
@@ -9,10 +11,15 @@ import { getImagePath } from "../utils/imageIdentifier";
 // import {serverTimestamp, ref, set} from 'firebase/database';
 // import { db } from '../services/firebaseConfig';
 
+//Petra's code
 const postsContainer = document.querySelector('#posts') as HTMLDivElement;
 
-function displayThreadPost(thread: ThreadWithId, topic:string): void {
-  clearPosts()
+// function displayThreadPost(threadId:string, thread: ThreadWithId, topic:string): void {
+// export async function displayThreadPost(thread: ThreadType, topic:string): Promise<void> {
+// export function displayThreadPost(thread: ThreadType, topic:string): void{
+export function displayThreadPost(thread: ThreadWithId, topic:string): void{
+  clearPosts();
+  
   const dateTime = formatTimestamp(thread.date);
   const imgUrl = getImagePath(thread.user);
   const postBox = document.createElement('article'); 
@@ -50,15 +57,25 @@ function displayThreadPost(thread: ThreadWithId, topic:string): void {
 
 }
 
-export function displayComments(comments: CommentType[], threadObject:ThreadWithId, topic:string):void{
-  
-  displayThreadPost(threadObject, topic);
 
+
+
+//Petra's code
+export function displayComments(comments: CommentType[], threadObject:ThreadWithId, topic:string, threadId:string):void{
+  console.log(threadId);
+  //  clearPosts();
+  
+  // getThreadById(threadId, topic)
+  // .then(displayThreadPost)
+
+  // displayThreadPost(threadId, threadObject, topic);
+  
   for(const commentObject of comments){
     displayComment(commentObject, topic);  
   }
 }
  
+//Petra's code
 export function displayComment(comment:CommentType, topic:string):void{
   postsContainer.classList.remove('hide');
   
@@ -163,6 +180,11 @@ export function displayComment(comment:CommentType, topic:string):void{
 }
 
 
+/*********************************
+  Clean before display
+**********************************/
+// 
+//Petra's code
 export function clearPosts():void{
   postsContainer.innerHTML = '';
 }

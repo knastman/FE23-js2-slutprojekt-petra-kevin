@@ -24,6 +24,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
 /*********************************
   Interface 
 **********************************/
-//Petra's code
 
+//Petra's code
 getTopics().then(displayTopicsTitles);
+
+// import { createNewThread, addThreadToTopic } from "./services/threadService";
+// import { addCommentToThread } from "./services/commentService";
+
+// createNewThread('Testar att göra en thread och detta är ämnet', 'Petra');
+// console.log('Syns detta i konsolen');
+
+
+// addThreadToTopic({user:'Petra', title:'Testar göra thread', postText:'Testar lite, detta är själva texten till posten som jag vill ska bli lite längre och jag orkar itne klippa in fillerama just nu.'}, 'Samhälle');
+
+
+// addCommentToThread('Samhälle','-NuG6ZLkNMFCmhlj08E-', {
+//   userName: 'Petra',
+//   comment: 'Commenttexten här',
+//   title:'Titlen här'
+// } )
+
+// timeStamp: number;
