@@ -172,6 +172,9 @@
 .post a{
   color:#fff;
 }
+.postUserInfo a{
+  color:#093637;
+}
 
 .postHeader{
   background-color: #d7d7d7;
@@ -241,7 +244,11 @@
   align-items:baseline;
   display:flex;
   font-size: 0.9rem;
-  
+}
+
+.postFooterLink:last-child::before{
+  content: "|"; 
+  padding:3px;
 }
 
 .postFooter .postTopic{
