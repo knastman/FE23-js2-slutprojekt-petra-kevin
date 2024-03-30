@@ -15,7 +15,6 @@ function displayThreadPost(thread: ThreadWithId, topic:string): void {
   clearPosts()
   const dateTime = formatTimestamp(thread.date);
   const imgUrl = getImagePath(thread.user);
-  threadId = thread.id;
   const postBox = document.createElement('article'); 
   postBox.classList.add('post');
   const threadHeader = document.createElement('h2'); 
