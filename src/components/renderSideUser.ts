@@ -7,7 +7,7 @@ import { getImagePath } from "../utils/imageIdentifier";
 
 // Kevin's code
 // Renders the user profile from the user name
-export const renderUser = async (
+export const renderSideUser = async (
   router: Navigo,
   userName: string
 ): Promise<void> => {

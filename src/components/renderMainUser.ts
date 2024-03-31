@@ -11,14 +11,14 @@ import Navigo from "navigo";
 function renderUser(user: UserType): string {
     user.image = getImagePath(user.image);
     return `
-    <h1> Profile </h1>
+    <h1> Profil </h1>
     <div class="userProfile">
-        <div class="userProfileImage">
-        <img src="${user.image}" alt="Profile image">
-    </div>
-    <div class="userProfileInfo">
-        <h2>${user.name}</h2>
+        <div class="userProfileInfo">
+            <img src="${user.image}" alt="Profile image">
+            <h2>${user.name}</h2>
+        </div>
     </div>  
+    <h2> Kommentarer </h2>
     <div class="userProfileComments"></div>
 `
 }

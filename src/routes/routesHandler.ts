@@ -4,7 +4,7 @@ import { renderRegisterForm } from "../components/renderRegister";
 import { renderNav } from "../components/renderNav";
 import { renderSideNav } from "../components/renderSideNav";
 import { toggleContainer } from "../utils/utils";
-import { renderUser } from "../components/renderSideUser";
+import { renderSideUser } from "../components/renderSideUser";
 import { displayStartContent } from "../modules/displayStartContent";
 import { renderEditUser } from "../components/renderEditUser";
 import { renderMainUser } from "../components/renderMainUser";
@@ -57,7 +57,6 @@ export function handleUserProfileRoute(router: Navigo, params: RouteParams) {
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else { 
-    renderUser(router, params.data.name);
     renderMainUser(params.data.name);
     toggleContainer(true, ".allUsers")
     handleCommonTasks(router, ["#loginContainer", "#registerContainer", "#editUserContainer","#start"]);
