@@ -22,6 +22,17 @@ export function createNewThread(title: string, userName: string): ThreadType {
   } as ThreadType;
 }
 
+//Petra's modified copy of Kevin's code above
+export function createNewThreadWithText(title: string, postText:string, userName: string): ThreadType {
+  const date = Date.now();
+  return {
+    title: title,
+    postText: postText,
+    user: userName,
+    date: date,
+  } as ThreadType;
+}
+
 //Kevin's code
 // Returns all threads from a topic with firebase keys
 export const getThreadsFromTopic = async (

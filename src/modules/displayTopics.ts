@@ -13,24 +13,30 @@ const topicContainer = document.querySelector('#topic') as HTMLDivElement;
 //Petra's code
 // export function displayTopicsTitles(topics: TopicType):void{
 export function displayTopicsTitles(topics: any):void{
+  
   for(const topic in topics){
+    const topicOBject = topics[topic];
     const topicTitle = topics[topic].title;
+    const topicDescription = topics[topic].description;
+    console.log(topics[topic]);
+    
+    
     // const topicDescription = topics[topic].description; //If needed
-    displayTopicTitle(topicTitle);
+    displayTopicTitle(topicOBject);
   }
 }
 
 //Petra's code
-function displayTopicTitle(topic:string):void{
+function displayTopicTitle(topic:TopicType):void{
   const topicsContainer = document.querySelector('.topicsMenuWrapper') as HTMLDivElement;
   const topicHeaderBox = document.createElement('div');
   topicHeaderBox.classList.add('topicMenubox');
   const topicHeaderBoxLink = document.createElement('a'); 
-  topicHeaderBoxLink.setAttribute('id', topic);
-  topicHeaderBoxLink.setAttribute('href', `/topic/${topic}`);        
+  topicHeaderBoxLink.setAttribute('id', topic.title);
+  topicHeaderBoxLink.setAttribute('href', `/topic/${topic.title}`);        
   topicHeaderBoxLink.setAttribute('data-navigo', '');   
 
-  topicHeaderBoxLink.innerText = topic;
+  topicHeaderBoxLink.innerText = topic.title;
   // topicHeaderBox.innerHTML = `<a href="${topic}" data-navigo>${topic}</a>`;
   topicsContainer.append(topicHeaderBox);
   topicHeaderBox.append(topicHeaderBoxLink);
@@ -44,13 +50,15 @@ function displayTopicTitle(topic:string):void{
     if (isLoggedIn()) {
       const topicChoice = ((event.target as HTMLInputElement).id);
       const topicH2 = document.createElement('h2'); 
-      topicH2.innerText = topic;
+      const topicDescription = document.createElement('p'); 
+      topicDescription.classList.add('topicDesc');
+      topicH2.innerText = topic.title;
+      topicDescription.innerText = topic.description;
       clearAll();
-      topicHeaderContainer.append(topicH2);
+      topicHeaderContainer.append(topicH2, topicDescription);
 
       getThreadsFromTopic(topicChoice)
       .then(threads => displayThreads(topicChoice, threads)); 
-
     } 
     else {
       showToast('Du måste vara inloggad för att se inlägg!');
@@ -66,7 +74,7 @@ function displayTopicTitle(topic:string):void{
 **********************************/
 
 //Petra's code
-function clearAll():void{
+export function clearAll():void{
   topicContainer.classList.remove('hide');
   topicContainer.classList.add('flex');
   const postsContainer = document.querySelector('#posts') as HTMLDivElement;

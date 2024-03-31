@@ -91,9 +91,10 @@
               </div>
             </div>
           </div>
-          <div class="subjectForm">
+          <div id="createThreadFormContainer">
+          <!-- <div id="subjectForm"> -->
             <h3>Gör ett inlägg</h3>
-            <form>
+            <form id="createThreadForm">
               <div>
                 <label for="subjectHeaderInput">Ämne:</lab
                    wel> <!-- När man valt thread så ska ämnesraden försvinna/hämtas in automatiskt o ej gå att redigera -->
@@ -101,7 +102,7 @@
               </div>
               <div>
                 <label for="postText">Inlägg:</label>
-                <textarea id="postText" name="Meddelande" placeholder="Ditt meddelande här" rows="5" cols="33" required minlength="4" maxlength="600"></textarea>
+                <textarea id="postText" name="Meddelande" placeholder="Ditt inlägg här" rows="5" cols="33" required minlength="4" maxlength="600"></textarea>
                 
               </div>
               <div><button type="submit" id="postSendButton">Skicka</button></div>

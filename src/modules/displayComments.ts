@@ -65,11 +65,6 @@ export function displayComments(comments: CommentType[], threadObject:ThreadWith
   console.log(threadId);
   //  clearPosts();
   
-  // getThreadById(threadId, topic)
-  // .then(displayThreadPost)
-
-  // displayThreadPost(threadId, threadObject, topic);
-  
   for(const commentObject of comments){
     displayComment(commentObject, topic);  
   }
@@ -189,4 +184,22 @@ export function clearPosts():void{
   postsContainer.innerHTML = '';
 }
 
+
+/*********************************
+  Clean before display
+**********************************/
+
+// Formulär för comments
+// const form = document.querySelector('#createCommentsForm') as HTMLDivElement;
+
+// form.addEventListener('submit', (event) => {
+//   event.preventDefault();
+
+;
+//   const commentText:string = (createThreadForm.querySelector('#postText') as HTMLInputElement).value.trim();
+
+//   createNewThreadWithText(subjectIntput, subjectText, 'Petra'); //Lägg till dynamiskt
+
+//   form.reset();
+// })
 

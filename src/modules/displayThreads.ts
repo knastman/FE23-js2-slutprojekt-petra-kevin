@@ -1,8 +1,10 @@
 import { CommentType }  from "../types/commentType";
 import { ThreadType, ThreadWithId } from "../types/threadType";
 import { displayComments, displayThreadPost, clearPosts } from "./displayComments";
+import { clearAll} from "./displayTopics";
 import { getAllCommentsFromThread } from "../services/commentService";
-import { getThreadById } from "../services/threadService";
+import { getThreadById, createNewThread, createNewThreadWithText, addThreadToTopic } from "../services/threadService";
+
 
 import { showToast } from "../utils/utils";
 import { isLoggedIn } from "../components/renderLogin";
@@ -48,26 +50,12 @@ function displayThread(thread:ThreadWithId, threadId:string, topic:string):void{
     // }
   
     const threadId = ((event.target as HTMLInputElement).id);
-    // console.log(thread, topic, threadId);
     
     getThreadById(threadId, topic)
     .then(displayThreadPost);
 
     getAllCommentsFromThread(topic, threadId)
     .then(threads => displayComments(threads, thread, topic, threadId));
-    // .then(getThreadById(threadId, topic))
 
-
-
-  
   });
 }
-
-
-
-
-
-
-
-
-
