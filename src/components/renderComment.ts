@@ -4,7 +4,7 @@ import { UserType } from "../types/userType";
 import { formatTimestamp, showToast } from "../utils/utils";
 import { getThreadsFromTopic } from "../services/threadService";
 import { getAllCommentsFromThread } from "../services/commentService";
-import { getImagePath } from "../utils/imageIdentifier";
+
 
 // Kevin's code
 type UserCommentWithTopic = {
@@ -65,6 +65,17 @@ export async function getAllCommentsByUser(userName: string): Promise<UserCommen
     }
 
     const commentsPromises = Object.keys(topics).map(topicName => getUserCommentsFromTopic(topicName, userName));
-    const commentsArrays = await Promise.all(commentsPromises);
-    return commentsArrays.flat(); 
+    
+    const commentsArrays: UserCommentWithTopic[][] = await Promise.all(commentsPromises);
+    
+    let flatComments: UserCommentWithTopic[] = commentsArrays.flat();
+     
+    const sortedComments = sortCommentsAndSlice(flatComments);
+
+    return sortedComments;
+}
+// Kevin's code
+function sortCommentsAndSlice(comments: UserCommentWithTopic[]): UserCommentWithTopic[] {
+    let sortedArray = comments.sort((a, b) => b.comment.timeStamp - a.comment.timeStamp);
+    return sortedArray.slice(0, 3);
 }

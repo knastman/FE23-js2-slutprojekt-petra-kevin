@@ -4,7 +4,7 @@ import { getLoggedInUser } from "./renderLogin";
 import { showToast, generateUserLink, attachLinkEvents } from "../utils/utils";
 import { UserType } from "../types/userType";
 import { getAllUsers } from "../services/userService";
-import { renderUser } from "./renderSideUser";
+import { renderSideUser } from "./renderSideUser";
 
 export const renderSideNav = async (router: Navigo): Promise<void> => {
   const sideNavContainer = document.querySelector(".mainAside") as HTMLElement;
@@ -12,7 +12,7 @@ export const renderSideNav = async (router: Navigo): Promise<void> => {
 
   const user: string | null = getLoggedInUser();
 
-  if (user) await renderUser(router, user);
+  if (user) await renderSideUser(router, user);
 
   await renderAllUsers(router);
 
