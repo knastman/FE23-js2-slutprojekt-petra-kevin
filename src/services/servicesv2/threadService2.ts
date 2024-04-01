@@ -91,3 +91,19 @@ async function findThreadById(threadId: number): Promise<string | null> {
     });
     return firebaseKey; 
 }
+
+// Kevin's code
+export async function getThreadById(threadId: number): Promise<threadType2 | null> {
+    const dataRef: DatabaseReference = ref(db, threadPath);
+    const snapshot: DataSnapshot = await get(dataRef);
+    if (!snapshot.exists()) return null;
+    let thread: threadType2 | null = null; 
+    snapshot.forEach((childSnapshot) => {
+        const threadData = childSnapshot.val();
+        if (threadData.id === threadId) {
+            thread = threadData; 
+            return true; 
+        }
+    });
+    return thread; 
+}
