@@ -10,10 +10,11 @@ import {
 import blackPantherImage from '../../public/media/black-panther.png';
 import redPandaImage from '../../public/media/red-panda.png';
 import babirusaImage from '../../public/media/babirusa.png';
-import { get } from 'firebase/database';
 import { getLoggedInUser, logoutUser } from './renderLogin';
+import { UserType2 } from '../types/typesv2/userType2';
+import { deleteUserv2, getUserData, updateUserv2 } from '../services/servicesv2/userService2';
 
-function editUserTemplate(user: UserType): string {
+function editUserTemplate(user: UserType2 ): string {
   return `
         <div class="editUser">
             <h1>Redigera profil för ${user.name}</h1>
@@ -54,9 +55,10 @@ export async function renderEditUser(
   }
 
   try {
-    const user: UserType = await getUserByName(userName);
+    const userData: UserType2[] = await getUserData();
+    const user: UserType2 | undefined = userData.find((user) => user.name === userName);
     const inloggedUserName = getLoggedInUser();
-    if (user.name !== inloggedUserName) {
+    if (user?.name !== inloggedUserName) {
       showToast('Du kan bara redigera din egen profil', 5000);
       router.navigate(`/user/${inloggedUserName}`);
       return;
@@ -73,12 +75,13 @@ export async function renderEditUser(
 }
 
 //Kevin's code
-const attachEditEvents = (router: Navigo, user: UserType): void => {
+const attachEditEvents = (router: Navigo, user: UserType2): void => {
   const editUpdateBtn = document.querySelector('#editUpdate');
   const editDeleteBtn = document.querySelector('#editDelete');
   if (!editUpdateBtn || !editDeleteBtn) {
     return;
   }
+
   editUpdateBtn.addEventListener('click', async (event) => {
     event.preventDefault();
     const selectedImage = document.querySelector(
@@ -90,26 +93,25 @@ const attachEditEvents = (router: Navigo, user: UserType): void => {
     const confPassword = (
       document.querySelector('#confirmEditPassword') as HTMLInputElement
     ).value;
-    console.log('password', password);
-    console.log('confPassword', confPassword);
     if (password !== confPassword) {
       showToast('Lösenorden matchar inte', 5000);
       return;
     }
 
-    const newUser: UserType = {
+    const newUser: UserType2 = {
+      id: user.id,
       name: user.name,
       image: selectedImage ? selectedImage.value : 'black-panther',
       password: password || user.password,
     };
-    await updateUser(newUser);
+    await updateUserv2(newUser);
     router.navigate(`/user/${newUser.name}`);
     showToast('Profilen uppdaterad', 5000);
     toggleContainer(false, '#editUserContainer');
   });
   editDeleteBtn.addEventListener('click', async (event) => {
     event.preventDefault();
-    await deleteUser(user.name);
+    await deleteUserv2(user.name);
     logoutUser(router);
     router.navigate('/login');
     showToast('Användaren borttagen', 5000);

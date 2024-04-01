@@ -1,6 +1,6 @@
 import { createUser, getUserByName } from '../services/userService';
 import { UserType } from '../types/userType';
-import * as formatChecker from '../utils/formatChecker';
+import { formatChecker } from '../utils/formatChecker';
 import Navigo from 'navigo';
 import {
   highlightSelectedImage,
@@ -13,6 +13,8 @@ import redPandaImage from '../../public/media/red-panda.png';
 import babirusaImage from '../../public/media/babirusa.png';
 import { renderNav } from './renderNav';
 import { renderSideNav } from './renderSideNav';
+import { UserType2 } from '../types/typesv2/userType2';
+import { createUserv2, newUserv2 } from '../services/servicesv2/userService2';
 
 //Kevin's code
 function registerTemplate() {
@@ -71,6 +73,10 @@ export async function registerUser(router: Navigo) {
     'input[name="profileImage"]:checked'
   ) as HTMLInputElement;
 
+  if(!formatChecker.isUserNameValid(userName)){
+    showToast('Användarnamnet får bara innehålla bokstäver,siffror och understräck', 5000);
+    return;
+  }
   if (
     formatChecker.isInputEmpty(userName) ||
     formatChecker.isInputEmpty(password) ||
@@ -83,26 +89,21 @@ export async function registerUser(router: Navigo) {
     showToast('Lösenordet måste vara minst 6 tecken långt', 5000);
     return;
   }
-  if (password !== confirmPassword) {
+  if (!formatChecker.isPasswordMatch(password, confirmPassword)) {
     showToast('Lösenorden matchar inte', 5000);
     return;
   }
-
-  if (await getUserByName(userName)) {
+  if (await formatChecker.isUserNameTaken(userName)) {
     showToast('Användarnamnet är redan taget', 5000);
     return;
   }
-  const newUser: UserType = {
-    name: userName,
-    password: password,
-    image: selectedImage ? selectedImage.value : 'black-panther',
-  };
+  const newUser: UserType2 =  newUserv2(userName, password, selectedImage.value);
 
-  createUser(newUser)
+  createUserv2(newUser)
     .then(() => localStorage.setItem('login', userName))
     .then(() => router.navigate(`/user/${userName}`))
     .then(() => showToast('Användare skapad', 5000))
-    .then(() => renderNav(router))
+    .then(() => renderNav())
     .then(() => renderSideNav(router))
     .catch((error) => {
       console.error('Registration error:', error);

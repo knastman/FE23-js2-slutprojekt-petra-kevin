@@ -7,7 +7,7 @@ import { toggleContainer } from "../utils/utils";
 import { renderSideUser } from "../components/renderSideUser";
 import { displayStartContent } from "../modules/displayStartContent";
 import { renderEditUser } from "../components/renderEditUser";
-import { renderMainUser } from "../components/renderMainUser";
+import { renderMainUser } from "../components/profileComponents/renderMainUser";
 
 export type RouteParams = {
   data: {
@@ -18,7 +18,7 @@ export type RouteParams = {
 
 function handleCommonTasks(router: Navigo, hideContainers: string[]) {
   hideContainers.forEach(containerId => toggleContainer(false, containerId));
-  renderNav(router);
+  renderNav();
   renderSideNav(router);
 }
 
@@ -47,7 +47,7 @@ export function handleRegisterRoute(router: Navigo) {
     router.navigate("/");
   } else {
     renderRegisterForm(router);
-    handleCommonTasks(router, ["#loginContainer", "#editUserContainer"]);
+    handleCommonTasks(router, ["#loginContainer", "#editUserContainer","#mainUserProfile"]);
     toggleContainer(true, "#registerContainer");
     toggleContainer(true, "#start");
   }
@@ -58,6 +58,7 @@ export function handleUserProfileRoute(router: Navigo, params: RouteParams) {
     router.navigate("/login");
   } else { 
     renderMainUser(params.data.name);
+    toggleContainer(true, "#mainUserProfile");
     toggleContainer(true, ".allUsers")
     handleCommonTasks(router, ["#loginContainer", "#registerContainer", "#editUserContainer","#start"]);
   } 
@@ -68,7 +69,7 @@ export function handleEditUserProfileRoute(router: Navigo, params: RouteParams) 
     router.navigate("/login");
   } else { 
     renderEditUser(router, params.data.name);
-    handleCommonTasks(router, ["#loginContainer", "#registerContainer"]);
+    handleCommonTasks(router, ["#loginContainer", "#registerContainer","#mainUserProfile"]);
     toggleContainer(true, "#editUserContainer");
     toggleContainer(false, "#start");
   } 

@@ -132,8 +132,13 @@ export function highlightSelectedImage(
 }
 
 
-
+// Kevin's code
 export function generateUniqeId(): number {
   var id = Math.floor(Math.random() * 10000000);
   return id;
+}
+
+// Kevin's code
+export function firstLetterToUpperCase(word: string): string  {
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }
