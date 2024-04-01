@@ -57,6 +57,7 @@ export async function createUserv2(user: UserType2): Promise<void> {
 // Kevin's code
 export async function updateUserv2(user: UserType2): Promise<void> {
     const firebaseUserId = await findUserKeyByUserName(user.name);
+    console.log(firebaseUserId);
     if (firebaseUserId) {
         const dataRef: DatabaseReference = ref(db, `${userPath}/${firebaseUserId}`);
         try {
@@ -123,14 +124,31 @@ async function checkUserNameExists(userName: string): Promise<boolean> {
 async function findUserKeyByUserName(userName: string): Promise<string | null> {
     const dataRef = ref(db, userPath);
     const snapshot = await get(dataRef);
-    if(!snapshot.exists()) return null;
-
+    if (!snapshot.exists()) {
+        showToast("Kunde inte hitta användare, testa igen", 5000);
+        return null;
+    }
     let userId: string | null = null;
     snapshot.forEach((childSnapshot) => {
         const user = childSnapshot.val();
-        if(user.userName === userName){
+        if (user.name === userName) {
             userId = childSnapshot.key;
+            return true; 
         }
     });
     return userId;
+}
+
+// Kevin's code
+async function findUserById(userId: number): Promise<string | null> {
+    const dataRef: DatabaseReference = ref(db, userPath);
+    const snapshot: DataSnapshot = await get(dataRef);
+    if (!snapshot.exists()) return null;
+    let firebaseKey: string | null = null;
+    snapshot.forEach((childSnapshot) => {
+        if (childSnapshot.val().id === userId) {
+            firebaseKey = childSnapshot.key;
+        }
+    });
+    return firebaseKey;
 }

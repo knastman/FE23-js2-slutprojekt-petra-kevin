@@ -1,10 +1,11 @@
 import Navigo from "navigo";
 import { getLoggedInUser } from "./renderLogin";
-
-import { showToast, generateUserLink, attachLinkEvents } from "../utils/utils";
+import { showToast, generateUserLink } from "../utils/utils";
 import { UserType } from "../types/userType";
 import { getAllUsers } from "../services/userService";
 import { renderSideUser } from "./renderSideUser";
+import { UserType2 } from "../types/typesv2/userType2";
+import { getUserData } from "../services/servicesv2/userService2";
 
 export const renderSideNav = async (router: Navigo): Promise<void> => {
   const sideNavContainer = document.querySelector(".mainAside") as HTMLElement;
@@ -27,18 +28,21 @@ const renderAllUsers = async (router: Navigo): Promise<void> => {
     return;
   }
   try {
-    const userObject = await getAllUsers();
-    const userArray: UserType[] = Object.values(userObject);
+    const userData: UserType2[] = await getUserData();
 
     userListContainer.innerHTML =
       "<h3>Alla användare</h3><ul class='userList'></ul>";
     const ulElement = userListContainer.querySelector(".userList");
+    if(!ulElement) return;
 
-    userArray.forEach((user) => {
-      const userLink = generateUserLink(user);
+    userData.forEach((user) => {
       const liElement = document.createElement("li");
+      let userLink = document.createElement("a");
+      userLink.href = `/user/${user.name}`;
+      userLink.innerText = user.name;
+      ulElement.appendChild(liElement);
       liElement.appendChild(userLink);
-      ulElement?.appendChild(liElement);
+
     });
 
     router.updatePageLinks();

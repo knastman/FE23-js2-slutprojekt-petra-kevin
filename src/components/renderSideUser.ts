@@ -1,9 +1,12 @@
-import { getUserByName } from "../services/userService";
-import { isLoggedIn, getLoggedInUser, logoutUser } from "./renderLogin";
+
+import { isLoggedIn, logoutUser } from "./renderLogin";
 import { UserType } from "../types/userType";
 import Navigo from "navigo";
-import { showToast, toggleContainer } from "../utils/utils";
+import { firstLetterToUpperCase, showToast, toggleContainer } from "../utils/utils";
 import { getImagePath } from "../utils/imageIdentifier";
+import { getUserData } from "../services/servicesv2/userService2";
+
+import { UserType2 } from "../types/typesv2/userType2";
 
 // Kevin's code
 // Renders the user profile from the user name
@@ -17,8 +20,8 @@ export const renderSideUser = async (
     return;
   }
   try {
-    const user: UserType = await getUserByName(userName);
-    const loggedInuser: string | null = getLoggedInUser();
+    const userData: UserType2[] = await getUserData();
+    const user = userData.find((user) => user.name === userName);
 
     if (!isLoggedIn()) {
       showToast("Du måste vara inloggad för att se dina uppgifter", 5000);
@@ -42,7 +45,7 @@ const renderLoggedInUser = (user: UserType): string => {
   return `
     <nav class="userMenu">
       <h3>Välkommen till din profil</h3>
-        <h4>${user.name}</h4>
+        <h4>${firstLetterToUpperCase(user.name)}</h4>
         <img src="${user.image}" alt="userImage">
         <div class="menu userMenu">
             <li><a href="/user/${user.name}/edit" data-navigo>Redigera profil</a></li>

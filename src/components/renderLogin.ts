@@ -1,10 +1,10 @@
 import { checkUserNameAndPass } from "../services/userService";
 import { showToast, toggleContainer, emptyContainer } from "../utils/utils";
-
-import * as formatChecker from "../utils/formatChecker";
+import { formatChecker } from "../utils/formatChecker";
 import Navigo from "navigo";
 import { renderNav } from "./renderNav";
 import { renderSideNav } from "./renderSideNav";
+import { checkCredentials } from "../services/servicesv2/userService2";
 
 //Kevin's code
 function loginTemplate(): string {
@@ -46,11 +46,11 @@ async function loginUser(router: Navigo) {
     return;
   }
 
-  const loginSuccessful = await checkUserNameAndPass(userName, password);
+  const loginSuccessful = await checkCredentials(userName, password);
   if (loginSuccessful) {
     localStorage.setItem("login", userName);
     router.navigate(`/user/${userName}`);
-    renderNav(router);
+    renderNav();
     renderSideNav(router);
   } else {
     showToast("Fel användarnamn eller lösenord", 5000);
@@ -85,7 +85,7 @@ export function logoutUser(router: Navigo): void {
   router.navigate("/login");
   emptyContainer([".sideUserProfile", ".allUsers", "#topic, #postsUser"]);
   toggleContainer(true, "#loginContainer");
-  renderNav(router);
+  renderNav();
   renderLoginForm(router);
 }
 
