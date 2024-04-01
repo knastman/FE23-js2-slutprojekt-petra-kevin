@@ -130,3 +130,10 @@ export function highlightSelectedImage(
       });
     });
 }
+
+
+
+export function generateUniqeId(): number {
+  var id = Math.floor(Math.random() * 10000000);
+  return id;
+}

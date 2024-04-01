@@ -1,0 +1,136 @@
+import { UserType2 } from "../../types/typesv2/userType2";
+import { generateUniqeId, showToast } from "../../utils/utils";
+import { db } from "../firebaseConfig";
+import { ref, get, push, remove, set, DatabaseReference, DataSnapshot } from "firebase/database";
+
+const userPath = "usersv2";
+// Kevin's code
+export function newUserv2(
+    userName: string,
+    password: string,
+    image: string
+): UserType2 {
+    const id = generateUniqeId();
+    return {
+        name: userName,
+        password: password,
+        id: id,
+        image: image || "babirusa"
+    } as UserType2;
+}
+// Kevin's code
+export async function getUserData(): Promise<UserType2[]> {
+    const dataRef: DatabaseReference = ref(db, userPath);
+
+    try {
+        const data: DataSnapshot = await get(dataRef);
+        if (data.exists()) {
+            const userData: UserType2[] = [];
+            data.forEach((childData) => {
+                const user = childData.val();
+                userData.push(user);
+            });
+            return userData as UserType2[];
+        } else {
+            return [];
+        }
+    } catch (error) {
+        showToast("Kunde inte hämta användare, testa igen", 5000);
+        return [];
+    }
+
+}
+// Kevin's code
+export async function createUserv2(user: UserType2): Promise<void> {
+    const dataRef: DatabaseReference = ref(db, userPath);
+    try{
+        if(await checkUserNameExists(user.name)){
+            showToast("Användarnamnet finns redan", 5000);
+            return;
+        }
+        await push(dataRef, user);
+    }catch(error){
+        showToast("Kunde inte skapa användare, testa igen", 5000);
+        console.log(error);
+    }
+}
+// Kevin's code
+export async function updateUserv2(user: UserType2): Promise<void> {
+    const firebaseUserId = await findUserKeyByUserName(user.name);
+    if (firebaseUserId) {
+        const dataRef: DatabaseReference = ref(db, `${userPath}/${firebaseUserId}`);
+        try {
+            await set(dataRef, user);
+        } catch (error) {
+            showToast("Kunde inte uppdatera användare, testa igen", 5000);
+            console.log(error);
+        }
+    } else {
+        showToast("Användare hittades inte", 5000);
+    }
+}
+
+// Kevin's code
+export async function deleteUserv2(userName: string): Promise<void> {
+    const firebaseUserId = await findUserKeyByUserName(userName);
+    const dataRef: DatabaseReference = ref(db, `${userPath}/${firebaseUserId}`);
+    try{
+        await remove(dataRef);       
+    }catch(error){
+        showToast("Kunde inte ta bort användare, testa igen", 5000);
+        console.log(error);
+    }
+}
+
+
+
+// Kevin's code
+export async function checkCredentials(inputtedUserName: string, inputtedPassword: string): Promise<boolean> {
+    const dataRef: DatabaseReference = ref(db, userPath);
+    const data: DataSnapshot = await get(dataRef);
+    if (data.exists()) {
+        let exists: boolean = false;
+        data.forEach((childData) => {
+            const user = childData.val();
+            if (user.name === inputtedUserName && user.password === inputtedPassword) {
+                exists = true;
+            }
+        });
+        return exists;
+    } else {
+        return false;
+    }
+}
+
+// Kevin's code
+async function checkUserNameExists(userName: string): Promise<boolean> {
+    const dataRef: DatabaseReference = ref(db, userPath);
+    const data: DataSnapshot = await get(dataRef);
+    if (data.exists()) {
+        let exists: boolean = false;
+        data.forEach((childData) => {
+            const user = childData.val();
+            if (user.userName === userName) {
+                exists = true;
+            }
+        });
+        return exists;
+    } else {
+        return false;
+    }
+}
+// Kevin's code
+async function findUserKeyByUserName(userName: string): Promise<string | null> {
+    const dataRef = ref(db, userPath);
+    const snapshot = await get(dataRef);
+    if(!snapshot.exists()) return null;
+
+    let userId: string | null = null;
+    snapshot.forEach((childSnapshot) => {
+        const user = childSnapshot.val();
+        if(user.userName === userName){
+            userId = childSnapshot.key;
+        }
+    });
+    return userId;
+}
