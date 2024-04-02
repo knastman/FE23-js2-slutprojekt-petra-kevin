@@ -1,5 +1,6 @@
 import { ThreadType, ThreadWithId } from "../types/threadType";
-import { CommentType }  from "../types/commentType";
+// import { CommentType }  from "../types/commentType";
+import { CommentType2 }  from "../types/typesv2/commentType2";
 import { formatTimestamp } from "../utils/utils";
 import { getThreadById } from "../services/threadService";
 
@@ -8,70 +9,21 @@ import { showToast } from "../utils/utils";
 import { isLoggedIn } from "../components/renderLogin";
 import { getImagePath } from "../utils/imageIdentifier";
 
-// import {serverTimestamp, ref, set} from 'firebase/database';
-// import { db } from '../services/firebaseConfig';
-
 //Petra's code
 const postsContainer = document.querySelector('#posts') as HTMLDivElement;
 
-// function displayThreadPost(threadId:string, thread: ThreadWithId, topic:string): void {
-// export async function displayThreadPost(thread: ThreadType, topic:string): Promise<void> {
-// export function displayThreadPost(thread: ThreadType, topic:string): void{
-export function displayThreadPost(thread: ThreadWithId, topic:string): void{
-  clearPosts();
-  
-  const dateTime = formatTimestamp(thread.date);
-  const imgUrl = getImagePath(thread.user);
-  const postBox = document.createElement('article'); 
-  postBox.classList.add('post');
-  const threadHeader = document.createElement('h2'); 
-  threadHeader.innerText = thread.title;
-  postBox.innerHTML = `
-    <div class="postHeader">
-        <div class="postDate">${dateTime.date} | ${dateTime.time}</div>
-        <div class="postSubject"><a href="/topic/thread/${thread.id}" data-navigo>${thread.title}</a></div>
-    </div>
-    <div class="postBody">
-      <div class="postUserInfo">
-          <div class="postUserName">
-            <a href="/user/${thread.user}">${thread.user}</a>
-          </div>
-          <div class="postUserImg">
-            <img src="${imgUrl}" alt="userImage">
-          </div>
-      </div>
-      <div class="postText">
-        <p>${thread.postText}</p>
-      </div>
-    </div>
-    <div class="postFooter">
-      <div>
-        <span class="postTopic" data-navigo><a href="/topic/${topic}">${topic}</a></span>
-      </div>
-      <div>
-        <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
-      </div>
-    </div>
-`;
-  postsContainer.append(threadHeader, postBox);
-
-}
-
-
-
-
 //Petra's code
-export function displayComments(comments: CommentType[], threadObject:ThreadWithId, topic:string, threadId:string):void{
-  console.log(threadId);
+// export function displayPosts(comments: CommentType2[], threadObject:ThreadWithId, topic:string, threadId:string):void{
+export function displayPosts(comments: CommentType2[]):void{
+  // console.log(threadId);
   //  clearPosts();
-  
   for(const commentObject of comments){
     displayComment(commentObject, topic);  
   }
 }
  
 //Petra's code
-export function displayComment(comment:CommentType, topic:string):void{
+export function displayComment(comment:CommentType2, topic:string):void{
   postsContainer.classList.remove('hide');
   
   const postBox = document.createElement('article'); 
@@ -98,7 +50,7 @@ export function displayComment(comment:CommentType, topic:string):void{
   // const postUserName = document.createElement('div');
   const postUserName = document.createElement('a');
   postUserName.classList.add('postUserName');
-  postUserName.setAttribute('href', `/user/${comment.userName}`);        
+  postUserName.setAttribute('href', `/user/${comment.userName}`);  //Hämta nytt username      
   postUserName.setAttribute('data-navigo', ''); 
 
   const postUserImg = document.createElement('div'); 
@@ -137,8 +89,8 @@ export function displayComment(comment:CommentType, topic:string):void{
   const date = commentDate.date;
   let postdateAndTime = `${time} | ${date}`;
   postDateContainer.innerText = postdateAndTime;
-  postUserName.innerText = comment.userName;
-  postUserImgSrc.src = getImagePath(comment.userName);
+  postUserName.innerText = comment.userName; //Hämta nya userinfo
+  postUserImgSrc.src = getImagePath(comment.userName); //Hämta nya userinfo
   postText.innerText = comment.comment;
   postTopic.innerText = topic;
   postFooterRightEdit.innerText = 'Redigera inlägg';
@@ -156,22 +108,7 @@ export function displayComment(comment:CommentType, topic:string):void{
   postFooterDivleft.append(postTopic);
   postFooterDivRight.append(postFooterRightEdit, postFooterRightDelete);
 
-  // //Test för editering av meddelande direkt i meddelandet
-  // postText.addEventListener('keypress',  (event) => {
-  //   if (!event.shiftKey && event.key === 'Enter' ) {
-  //     postText.blur();
-  //     const updatedPostData = {
-  //       ...comment,
-  //       comment: postText,  
-  //       edited: true,//edited indikation som är en string förre timestamp
-  //       timestamp: serverTimestamp(),
-  //     };
-  //     postText.style.height= postText.scrollHeight+10+"px";
-  //     postText.scrollTop=0;
-  //     // await set(ref(db, 'posts/' + messageid), postData, newPostRef);
-  //     set(ref(db, `topics/${topic}/threads/${threadId}/comments`), updatedPostData);
-  //   }
-  // });
+
 }
 
 

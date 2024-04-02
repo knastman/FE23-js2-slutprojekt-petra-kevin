@@ -1,5 +1,6 @@
 import { getTopics } from "./services/topicService";
-import { displayTopicsTitles } from "./modules/displayTopics";
+import { getForumData } from "./services/servicesv2/forumService2";
+import { displayTopics } from "./modules/displayTopics2";
 import { displayStartContent } from "./modules/displayStartContent";
 // import { displayPageInfo } from "./modules/displayInfoPages.ts";
 import { getAllUsers, createUser } from "./services/userService";
@@ -29,6 +30,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 **********************************/
 
 //Petra's code
-getTopics().then(displayTopicsTitles);
+// getTopics().then(displayTopicsTitles);
+getForumData().then(displayTopics);
 
 
