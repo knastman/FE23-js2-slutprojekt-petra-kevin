@@ -5,7 +5,7 @@ import { getThreadData, getThreadById } from "../services/servicesv2/threadServi
 import { displayThreads } from "../modules/displayThreads2";
 
 import { showToast } from "../utils/utils";
-import { isLoggedIn } from "../components/renderLogin";
+import { isLoggedIn } from "../components/credentialsComponents/renderLogin";
 
 //Petra's code
 const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;

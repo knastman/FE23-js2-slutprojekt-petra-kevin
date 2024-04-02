@@ -6,7 +6,7 @@ import { getThreadById } from "../services/threadService";
 
 
 import { showToast } from "../utils/utils";
-import { isLoggedIn } from "../components/renderLogin";
+import { isLoggedIn } from "../components/credentialsComponents/renderLogin";
 import { getImagePath } from "../utils/imageIdentifier";
 
 //Petra's code

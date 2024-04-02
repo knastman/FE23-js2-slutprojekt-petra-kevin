@@ -1,5 +1,3 @@
-import { getUserByName, updateUser, deleteUser } from '../../services/userService';
-import { UserType } from '../../types/userType';
 import Navigo from 'navigo';
 import {
   highlightSelectedImage,
@@ -36,7 +34,7 @@ function editUserTemplate(user: UserType2 ): string {
               <input class="editImageRadio" type="radio" id="image3" name="profileImage" value="babirusa">
               <img src="${babirusaImage}" alt="Profile Image 3">
             </label>
-          </div>
+          </div class="editButtonContainer">
             <button type="submit" id="editUpdate">Uppdatera</button>
             <button type="button" id="editDelete">Ta bort Konto</button>
             </form>

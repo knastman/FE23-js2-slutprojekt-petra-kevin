@@ -48,7 +48,6 @@ export function handleUserProfileRoute(router: Navigo, params: RouteParams) {
     router.navigate("/login");
   } else { 
     renderMainUser(params.data.id);
-    console.log("params.data.id", params.data.id);
     renderNav();
     renderFooter();
     renderSideNav(router);

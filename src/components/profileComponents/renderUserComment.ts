@@ -5,10 +5,11 @@ import { threadType2 } from "../../types/typesv2/threadType2";
 import { getThreadById } from "../../services/servicesv2/threadService2";
 import { getLoggedInUser, isLoggedIn } from "../credentialsComponents/renderLogin";
 import { deleteCommentData, getCommentData } from "../../services/servicesv2/commentService2";
+import { getForumData } from "../../services/servicesv2/forumService2";
 
 
 // Kevin's code
-function commentTemplate(comment: CommentType2, user: UserType2, threadTitle: string): string {
+function commentTemplate(comment: CommentType2, user: UserType2, thread: threadType2, topicTitle:string): string {
     const dateTime = formatTimestamp(comment.timeStamp);
     const isCurrentUser = user.name === getLoggedInUser();
     return `
@@ -16,7 +17,7 @@ function commentTemplate(comment: CommentType2, user: UserType2, threadTitle: st
             <div class="commentHeader">
                 <p class="commentDate">${dateTime.date} | ${dateTime.time}</p>
                 <div class="commentSubject">
-                    <a href="/thread/${comment.threadId}">${threadTitle}</a>
+                    <a href="/thread/${comment.threadId}">${thread.title}</a>
                 </div>
             </div>
             <div class="commentBody">
@@ -31,16 +32,19 @@ function commentTemplate(comment: CommentType2, user: UserType2, threadTitle: st
                 <div class="commentText">
                     <p>${comment.comment}</p>
                 </div>
-                <div class="commentFooter">
-                <div>
-                <button class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera inlägg</button> | 
-                <button class="deleteUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Radera inlägg</button>
             </div>
+                <div class="commentFooter">
+                    <a href="/topic/${thread.forumId}">${topicTitle}</a>
+                <div class="commentButtonContainer">
+                    <button class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera</button> | 
+                    <button class="deleteUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Radera</button>
                 </div>
-
+            </div>
         </div>
     `;
 }
+
+
 
 // Kevin's code
 export async function renderUserComments(user: UserType2): Promise<void> {
@@ -60,9 +64,11 @@ export async function renderUserComments(user: UserType2): Promise<void> {
         
         for (const comment of slicedComments) {
             const thread: threadType2 | null = await getThreadById(comment.threadId);
-            if(!thread) return;
-            mainUserProfileComments.innerHTML += commentTemplate(comment, user, thread.title);
-            attachListeners();
+            const topicObject = await getForumData();
+            const topic = topicObject.find((topic) => topic.id === thread?.forumId);
+            if(!thread || !topic) return;
+            mainUserProfileComments.innerHTML += commentTemplate(comment, user, thread, topic.title);
+            attachListeners(user);
         } 
     }catch(error){
         showToast("Kunde inte hämta kommentarer", 5000);
@@ -78,7 +84,7 @@ function sortCommentsByDate(commentData: CommentType2[]): CommentType2[] {
 }
 
 // Kevin's code
-async function attachListeners(): Promise<void>{
+async function attachListeners(user: UserType2): Promise<void>{
     const editButton = document.querySelectorAll(".editUserComment");
     const deleteButton = document.querySelectorAll(".deleteUserComment");
     if(!editButton || !deleteButton) return;
@@ -88,7 +94,8 @@ async function attachListeners(): Promise<void>{
             const commentId = (event.target as HTMLElement).dataset.commentId;
             if(!commentId) return;
             const commentNumber = parseInt(commentId);
-            showToast("Inte implenterad ännu", 5000);
+            showToast("Inte implementerat ännu ", 5000);
+
         }); 
     });
     deleteButton.forEach((button) => {
@@ -96,7 +103,39 @@ async function attachListeners(): Promise<void>{
             const commentId = (event.target as HTMLElement).dataset.commentId;
             if(!commentId) return;
             const commentNumber = parseInt(commentId);
-            deleteCommentData(commentNumber);
+            deleteButtonClickHandler(commentNumber, user);
         });
     });
+}
+
+function deleteButtonTemplate(commentId: number): string {
+    return `
+        <p>Är du säker på att du vill radera inlägget?</p>
+        <button class="deleteUserComment" data-comment-id="${commentId}">Ja</button>
+        <button class="cancelDeleteComment">Nej</button>
+    `;
+}
+
+function deleteButtonClickHandler(commentId: number, user: UserType2): void{
+    const buttonContainer = document.querySelector(".commentButtonContainer");
+    if(!buttonContainer) return;
+    buttonContainer.innerHTML = deleteButtonTemplate(commentId);
+
+    const deleteButton = document.querySelector(".deleteUserComment");
+    const cancelButton = document.querySelector(".cancelDeleteComment");
+    if(!deleteButton || !cancelButton) return;
+
+    deleteButton.addEventListener("click", async ()=>{
+        try{
+            await deleteCommentData(commentId);
+            renderUserComments(user);
+        }catch(error){
+            showToast("Kunde inte radera inlägget", 5000);
+            console.log(error);
+        }
+    });
+    cancelButton.addEventListener("click", ()=>{
+        renderUserComments(user);
+    });
+    
 }

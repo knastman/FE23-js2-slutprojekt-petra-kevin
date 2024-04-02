@@ -1,6 +1,7 @@
 import { getThreadData } from "../../services/servicesv2/threadService2";
 import { threadType2 } from "../../types/typesv2/threadType2";
 import { UserType2 } from "../../types/typesv2/userType2";
+import { showToast } from "../../utils/utils";
 
 
 function threadTemplate(thread: threadType2, user: UserType2): string {
@@ -32,6 +33,7 @@ export async function renderUserThreads(user: UserType2): Promise<void> {
         }
     } catch (error) {
         console.error(error);
+        showToast("Något gick fel, försök igen senare", 5000);
     }
 }
 
