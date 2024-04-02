@@ -57,5 +57,6 @@ function displayThread(thread:ThreadWithId, threadId:string, topic:string):void{
     getAllCommentsFromThread(topic, threadId)
     .then(threads => displayComments(threads, thread, topic, threadId));
 
+
   });
 }
