@@ -126,15 +126,15 @@
 
 .userProfile {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
 }
 .userProfileInfo {
   display: flex;
+  justify-content: center;
   width: 100px;
   height: 100px;
-  border-radius: 50%;
 }
 
 .userProfileComments {
@@ -143,6 +143,15 @@
   height: 100px;
 }
 
+.comment {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+}
 .commentHeader {
   display: flex;
   justify-content: space-between;
@@ -156,6 +165,7 @@
   display: flex;
   align-items: center;
   margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .commentUser {
@@ -164,8 +174,84 @@
   align-items: center;
   margin-right: 10px;
 }
-.commentUser img {
+.commentUserInfo img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+}
+
+.userContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* FAQ */
+.faqContainer {
+  max-width: 800px; 
+  margin: 0 auto; 
+  padding: 20px;
+}
+
+
+.faqContainer h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.faqQuestion {
+  margin-bottom: 20px;
+}
+
+
+.faqQuestion h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.faqQuestion p {
+  font-size: 16px;
+  color: #555; 
+}
+
+
+/* Contact */
+#contactForm {
+  max-width: 600px; 
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+}
+
+
+#contactForm label {
+  display: block; 
+  margin-bottom: 10px;
+}
+
+#contactForm input[type="text"],
+#contactForm input[type="email"],
+#contactForm textarea {
+  width: 100%; 
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+}
+
+#contactForm button[type="submit"] {
+  padding: 10px 20px; 
+  background-color: #007bff; 
+  color: #fff;
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+}
+
+
+#contactForm button[type="submit"]:hover {
+  background-color: #0056b3; 
 }

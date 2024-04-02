@@ -1,10 +1,10 @@
-import { checkUserNameAndPass } from "../services/userService";
-import { showToast, toggleContainer, emptyContainer } from "../utils/utils";
-import { formatChecker } from "../utils/formatChecker";
+import { checkUserNameAndPass } from "../../services/userService";
+import { showToast, toggleContainer, emptyContainer } from "../../utils/utils";
+import { formatChecker } from "../../utils/formatChecker";
 import Navigo from "navigo";
-import { renderNav } from "./renderNav";
-import { renderSideNav } from "./renderSideNav";
-import { checkCredentials } from "../services/servicesv2/userService2";
+import { renderNav } from "../topNavComponents/renderNav";
+import { renderSideNav } from "../sideNavComponents/renderSideNav";
+import { checkCredentials } from "../../services/servicesv2/userService2";
 
 //Kevin's code
 function loginTemplate(): string {
@@ -23,11 +23,12 @@ function loginTemplate(): string {
 }
 
 export function renderLoginForm(router: Navigo): void {
-  const loginContainer = document.querySelector("#loginContainer");
-  if (!loginContainer) {
+  const mainContentContainer = document.querySelector(".mainContent");
+  if (!mainContentContainer) {
     return;
   }
-  loginContainer.innerHTML = loginTemplate();
+  mainContentContainer.innerHTML = "";
+  mainContentContainer.innerHTML = loginTemplate();
   attachLoginEvents(router);
 }
 
@@ -50,8 +51,7 @@ async function loginUser(router: Navigo) {
   if (loginSuccessful) {
     localStorage.setItem("login", userName);
     router.navigate(`/user/${userName}`);
-    renderNav();
-    renderSideNav(router);
+    console.log("router", router);
   } else {
     showToast("Fel användarnamn eller lösenord", 5000);
   }
@@ -83,10 +83,6 @@ export function attachLoginEvents(router: Navigo): void {
 export function logoutUser(router: Navigo): void {
   localStorage.removeItem("login");
   router.navigate("/login");
-  emptyContainer([".sideUserProfile", ".allUsers", "#topic, #postsUser"]);
-  toggleContainer(true, "#loginContainer");
-  renderNav();
-  renderLoginForm(router);
 }
 
 // Kevin's code

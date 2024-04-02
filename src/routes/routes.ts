@@ -1,10 +1,20 @@
 import Navigo from "navigo";
-import { handleEditUserProfileRoute, handleHomeRoute, handleLoginRoute, handleRegisterRoute, handleUserProfileRoute } from "./routesHandler";
+import { 
+  handleEditUserProfileRoute, 
+  handleFaqRoute, 
+  handleHomeRoute, 
+  handleLoginRoute, 
+  handleRegisterRoute, 
+  handleUserProfileRoute,
+  handleContactRoute, 
+  handleTopicRoute,
+  handleThreadRoute,
+} from "./routesHandler";
 
 
-type RouteParams = {
+export type RouteParams = {
   data: {
-    name: string;
+    id: string;
   };
 };
 
@@ -19,10 +29,19 @@ export function setupRoutes(router: Navigo) {
       },
       "/register": () => { handleRegisterRoute(router);  
       },
-      "/user/:name": (params: RouteParams) => { handleUserProfileRoute(router, params);
+      "/user/:id": (params: RouteParams) => { handleUserProfileRoute(router, params);
       },
-      "/user/:name/edit": (params: RouteParams) => { handleEditUserProfileRoute(router, params); 
+      "/user/:id/edit": (params: RouteParams) => { handleEditUserProfileRoute(router, params); 
       },
+      "/faq": () => { handleFaqRoute();
+      },
+      "/kontakt": () => { handleContactRoute();
+      },
+      "/topic/:id": (params: RouteParams) => { handleTopicRoute(router, params);
+      },
+      "/thread/:id": (params: RouteParams) => { handleThreadRoute(router, params);
+      },
+
       // "/topic/:title/": () => { 
       //   console.log('info');
       // },

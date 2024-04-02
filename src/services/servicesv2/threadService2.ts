@@ -5,7 +5,15 @@ import { ref, get, set, push, remove, DatabaseReference, DataSnapshot } from "fi
 
 // Kevin's code
 const threadPath = "threadsv2";
-// Kevin's code
+
+
+/** Kevin's code
+ * @param title required
+ * @param description required
+ * @param userId required
+ * @param forumId required
+ * @returns threadObject
+ */
 export function newThread(
     title: string,
     description: string,
@@ -23,7 +31,9 @@ export function newThread(
     timeStamp: timeStamp
     } as threadType2;
 }
-// Kevin's code
+/** Kevin's code
+ * @returns all threadObjects from firebase
+ */
 export async function getThreadData(): Promise<threadType2[]> {
     const dataRef: DatabaseReference = ref(db, threadPath);
     try {
@@ -45,7 +55,9 @@ export async function getThreadData(): Promise<threadType2[]> {
     }
 
 }
-// Kevin's code
+/** Kevin's code
+ * @param thread 
+ */
 export async function createThreadData(thread: threadType2): Promise<void> {
     const dataRef: DatabaseReference = ref(db, threadPath);
     try{
@@ -55,7 +67,9 @@ export async function createThreadData(thread: threadType2): Promise<void> {
         console.log(error);
     }
 }
-// Kevin's code
+/** Kevin's code
+ * @param thread 
+ */
 export async function updateThreadData(thread: threadType2): Promise<void> {
     const dataRef: DatabaseReference = ref(db, `${threadPath}/${thread.id}`);
     try{
@@ -65,7 +79,9 @@ export async function updateThreadData(thread: threadType2): Promise<void> {
         console.log(error);
     }
 }
-// Kevin's code
+/** Kevin's code
+ * @param threadId id in threadObject
+ */
 export async function deleteThreadData(threadId: number): Promise<void> {
     const firebaseKey = await findThreadById(threadId);
     const dataRef: DatabaseReference = ref(db, `${threadPath}/${firebaseKey}`);
@@ -76,7 +92,10 @@ export async function deleteThreadData(threadId: number): Promise<void> {
         console.log(error);
     }
 }
-// Kevin's code
+/** Kevin's code
+ * @param threadId id in threadObject
+ * @returns firebaseKey if true, null if false
+ */
 async function findThreadById(threadId: number): Promise<string | null> {
     const dataRef: DatabaseReference = ref(db, threadPath);
     const snapshot: DataSnapshot = await get(dataRef);
@@ -92,7 +111,10 @@ async function findThreadById(threadId: number): Promise<string | null> {
     return firebaseKey; 
 }
 
-// Kevin's code
+/** Kevin's code
+ * @param threadId 
+ * @returns  whole threadObject from database if true, null if false
+ */
 export async function getThreadById(threadId: number): Promise<threadType2 | null> {
     const dataRef: DatabaseReference = ref(db, threadPath);
     const snapshot: DataSnapshot = await get(dataRef);

@@ -1,6 +1,6 @@
 
-import { firstLetterToUpperCase } from "../utils/utils";
-import { isLoggedIn, getLoggedInUser } from "./renderLogin";
+import { firstLetterToUpperCase } from "../../utils/utils";
+import { isLoggedIn, getLoggedInUser } from "../credentialsComponents/renderLogin";
 
 export const renderNav = (): void => {
   const navContainer = document.querySelector(".mainMenu") as HTMLElement;

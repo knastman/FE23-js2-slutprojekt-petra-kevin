@@ -1,33 +1,26 @@
 import Navigo from "navigo";
-import { renderLoginForm, isLoggedIn } from "../components/renderLogin";
-import { renderRegisterForm } from "../components/renderRegister";
-import { renderNav } from "../components/renderNav";
-import { renderSideNav } from "../components/renderSideNav";
-import { toggleContainer } from "../utils/utils";
-import { renderSideUser } from "../components/renderSideUser";
+import { renderLoginForm, isLoggedIn } from "../components/credentialsComponents/renderLogin";
+import { renderRegisterForm } from "../components/credentialsComponents/renderRegister";
+import { renderNav } from "../components/topNavComponents/renderNav";
+import { renderSideNav } from "../components/sideNavComponents/renderSideNav";
+
+import { renderSideUser } from "../components/sideNavComponents/renderSideUser";
 import { displayStartContent } from "../modules/displayStartContent";
-import { renderEditUser } from "../components/renderEditUser";
+import { renderEditUser } from "../components/profileComponents/renderEditUser";
 import { renderMainUser } from "../components/profileComponents/renderMainUser";
+import { renderFooter } from "../components/renderFooter";
+import { renderFaq } from "../components/topNavComponents/renderFaq";
+import { renderContact } from "../components/topNavComponents/renderContact";
 
-export type RouteParams = {
-  data: {
-    name: string;
-  };
-};
-
-
-function handleCommonTasks(router: Navigo, hideContainers: string[]) {
-  hideContainers.forEach(containerId => toggleContainer(false, containerId));
-  renderNav();
-  renderSideNav(router);
-}
+import { RouteParams } from "./routes";
 
 
 export function handleHomeRoute(router: Navigo) {
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else {
-    handleCommonTasks(router, ["#loginContainer", "#registerContainer", "#start", ]);
+    renderNav();
+    renderSideNav(router);
   }
 }
 
@@ -35,10 +28,10 @@ export function handleLoginRoute(router: Navigo) {
   if (isLoggedIn()) {
     router.navigate("/");
   } else {
-    displayStartContent();
     renderLoginForm(router);
-    handleCommonTasks(router, ["#registerContainer", "#editUserContainer",".allUsers"]);
-    toggleContainer(true, "#loginContainer");
+    renderSideNav(router);
+    renderNav();
+
   }
 }
 
@@ -47,9 +40,6 @@ export function handleRegisterRoute(router: Navigo) {
     router.navigate("/");
   } else {
     renderRegisterForm(router);
-    handleCommonTasks(router, ["#loginContainer", "#editUserContainer","#mainUserProfile"]);
-    toggleContainer(true, "#registerContainer");
-    toggleContainer(true, "#start");
   }
 }
 
@@ -57,10 +47,11 @@ export function handleUserProfileRoute(router: Navigo, params: RouteParams) {
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else { 
-    renderMainUser(params.data.name);
-    toggleContainer(true, "#mainUserProfile");
-    toggleContainer(true, ".allUsers")
-    handleCommonTasks(router, ["#loginContainer", "#registerContainer", "#editUserContainer","#start"]);
+    renderMainUser(params.data.id);
+    console.log("params.data.id", params.data.id);
+    renderNav();
+    renderFooter();
+    renderSideNav(router);
   } 
 }
 
@@ -68,9 +59,19 @@ export function handleEditUserProfileRoute(router: Navigo, params: RouteParams) 
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else { 
-    renderEditUser(router, params.data.name);
-    handleCommonTasks(router, ["#loginContainer", "#registerContainer","#mainUserProfile"]);
-    toggleContainer(true, "#editUserContainer");
-    toggleContainer(false, "#start");
-  } 
+    renderEditUser(router, params.data.id);
+  }
+}
+
+export function handleTopicRoute(router: Navigo, params: RouteParams) {
+} 
+export function handleThreadRoute(router: Navigo, params: RouteParams) {
+
+}
+export function handleFaqRoute() {
+  renderFaq();
+}
+
+export function handleContactRoute() {
+  renderContact();
 }

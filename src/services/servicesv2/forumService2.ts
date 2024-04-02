@@ -9,7 +9,10 @@ import {
 } from "firebase/database";
 
 
-//Kevin's code
+/** Kevin's code
+ * @returns all forumObjects from firebase
+ * @returns empty array if no data
+ */
 export async  function getForumData(): Promise<ForumType[]> {
     const dataRef: DatabaseReference = ref(db, "forumv2");
 

@@ -1,20 +1,19 @@
-import { createUser, getUserByName } from '../services/userService';
-import { UserType } from '../types/userType';
-import { formatChecker } from '../utils/formatChecker';
+import { createUser, getUserByName } from '../../services/userService';
+import { UserType } from '../../types/userType';
+import { formatChecker } from '../../utils/formatChecker';
 import Navigo from 'navigo';
 import {
   highlightSelectedImage,
   showToast,
-  toggleContainer,
-} from '../utils/utils';
+} from '../../utils/utils';
 
-import blackPantherImage from '../../public/media/black-panther.png';
-import redPandaImage from '../../public/media/red-panda.png';
-import babirusaImage from '../../public/media/babirusa.png';
-import { renderNav } from './renderNav';
-import { renderSideNav } from './renderSideNav';
-import { UserType2 } from '../types/typesv2/userType2';
-import { createUserv2, newUserv2 } from '../services/servicesv2/userService2';
+import blackPantherImage from '../../../public/media/black-panther.png';
+import redPandaImage from '../../../public/media/red-panda.png';
+import babirusaImage from '../../../public/media/babirusa.png';
+import { renderNav } from '../topNavComponents/renderNav';
+import { renderSideNav } from '../sideNavComponents/renderSideNav';
+import { UserType2 } from '../../types/typesv2/userType2';
+import { createUserv2, newUserv2 } from '../../services/servicesv2/userService2';
 
 //Kevin's code
 function registerTemplate() {
@@ -50,11 +49,12 @@ function registerTemplate() {
 }
 
 export function renderRegisterForm(router: Navigo): void {
-  const registrationContainer = document.querySelector('#registerContainer');
-  if (!registrationContainer) {
+  const mainContentContainer = document.querySelector('.mainContent');
+  if (!mainContentContainer) {
     return;
   }
-  registrationContainer.innerHTML = registerTemplate();
+  mainContentContainer.innerHTML = "";
+  mainContentContainer.innerHTML = registerTemplate();
   attachRegisterEvents(router);
 }
 

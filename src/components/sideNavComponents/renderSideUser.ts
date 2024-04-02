@@ -1,12 +1,13 @@
 
-import { isLoggedIn, logoutUser } from "./renderLogin";
-import { UserType } from "../types/userType";
+import { isLoggedIn, logoutUser } from "../credentialsComponents/renderLogin";
+import { UserType } from "../../types/userType";
 import Navigo from "navigo";
-import { firstLetterToUpperCase, showToast, toggleContainer } from "../utils/utils";
-import { getImagePath } from "../utils/imageIdentifier";
-import { getUserData } from "../services/servicesv2/userService2";
+import { firstLetterToUpperCase, showToast } from "../../utils/utils";
+import { getImagePath } from "../../utils/imageIdentifier";
+import { getUserData } from "../../services/servicesv2/userService2";
 
-import { UserType2 } from "../types/typesv2/userType2";
+import { UserType2 } from "../../types/typesv2/userType2";
+import { renderSideNav } from "./renderSideNav";
 
 // Kevin's code
 // Renders the user profile from the user name
@@ -14,25 +15,25 @@ export const renderSideUser = async (
   router: Navigo,
   userName: string
 ): Promise<void> => {
-  const userProfileContainer = document.querySelector(".sideUserProfile");
-  if (!userProfileContainer) {
-    showToast("Det blev fel, försök igen", 5000);
+  const mainAsideContainer = document.querySelector(".mainAside");
+  if (!mainAsideContainer) {
+    showToast("Kunde ej hitta mainAside", 5000);
     return;
   }
+  mainAsideContainer.innerHTML = "";
   try {
-    const userData: UserType2[] = await getUserData();
-    const user = userData.find((user) => user.name === userName);
-
     if (!isLoggedIn()) {
       showToast("Du måste vara inloggad för att se dina uppgifter", 5000);
       router.navigate("/login");
       return;
     }
+    const userData: UserType2[] = await getUserData();
+    const user = userData.find((user) => user.name === userName);
     if (!user) {
       showToast("Användaren finns inte", 5000);
       return;
     }
-    userProfileContainer.innerHTML = renderLoggedInUser(user);
+    mainAsideContainer.innerHTML = renderLoggedInUser(user);
 
     attachLinkEvents(router);
   } catch (error) {
@@ -49,10 +50,10 @@ const renderLoggedInUser = (user: UserType): string => {
         <img src="${user.image}" alt="userImage">
         <div class="menu userMenu">
             <li><a href="/user/${user.name}/edit" data-navigo>Redigera profil</a></li>
-            <button type="submit" id="logout">Logga ut</button>
+            <button type="button" id="logout">Logga ut</button>
         </div>
-       
     </nav>
+    <nav class="allUsers"></nav>
   `;
 };
 
@@ -60,10 +61,14 @@ const renderLoggedInUser = (user: UserType): string => {
 const attachLinkEvents = (router: Navigo) => {
   const logoutButton = document.querySelector("#logout") as HTMLButtonElement;
   if (!logoutButton) return;
-  logoutButton.addEventListener("click", (e) => {
-    e.preventDefault();
+  logoutButton.addEventListener("click", () => {
     logoutUser(router);
-    toggleContainer(true, "#loginContainer");
-    toggleContainer(false, "#editUserContainer");
+    clearSideNav();
   });
+};
+
+const clearSideNav = () => {
+  const sideNavContainer = document.querySelector(".mainAside");
+  if (!sideNavContainer) return;
+  sideNavContainer.innerHTML = "";
 };

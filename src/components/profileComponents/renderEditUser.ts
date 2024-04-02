@@ -1,18 +1,18 @@
-import { getUserByName, updateUser, deleteUser } from '../services/userService';
-import { UserType } from '../types/userType';
+import { getUserByName, updateUser, deleteUser } from '../../services/userService';
+import { UserType } from '../../types/userType';
 import Navigo from 'navigo';
 import {
   highlightSelectedImage,
   showToast,
   toggleContainer,
-} from '../utils/utils';
+} from '../../utils/utils';
 
-import blackPantherImage from '../../public/media/black-panther.png';
-import redPandaImage from '../../public/media/red-panda.png';
-import babirusaImage from '../../public/media/babirusa.png';
-import { getLoggedInUser, logoutUser } from './renderLogin';
-import { UserType2 } from '../types/typesv2/userType2';
-import { deleteUserv2, getUserData, updateUserv2 } from '../services/servicesv2/userService2';
+import blackPantherImage from '../../../public/media/black-panther.png';
+import redPandaImage from '../../../public/media/red-panda.png';
+import babirusaImage from '../../../public/media/babirusa.png';
+import { getLoggedInUser, logoutUser } from '../credentialsComponents/renderLogin';
+import { UserType2 } from '../../types/typesv2/userType2';
+import { deleteUserv2, getUserData, updateUserv2 } from '../../services/servicesv2/userService2';
 
 function editUserTemplate(user: UserType2 ): string {
   return `
@@ -49,10 +49,11 @@ export async function renderEditUser(
   router: Navigo,
   userName: string
 ): Promise<void> {
-  const editUserContainer = document.querySelector('#editUserContainer');
-  if (!editUserContainer) {
+  const mainContentContainer = document.querySelector('.mainContent');
+  if (!mainContentContainer) {
     return;
   }
+  mainContentContainer.innerHTML = '';
 
   try {
     const userData: UserType2[] = await getUserData();
@@ -67,7 +68,7 @@ export async function renderEditUser(
       showToast('Användaren finns inte', 5000);
       return;
     }
-    editUserContainer.innerHTML = editUserTemplate(user);
+    mainContentContainer.innerHTML = editUserTemplate(user);
     attachEditEvents(router, user);
   } catch (error) {
     showToast('Kunde inte hämta användaren', 5000);
