@@ -31,8 +31,6 @@ export async function renderMainUser(userName: string): Promise<void> {
     const mainContentContainer = document.querySelector(".mainContent");
     if (!mainContentContainer) return;
     mainContentContainer.innerHTML = "";
-
-
     try {
         if (!isLoggedIn()){
             showToast("Du måste vara inloggad för att se profiler", 5000);

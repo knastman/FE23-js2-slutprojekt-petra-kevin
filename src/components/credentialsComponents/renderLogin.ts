@@ -22,6 +22,7 @@ function loginTemplate(): string {
     `;
 }
 
+//Kevin's code
 export function renderLoginForm(router: Navigo): void {
   const mainContentContainer = document.querySelector(".mainContent");
   if (!mainContentContainer) {
@@ -33,7 +34,7 @@ export function renderLoginForm(router: Navigo): void {
 }
 
 //Kevin's code
-async function loginUser(router: Navigo) {
+async function loginUser(router: Navigo): Promise<void>{
   const userName = (document.querySelector("#userName") as HTMLInputElement)
     ?.value;
   const password = (document.querySelector("#password") as HTMLInputElement)
@@ -80,17 +81,30 @@ export function attachLoginEvents(router: Navigo): void {
 }
 
 //Kevin's code
+/**
+ * Removes the login from localstorage
+ * Navigates to login page
+ * @param router 
+ */
 export function logoutUser(router: Navigo): void {
   localStorage.removeItem("login");
   router.navigate("/login");
 }
 
 // Kevin's code
+/**
+ * checks localsotrage for login
+ * @returns boolean
+ */
 export function isLoggedIn(): boolean {
   return !!localStorage.getItem("login");
 }
 
 //Kevin's code
+/**
+ * Fetches the logged in user from localstorage
+ * @returns string | null
+ */
 export function getLoggedInUser(): string | null {
   return localStorage.getItem("login");
 }

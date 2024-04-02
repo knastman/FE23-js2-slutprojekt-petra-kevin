@@ -48,6 +48,7 @@ function registerTemplate() {
     `;
 }
 
+//Kevin's code
 export function renderRegisterForm(router: Navigo): void {
   const mainContentContainer = document.querySelector('.mainContent');
   if (!mainContentContainer) {

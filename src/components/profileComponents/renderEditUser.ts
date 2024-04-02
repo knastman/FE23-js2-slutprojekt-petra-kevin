@@ -4,7 +4,6 @@ import {
   showToast,
   toggleContainer,
 } from '../../utils/utils';
-
 import blackPantherImage from '../../../public/media/black-panther.png';
 import redPandaImage from '../../../public/media/red-panda.png';
 import babirusaImage from '../../../public/media/babirusa.png';
@@ -12,6 +11,8 @@ import { getLoggedInUser, logoutUser } from '../credentialsComponents/renderLogi
 import { UserType2 } from '../../types/typesv2/userType2';
 import { deleteUserv2, getUserData, updateUserv2 } from '../../services/servicesv2/userService2';
 
+
+//Kevin's code
 function editUserTemplate(user: UserType2 ): string {
   return `
         <div class="editUser">

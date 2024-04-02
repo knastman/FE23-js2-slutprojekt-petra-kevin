@@ -1,3 +1,4 @@
+// Kevin's code
 export const renderFooter = (): void => {
   const footerContainer = document.querySelector(".mainFooter") as HTMLElement;
   if (!footerContainer) return;

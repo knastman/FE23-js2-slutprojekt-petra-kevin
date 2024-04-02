@@ -116,6 +116,7 @@ function deleteButtonTemplate(commentId: number): string {
     `;
 }
 
+// Kevin's code
 function deleteButtonClickHandler(commentId: number, user: UserType2): void{
     const buttonContainer = document.querySelector(".commentButtonContainer");
     if(!buttonContainer) return;

@@ -1,5 +1,7 @@
 import { showToast } from "../../utils/utils";
 
+
+// Kevin's code
 function contactTemplate() {
     return `
       <form id="contactForm">
@@ -20,25 +22,25 @@ function contactTemplate() {
     `;
   }
 
-  
+// Kevin's code
 export function renderContact(): void {
-    const mainContentContainer = document.querySelector(".mainContent") as HTMLElement;
-    if (!mainContentContainer) {
-      return;
-    }
-    mainContentContainer.innerHTML = "";
-    mainContentContainer.innerHTML = contactTemplate();
-    attachContactEvents();
+  const mainContentContainer = document.querySelector(".mainContent") as HTMLElement;
+  if (!mainContentContainer) {
+    return;
+  }
+  mainContentContainer.innerHTML = "";
+  mainContentContainer.innerHTML = contactTemplate();
+  attachContactEvents();
 }
 
-
-  function attachContactEvents(): void {
-    const contactForm = document.querySelector("#contactForm") as HTMLFormElement;
-    if (!contactForm) {
-      return;
-    }
-    contactForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      showToast("Inte implementerat ännu", 5000);
-    });
+// Kevin's code
+function attachContactEvents(): void {
+  const contactForm = document.querySelector("#contactForm") as HTMLFormElement;
+  if (!contactForm) {
+    return;
   }
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    showToast("Inte implementerat ännu", 5000);
+  });
+}

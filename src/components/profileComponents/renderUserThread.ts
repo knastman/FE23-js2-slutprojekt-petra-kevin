@@ -3,7 +3,7 @@ import { threadType2 } from "../../types/typesv2/threadType2";
 import { UserType2 } from "../../types/typesv2/userType2";
 import { showToast } from "../../utils/utils";
 
-
+//Kevin's code
 function threadTemplate(thread: threadType2, user: UserType2): string {
     return `
     <div class="thread">
@@ -12,7 +12,7 @@ function threadTemplate(thread: threadType2, user: UserType2): string {
     `;
 }
 
-
+//Kevin's code
 export async function renderUserThreads(user: UserType2): Promise<void> {
     const mainUserProfileThreads = document.querySelector(".userProfileThreads");
     if (!mainUserProfileThreads) return;
@@ -36,7 +36,7 @@ export async function renderUserThreads(user: UserType2): Promise<void> {
         showToast("Något gick fel, försök igen senare", 5000);
     }
 }
-
+//Kevin's code
 function sortThreadsByDate(threads: threadType2[]): threadType2[] {
     return threads.sort((a, b) => b.timeStamp - a.timeStamp);
 }

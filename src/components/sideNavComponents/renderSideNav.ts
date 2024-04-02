@@ -5,6 +5,8 @@ import { renderSideUser } from "./renderSideUser";
 import { UserType2 } from "../../types/typesv2/userType2";
 import { getUserData } from "../../services/servicesv2/userService2";
 
+// Purpose: Render the side navigation for the user
+// Kevin's code
 export const renderSideNav = async (router: Navigo): Promise<void> => {
   const sideNavContainer = document.querySelector(".mainAside") as HTMLElement;
   if (!sideNavContainer) return;

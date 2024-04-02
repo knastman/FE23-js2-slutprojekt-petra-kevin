@@ -9,8 +9,26 @@ import { getUserData } from "../../services/servicesv2/userService2";
 import { UserType2 } from "../../types/typesv2/userType2";
 import { renderSideNav } from "./renderSideNav";
 
+// Purpose: Render the side navigation for the user
 // Kevin's code
-// Renders the user profile from the user name
+const renderLoggedInUser = (user: UserType): string => {
+  user.image = getImagePath(user.image);
+  return `
+    <nav class="userMenu">
+      <h3>Välkommen till din profil</h3>
+        <h4>${firstLetterToUpperCase(user.name)}</h4>
+        <img src="${user.image}" alt="userImage">
+        <div class="menu userMenu">
+            <li><a href="/user/${user.name}/edit" data-navigo>Redigera profil</a></li>
+            <button type="button" id="logout">Logga ut</button>
+        </div>
+    </nav>
+    <nav class="allUsers"></nav>
+  `;
+};
+
+
+// Kevin's code
 export const renderSideUser = async (
   router: Navigo,
   userName: string
@@ -41,23 +59,7 @@ export const renderSideUser = async (
   }
 };
 
-const renderLoggedInUser = (user: UserType): string => {
-  user.image = getImagePath(user.image);
-  return `
-    <nav class="userMenu">
-      <h3>Välkommen till din profil</h3>
-        <h4>${firstLetterToUpperCase(user.name)}</h4>
-        <img src="${user.image}" alt="userImage">
-        <div class="menu userMenu">
-            <li><a href="/user/${user.name}/edit" data-navigo>Redigera profil</a></li>
-            <button type="button" id="logout">Logga ut</button>
-        </div>
-    </nav>
-    <nav class="allUsers"></nav>
-  `;
-};
-
-
+// Kevin's code
 const attachLinkEvents = (router: Navigo) => {
   const logoutButton = document.querySelector("#logout") as HTMLButtonElement;
   if (!logoutButton) return;
@@ -67,6 +69,7 @@ const attachLinkEvents = (router: Navigo) => {
   });
 };
 
+// Kevin's code
 const clearSideNav = () => {
   const sideNavContainer = document.querySelector(".mainAside");
   if (!sideNavContainer) return;

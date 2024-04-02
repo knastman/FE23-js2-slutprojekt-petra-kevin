@@ -1,3 +1,6 @@
+
+// Purpose: This file is used to render the FAQ page.
+// Kevin's code
 function faqTemplate():string{
     return`
     <div class="faqContainer">
@@ -20,7 +23,7 @@ function faqTemplate():string{
     </div>`
 }
 
-
+//Kevin's code
 export function renderFaq():void{
     const mainContentContainer = document.querySelector(".mainContent");
     if (!mainContentContainer) {
