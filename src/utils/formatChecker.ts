@@ -2,6 +2,13 @@ import { getUserData } from "../services/servicesv2/userService2";
 import { UserType2 } from "../types/typesv2/userType2";
 
 // Kevin's code
+/**
+ * @property {Function} isInputEmpty - Checks if input is empty
+ * @property {Function} isUserNameValid - Checks if username is valid
+ * @property {Function} isPasswordValid - Checks if password is valid
+ * @property {Function} isPasswordMatch - Checks if password and confirm password match
+ * @property {Function} isUserNameTaken - Checks if username is taken
+ */
 export const formatChecker = {
   isInputEmpty(input: string): boolean {
     return !input.trim();

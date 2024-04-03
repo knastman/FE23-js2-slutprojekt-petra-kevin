@@ -6,7 +6,14 @@ import { db } from "../firebaseConfig";
 import { ref, get, push, remove, DatabaseReference, DataSnapshot } from "firebase/database";
 
 const commentPath = "commentsv2";
-// Kevin's code
+
+/** Kevin's code
+ * @param userName required
+ * @param commentText required
+ * @param threadId required
+ * @param userId required
+ * @returns CommentType2
+ */
 export function newComment(
     userName: string,
     commentText: string,
@@ -24,7 +31,10 @@ export function newComment(
         userId: userId
     } as CommentType2;
 }
-// Kevin's code
+/** Kevin's code
+ * @returns all commentObjects from firebase
+ * @returns empty array if no data
+ */
 export async function getCommentData(): Promise<CommentType2[]> {
     const dataRef: DatabaseReference = ref(db, commentPath);
 
@@ -46,7 +56,10 @@ export async function getCommentData(): Promise<CommentType2[]> {
     }
 
 }
-// Kevin's code
+/** Kevin's code
+ *  Append a comment to the database
+ * @param comment required CommentType2
+ */
 export async function createCommentData(comment: CommentType2): Promise<void> {
     const dataRef: DatabaseReference = ref(db, commentPath);  
     try{
@@ -56,7 +69,11 @@ export async function createCommentData(comment: CommentType2): Promise<void> {
         console.log(error);
     }
 }
-// Kevin's code
+
+/** Kevin's code
+ * updates a comment in the database
+ * @param comment required CommentType2
+ */
 export async function updateCommentData(comment: CommentType2): Promise<void> {
     const firebaseKey: string | null = await findCommentById(comment.id);
     if (!firebaseKey) {
@@ -71,7 +88,10 @@ export async function updateCommentData(comment: CommentType2): Promise<void> {
         console.log(error);
     }
 }
-// Kevin's code
+/** Kevin's code
+ *  Deletes comment from database
+ * @param commentId id in commentObject
+ */
 export async function deleteCommentData(commentId: number): Promise<void> {
     const firebaseKey = await findCommentById(commentId);
     if (!firebaseKey) {
@@ -87,7 +107,11 @@ export async function deleteCommentData(commentId: number): Promise<void> {
     }
 }
 
-// Kevin's code
+/** Kevin's code
+ * @param commentId required
+ * @returns firebaseKey if found
+ * @returns null if not found
+ */
 async function findCommentById(commentId: number): Promise<string | null> {
     const dataRef: DatabaseReference = ref(db, commentPath);
     const snapshot: DataSnapshot = await get(dataRef);

@@ -14,7 +14,7 @@ import { sortComments2 } from "../utils/sortComments";
 import { getThreadData } from "../services/servicesv2/threadService2";
 
 import { showToast } from "../utils/utils";
-import { isLoggedIn } from "../components/renderLogin";
+import { isLoggedIn } from "../components/credentialsComponents/renderLogin";
 
 /*********************************
   Display Threads in Topic

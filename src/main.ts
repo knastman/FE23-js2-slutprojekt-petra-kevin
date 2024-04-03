@@ -9,17 +9,20 @@ import { getAllUsers, createUser } from "./services/userService";
 ///////////////////////////////////
 
 import { setupRoutes } from "./routes/routes";
-import { renderNav } from "./components/renderNav";
+import { renderNav } from "./components/topNavComponents/renderNav";
 import { renderFooter } from "./components/renderFooter";
 
 import Navigo from "navigo";
+import { getUserData } from "./services/servicesv2/userService2";
+import { newComment } from "./services/servicesv2/commentService2";
+import { createThreadData, getThreadById, newThread } from "./services/servicesv2/threadService2";
+import { threadType2 } from "./types/typesv2/threadType2";
+
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const router = new Navigo("/", { hash: false });
   event.preventDefault();
-  renderNav(router);
   setupRoutes(router);
-  renderFooter();
 });
 
 /*********************************
@@ -29,4 +32,5 @@ document.addEventListener("DOMContentLoaded", (event) => {
 //Petra's code
 // getTopics().then(displayTopicsTitles);
 getForumData().then(displayTopics);
+
 

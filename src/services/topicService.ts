@@ -6,19 +6,19 @@ import { ref, get, DatabaseReference, DataSnapshot } from "firebase/database";
 
 //Kevin's code
 // Returns all topics as an object with topic names as keys
-export const getTopics = async (): Promise<{[key:string]: TopicType}> => {
+export const getTopics = async (): Promise<TopicType | any> => {
   const dataref: DatabaseReference = ref(db, "topics");
   try {
     const data: DataSnapshot = await get(dataref);
     if (data.exists()) {
       return data.val();
     } else {
-      return {};
+      return 
     }
   } catch (error) {
     showToast("Kunde inte hämta ämnen, testa igen", 5000);
     console.log(error);
-    return {};
+    return 
   }
 };
 

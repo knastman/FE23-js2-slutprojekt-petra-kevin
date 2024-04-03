@@ -1,27 +1,31 @@
 import Navigo from "navigo";
-import { getLoggedInUser } from "./renderLogin";
-import { showToast, generateUserLink } from "../utils/utils";
-import { UserType } from "../types/userType";
-import { getAllUsers } from "../services/userService";
+import { getLoggedInUser, isLoggedIn } from "../credentialsComponents/renderLogin";
+import { showToast } from "../../utils/utils";
 import { renderSideUser } from "./renderSideUser";
-import { UserType2 } from "../types/typesv2/userType2";
-import { getUserData } from "../services/servicesv2/userService2";
+import { UserType2 } from "../../types/typesv2/userType2";
+import { getUserData } from "../../services/servicesv2/userService2";
 
+// Purpose: Render the side navigation for the user
+// Kevin's code
 export const renderSideNav = async (router: Navigo): Promise<void> => {
   const sideNavContainer = document.querySelector(".mainAside") as HTMLElement;
   if (!sideNavContainer) return;
 
   const user: string | null = getLoggedInUser();
+  if (user === null) { 
+    return;
+  }
+  else {  
+    await renderSideUser(router, user);
+    await renderAllUsers(router);
+    router.updatePageLinks();
+  }
 
-  if (user) await renderSideUser(router, user);
-
-  await renderAllUsers(router);
-
-  router.updatePageLinks();
 };
 
 // Kevin's code
 const renderAllUsers = async (router: Navigo): Promise<void> => {
+  if(!isLoggedIn()) return;
   const userListContainer = document.querySelector(".allUsers");
   if (!userListContainer) {
     showToast("Det blev fel, försök igen", 5000);
