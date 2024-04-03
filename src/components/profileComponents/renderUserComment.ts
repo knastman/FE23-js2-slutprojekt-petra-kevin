@@ -23,7 +23,7 @@ function commentTemplate(comment: CommentType2, user: UserType2, thread: threadT
             <div class="commentBody">
                 <div class="commentUserInfo">
                     <div class="commentUserName">
-                        <a href="/user/${comment.userId}">${user.name}</a>
+                        <a href="/user/${user.name}">${user.name}</a>
                     </div>
                     <div class="commentUserImg">
                         <img src="${user.image}" alt="userImage">
@@ -36,7 +36,7 @@ function commentTemplate(comment: CommentType2, user: UserType2, thread: threadT
                 <div class="commentFooter">
                     <a href="/topic/${thread.forumId}">${topicTitle}</a>
                 <div class="commentButtonContainer">
-                    <button class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera</button> | 
+                    <button class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera</button>  
                     <button class="deleteUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Radera</button>
                 </div>
             </div>
