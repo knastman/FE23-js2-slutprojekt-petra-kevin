@@ -14,3 +14,4 @@ src/services/.DS_Store
 .DS_Store
 src/modules/displayPosts.ts
 src/modules/displayInfoPages.ts
+public/user.html

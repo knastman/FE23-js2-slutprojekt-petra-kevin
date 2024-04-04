@@ -124,23 +124,26 @@
 
 /* Profile */
 
-.userProfile {
+/* .userProfile {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-.userProfileInfo {
+} */
+
+/* .userProfileInfo {
   display: flex;
   justify-content: center;
   width: 100px;
   height: 100px;
-}
+} */
 
 .userProfileComments {
   display: flex;
   flex-direction: column;
-  height: 100px;
+  /* height: 100px; */
+  width:95%;
+  margin:015px auto;
 }
 
 .comment {

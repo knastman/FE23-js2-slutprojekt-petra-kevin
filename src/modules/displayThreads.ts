@@ -1,21 +1,17 @@
-// import { CommentType }  from "../types/commentType";
+
 import { CommentType2 }  from "../types/commentType";
 import { ThreadType2 } from "../types/threadType";
-// import { displayComments, displayThreadPost, clearPosts } from "./displayComments";
 import { displayPosts, clearPosts } from "./displayComments";
 import { clearAll, clearMain} from "./displayTopics";
 
-// import { getAllCommentsFromThread } from "../services/commentService";
 import { getCommentData } from "../services/servicesv2/commentService2";
 import { sortComments2 } from "../utils/sortComments";
 
-// import { getThreadById, createNewThread, createNewThreadWithText, addThreadToTopic } from "../services/threadService";
-import { getThreadData, newThread } from "../services/servicesv2/threadService2";
+// import { getThreadData, newThread } from "../services/servicesv2/threadService2";
 
 import { showToast } from "../utils/utils";
 import { getLoggedInUser, isLoggedIn } from "../components/credentialsComponents/renderLogin";
 import { ForumType } from "../types/forumType";
-
 
 import { getUserData } from "../services/servicesv2/userService2";
 import { UserType2 } from "../types/userType";
@@ -26,7 +22,7 @@ import Navigo from "navigo";
 **********************************/
 
 // export function displayThreads(threads:threadType2[]):void{
-export async function displayThreads(threads:ThreadType2[], topic:ForumType, router: Navigo): Promise<void>{
+export function displayThreads(threads:ThreadType2[], topic:ForumType, router: Navigo): void{
   for(const thread of threads.slice(0, 5)){    
     getCommentData()
     // .then(console.log)
@@ -73,7 +69,7 @@ threadsContainer.addEventListener('click', (event) => {
   // const postsContainer = document.querySelector('#posts') as HTMLDivElement;
   event.preventDefault();
   clearPosts();
-  createThreadForm();
+  // createThreadForm();
 
   const threadId = parseInt(((event.target as HTMLAnchorElement).id));
   const topic = ((event.target as HTMLElement).title);  
@@ -96,52 +92,52 @@ threadsContainer.addEventListener('click', (event) => {
 const formContainer = document.querySelector('#createThreadFormContainer') as HTMLDivElement;
 // const form = document.querySelector('#createThreadForm') as HTMLDivElement;
 
-function createThreadForm():void{
-  const form = document.createElement('form');
-  form.setAttribute('id', 'createThreadForm');
+// function createThreadForm(topic):void{
+//   const form = document.createElement('form');
+//   form.setAttribute('id', 'createThreadForm');
 
-  form.innerHTML = `
-      <div>
-      <label for="subjectHeaderInput">Ämne:</label>
-      <input class="" type="text" name="subjectHeaderInput" placeholder="Vad handlar ditt inlägg om" id="subjectHeaderInput">
-    </div>
-    <div>
-      <label for="postText">Inlägg:</label>
-      <textarea id="postTextInput" name="Meddelande" placeholder="Ditt inlägg här" rows="5" cols="33" required minlength="4" maxlength="600"></textarea>
-    </div>
-    <div><button type="submit" id="postSendButton">Skicka</button></div>
-  `
-  formContainer.append(form);
+//   form.innerHTML = `
+//       <div>
+//       <label for="subjectHeaderInput">Ämne:</label>
+//       <input class="" type="text" name="subjectHeaderInput" placeholder="Vad handlar ditt inlägg om" id="subjectHeaderInput">
+//     </div>
+//     <div>
+//       <label for="postText">Inlägg:</label>
+//       <textarea id="postTextInput" name="Meddelande" placeholder="Ditt inlägg här" rows="5" cols="33" required minlength="4" maxlength="600"></textarea>
+//     </div>
+//     <div><button type="submit" id="postSendButton">Skicka</button></div>
+//   `
+//   formContainer.append(form);
 
-  //EJ KLAR
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
+//   //EJ KLAR
+//   // form.addEventListener('submit', (event) => {
+//   //   event.preventDefault();
   
-    const currentUser = getLoggedInUser();
-    console.log(currentUser);
+//   //   const currentUser = getLoggedInUser();
+//   //   console.log(currentUser);
 
-    getUserData()
-    .then(userData => userData.find((user) => user.name === currentUser)) 
-    .then();
+//   //   getUserData()
+//   //   .then(userData => userData.find((user) => user.name === currentUser)) 
+//   //   .then();
     
-    const subjectInput:string = (form.querySelector('#subjectHeaderInput') as HTMLInputElement).value.trim();
-    const postTextInput = (form.querySelector('#postTextInput') as HTMLInputElement);
+//   //   const subjectInput:string = (form.querySelector('#subjectHeaderInput') as HTMLInputElement).value.trim();
+//   //   const postTextInput = (form.querySelector('#postTextInput') as HTMLInputElement);
 
-    // newThread({
-    //   title: subjectInput,
-    //   description: '',
-    //   userId: user.id,
-    //   forumId: topicId
-    // })
+//   //   // newThread({
+//   //   //   title: subjectInput,
+//   //   //   description: '',
+//   //   //   userId: user.id,
+//   //   //   forumId: topicId
+//   //   // })
 
-    newThread(subjectInput, '', 8688981, topicId) //Denna måste innehålla postdata också
-    // .then(displayPosts)
+//   //   newThread(subjectInput, '', 8688981, topicId) //Denna måste innehålla postdata också
+//   //   // .then(displayPosts)
 
 
-    form.reset();
-  })
+//   //   form.reset();
+//   // })
 
-}
+// }
 
 
 

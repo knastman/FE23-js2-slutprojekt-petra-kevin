@@ -8,7 +8,7 @@ import { getLoggedInUser } from "../credentialsComponents/renderLogin";
 import { CommentType2 } from "../../types/commentType";
 import { createCommentData, newComment } from "../../services/servicesv2/commentService2";
 
-function threadFormTemplate(topic: string) {
+function threadFormTemplate(topic: string) { // Hämtar in numret på topic, men behöver hämta namnet. Eller skippa 
   return `
     <h3>Gör ett inlägg i ${topic}</h3>
     <form id="createThreadForm">
@@ -24,6 +24,7 @@ function threadFormTemplate(topic: string) {
     </form>
   `;
 }
+
 // Kevin's code
 export function renderThreadForm(topic: string, router: Navigo) {
   const threadFormContainer = document.querySelector('#createThreadFormContainer') as HTMLDivElement;
@@ -33,10 +34,12 @@ export function renderThreadForm(topic: string, router: Navigo) {
   router.updatePageLinks();
 }
 
+
 // Kevin's code
 async function attachEventListeners(topic: string, router: Navigo) {
     const submitButton = document.querySelector('#postSendButton') as HTMLButtonElement;
     if (!submitButton) return;
+
     submitButton.addEventListener('click', async (e) => {
       e.preventDefault();
 

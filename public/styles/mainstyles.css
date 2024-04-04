@@ -29,11 +29,6 @@ body {
   height: 100%;
 }
 
-/* .dummy{
-  display:none;
-} */
-
-
 h1, h2, h3, h4, h5, h6 {
   margin: 0.5em 0 0.5em 0;
   text-align: center;
@@ -112,6 +107,11 @@ button{
   background-color: #fff;;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: .35rem;
+  /* align-self:flex-end; */
+}
+button:hover{
+  background-color: #e7e7e7;;
+  border: 1px solid rgba(61, 61, 61, 0.1);
   /* align-self:flex-end; */
 }
 
@@ -220,15 +220,26 @@ main{
   min-height:80vh;
   margin:0 auto;
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-  /* padding:0 20px 0 20px; */
-  
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px; 
 }
 
-#start{
+.mainContent{
+  width:98%;
+  margin:0 auto;
+}
+
+/* #start{
   margin:0 auto;
   width: 80%;
   max-width:800px;
+  text-align: center;
+} */
+
+.startWrapper{
+  margin:0 auto;
+  padding:15px;
+  /* width: 80%; */
+  max-width:700px;
   text-align: center;
 }
 

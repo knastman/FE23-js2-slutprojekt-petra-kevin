@@ -11,38 +11,35 @@ import Navigo from "navigo";
 // Kevin's code
 function commentTemplate(comment: CommentType2, user: UserType2, thread: ThreadType2, topicTitle:string): string {
     const dateTime = formatTimestamp(comment.timeStamp);
-    const isCurrentUser = user.name === getLoggedInUser();
+    const isCurrentUser = user.name === getLoggedInUser(); // Ska vara article men slutelementet är inte med här? 
     return `
-        <div class="comment" data-comment-id="${comment.id}">
-            <div class="commentHeader">
-                <p class="commentDate">${dateTime.date} | ${dateTime.time}</p>
-                <div class="commentSubject">
-                    <a href="/thread/${comment.threadId}" data-navigo>${thread.title}</a>
-                </div>
-            </div>
-            <div class="commentBody">
-                <div class="commentUserInfo">
-                    <div class="commentUserName">
-                        <a href="/user/${user.name}" data-navigo>${user.name}</a>
-                    </div>
-                    <div class="commentUserImg">
-                        <img src="${user.image}" alt="userImage">
-                    </div>
-                </div>
-                <div class="commentText">
-                    <p>${comment.comment}</p>
-                </div>
-            </div>
-            <div class="commentFooter">
-                <a id="${thread.forumId}" href="/topic/${thread.forumId}" data-navigo>${topicTitle}</a>
-                <div class="commentButtonContainer">
-                    <button class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera</button>  
-                    <button class="deleteUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Radera</button>
-                </div>
-            </div>
+      <article class="post" data-comment-id="${comment.id}"> 
+        <div class="postHeader">
+          <div class="postDate">${dateTime.date} | ${dateTime.time}</div>
+          <div class="postSubject"><a href="/thread/${comment.threadId}" data-navigo>${thread.title}</a></div>
         </div>
+        <div class="postBody">
+          <div class="postUserInfo">
+            <div><a href="/user/${user.name}" data-navigo>${user.name}</a></div>
+            <div><img class="postUserImg" src="${user.image}" alt="userImage"></div>
+          </div>
+          <div class="postText">
+            <p>${comment.comment}</p>
+          </div>
+        </div>
+        <div class="postFooter">
+          <div>
+            <a id="${thread.forumId}" href="/topic/${thread.forumId}" data-navigo>${topicTitle}</a>
+          </div>
+          <div>
+            <button class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera</button>  
+            <button class="deleteUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Radera</button>
+          </div>
+        </div>
+      </article>
     `;
 }
+
 
 // Kevin's code
 export async function renderUserComments(user: UserType2, router: Navigo): Promise<void> {

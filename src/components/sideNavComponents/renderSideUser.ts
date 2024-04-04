@@ -14,7 +14,7 @@ const renderLoggedInUser = (user: UserType2): string => {
   user.image = getImagePath(user.image);
   return `
     <nav class="userMenu">
-      <h3>Välkommen till din profil</h3>
+      <h3>Användarmeny</h3>
         <h4>${firstLetterToUpperCase(user.name)}</h4>
         <img src="${user.image}" alt="userImage">
         <div class="menu userMenu">

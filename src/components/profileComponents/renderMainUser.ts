@@ -13,21 +13,21 @@ import { renderUserThreads } from "./renderUserThread";
 function renderUser(user: UserType2): string {
     user.image = getImagePath(user.image);
     return `
+    <h1> Profil </h1>
     <div class="userContainer">
         <div class="userProfile">
-            <h1> Profil </h1>
-            <div class="userProfileInfo">
-                <img src="${user.image}" alt="${user.name}'s image">
-                <h2>${firstLetterToUpperCase(user.name)}</h2>
-            </div>
+          <div><img src="${user.image}" alt="${user.name}'s image"></div>
+          <div><h2>${firstLetterToUpperCase(user.name)}</h2>
+          <p>Senast aktiv: <br />
+            04/04/2024</p>
+          </div>
         </div>
-        <div class="userProfileThreads"></div>
+      <div class="userProfileThreads"></div>
     </div>  
     <div class="userProfileComments"></div>
 `
 }
-
-
+//Senast aktiv fungerar inte men kan ses som något som ska implementeras lägnre fram, gränssnittet är anpassat efter detta.
 
 // Kevin's code
 export async function renderMainUser(userName: string, router: Navigo): Promise<void> {
@@ -40,7 +40,7 @@ export async function renderMainUser(userName: string, router: Navigo): Promise<
         }
         const userData: UserType2[] = await getUserData();
         const user = userData.find((user) => user.name === userName);
-        console.log(user);
+        // console.log(user);
         if (!user) {
             showToast("Användaren finns inte", 5000);
             return;

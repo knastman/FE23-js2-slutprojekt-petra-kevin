@@ -18,10 +18,10 @@ function editUserTemplate(user: UserType2 ): string {
         <div class="editUser">
             <h1>Redigera profil för ${user.name}</h1>
             <form>
-            <h3>Ändra lösenord</h3>
+            <h2>Ändra lösenord</h2>
             <input type="password" id="editPassword" placeholder="Lösenord">
             <input type="password" id="confirmEditPassword" placeholder="Bekräfta lösenord">
-            <h3>Ändra profilbild</h3>
+            <h2>Ändra profilbild</h2>
             <div class="imageOptions">
             <label for="image1" class="editImageLabel active">
               <input class="editImageRadio" type="radio" id="image1" name="profileImage" value="black-panther" checked>

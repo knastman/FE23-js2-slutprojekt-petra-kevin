@@ -13,7 +13,7 @@ const postsContainer = document.querySelector('#posts') as HTMLDivElement
 
 export function displayPosts(comments: CommentType2[], topic:string, threadTitle:string):void{
    clearPosts();
-   clearThreadForm();
+  //  clearThreadForm();
   //  createCommentForm();
 
   for(const commentObject of comments){
@@ -24,13 +24,14 @@ export function displayPosts(comments: CommentType2[], topic:string, threadTitle
 }
  
 export function displayComment(comment:CommentType2, topic:string, threadTitle:string, user:UserType2):void{
+  
   postsContainer.classList.remove('hide');
 
   const postBox = createAndAddClass('article', 'post'); 
   const postHeader = createAndAddClass('div', 'postHeader'); 
-  const postHeaderSubject = document.createElement('div'); 
-  const postSubjectLink = createAndAddClass('a', 'postSubject'); 
-  postSubjectLink.setAttribute('href', `/topic/thread/${comment.threadId}`);   
+  const postHeaderSubject = createAndAddClass('div', 'postSubject'); 
+  const postSubjectLink = document.createElement('a'); 
+  postSubjectLink.setAttribute('href', `/topic/thread/${comment.threadId}`); //Borde kanske inte vara länk när man är i en thread...   
   postSubjectLink.setAttribute('data-navigo', '');   
   const postDateContainer = createAndAddClass('div', 'postDate'); 
 
@@ -41,8 +42,9 @@ export function displayComment(comment:CommentType2, topic:string, threadTitle:s
   postUserName.setAttribute('data-navigo', ''); 
   const postUserImg = document.createElement('div'); 
   const postUserImgSrc = createAndAddClass('img', 'postUserImg'); 
-  const postTextDiv = document.createElement('div'); 
-  const postText = createAndAddClass('p', 'postText');
+
+  const postTextDiv = createAndAddClass('div', 'postText');
+  const postText = document.createElement('p'); 
 
   const postFooter = createAndAddClass('div', 'postFooter');
   const postFooterDivleft = document.createElement('div'); 
@@ -62,7 +64,7 @@ export function displayComment(comment:CommentType2, topic:string, threadTitle:s
   const commentDate = formatTimestamp(comment.timeStamp);
   postDateContainer.innerText = `${commentDate.time} | ${commentDate.date}`;;
   postUserName.innerText = user.name;
-  postUserImgSrc.src = getImagePath(user.image);
+  (postUserImgSrc as HTMLImageElement).src  = getImagePath(user.image);
   postText.innerText = comment.comment;
   postTopic.innerText = topic;
 
@@ -71,8 +73,8 @@ export function displayComment(comment:CommentType2, topic:string, threadTitle:s
 
   //Kopierat från usercomment med liten ändring
   const isCurrentUser = user.name === getLoggedInUser();
-  postFooterRightEdit.innerHTML = `<a href class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera</a> `;
-  postFooterRightDelete.innerHTML = `<span class="deleteUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Radera</span>`;
+  postFooterRightEdit.innerHTML = `<button class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera</button>`;  
+  postFooterRightDelete.innerHTML =`<button class="deleteUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Radera</button>`;
 
   postsContainer.append(postBox);
   postBox.append(postHeader, postBody, postFooter);

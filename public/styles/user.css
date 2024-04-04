@@ -1,40 +1,110 @@
-#changeUserSetting{
+/* #changeUserSetting{
   width:80%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+} */
+
+.editUser{
+  width:85%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap:15px;
 }
 
-.profile, .userProfile{
+.editUser h2{
+  margin:20px 0 15px 0 0;
+} 
+
+.userContainer{
+  display: flex;
+  /* justify-content: center; */
+  justify-content: space-between;
+  width:100%;
   margin:0 auto;
-  width: 40%;
-  max-width:800px;
+  gap:30px;
+  /* align-items: center; */
+}
+
+.userProfile{
+  width:40%;
+  /* width: 45%; */
+  /* max-width:400px; */
   text-align: center;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: center;
   gap:30px;
-  background-color: #134e5e0a;
+  background-color: #134e5e11;
   padding:15px;
 }
 .userProfileThreads{
-  width:40%;
+  width:50%;
+  padding:15px;
 }
 
 
-#userProfile h2, #mainUserProfile h2{
+
+/* .userProfile{
+  display: flex;
+  width: 45%;
+  background-color: aqua;
+} */
+
+/* Från login.css */
+/* .userProfile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
+
+/* .userProfileThreads{
+  width:40%;
+} */
+
+
+.userProfile h2, #mainUserProfile h2{
   width: 100%;
   color: #17868a;
   font-size: 1.3rem;
   margin-bottom:25px;
 }
 
-#userProfile img, #mainUserProfile img{
-  max-width: 200px;
+.userProfile img, #mainUserProfile img{
+  max-width: 180px;
+}
+
+.userProfileThreads .thread{
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.userProfileThreads .thread::before {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block; 
+  text-rendering: auto;
+  font-variant: normal;
+  line-height: 1;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 1em;
+  margin:0 7px 0 5px;
+  color:#0a5254;
+}
+
+.userProfileThreads .thread::before {
+  content: "\f075"; 
 }
 
 
+/***** ASIDE ****/
 
 .userMenu{
   font-size: 1rem;
@@ -43,6 +113,7 @@
   text-align: center;
   gap:10px;
   margin-bottom:25px;
+  border-bottom: 1px solid #ccc;;
 }
 
 .userMenu ul{

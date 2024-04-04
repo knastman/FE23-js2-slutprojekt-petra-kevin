@@ -170,9 +170,11 @@
 
 
 /*******POSTS ******/
+
+
 #posts{
   margin:15px auto;
-   width:95%;
+  width:95%;
 }
 
 .post{
@@ -183,7 +185,8 @@
   border-radius: 5px;
   display:flex;
   flex-direction: column;
-  margin:20px auto;
+  margin:15px auto;
+  width:100%;
 } 
 
 .post a{
@@ -247,9 +250,9 @@
 .postText{
   font-family: var(--body-font);
   padding:10px;
-  /* max-width:97%;
-  padding:10px 20px; */
-  margin:10px auto;
+  max-width:97%;
+  padding:10px 20px;
+  /* margin:10px auto; */
 }
 
 .postFooter{
@@ -286,6 +289,7 @@
   font-style: italic;
   cursor: pointer;
 }
+
 /* .postFooter .postSubject:hover{
   color:#f9fcee;
   font-weight: 400;
@@ -299,6 +303,12 @@
   color:#fff;
   cursor: pointer;
 }
+
+.postFooter button{
+  padding:2px 5px;
+  font-size: 0.8rem;
+}
+
 
 /* .postFooter a{
   color:#fff;
