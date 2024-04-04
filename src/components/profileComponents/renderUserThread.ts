@@ -5,7 +5,7 @@ import { UserType2 } from "../../types/userType";
 import { showToast } from "../../utils/utils";
 
 //Kevin's code
-function threadTemplate(thread: ThreadType2, user: UserType2): string {
+function threadTemplate(thread: ThreadType2): string {
     return `
     <div class="thread">
             <a href="/threads/${thread.id}" data-navigo>${thread.title}</a>
@@ -30,7 +30,7 @@ export async function renderUserThreads(user: UserType2, router: Navigo): Promis
         mainUserProfileThreads.innerHTML = "<h2>Trådar</h2>";
         }
         for (const thread of slicedThreads) {
-            mainUserProfileThreads.innerHTML += threadTemplate(thread, user);
+            mainUserProfileThreads.innerHTML += threadTemplate(thread);
         }
 
         router.updatePageLinks();

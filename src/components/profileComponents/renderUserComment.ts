@@ -8,13 +8,12 @@ import { deleteCommentData, getCommentData } from "../../services/servicesv2/com
 import { getForumData } from "../../services/servicesv2/forumService2";
 import Navigo from "navigo";
 
-
 // Kevin's code
 function commentTemplate(comment: CommentType2, user: UserType2, thread: ThreadType2, topicTitle:string): string {
     const dateTime = formatTimestamp(comment.timeStamp);
     const isCurrentUser = user.name === getLoggedInUser();
     return `
-        <div class="comment">
+        <div class="comment" data-comment-id="${comment.id}">
             <div class="commentHeader">
                 <p class="commentDate">${dateTime.date} | ${dateTime.time}</p>
                 <div class="commentSubject">
@@ -34,8 +33,8 @@ function commentTemplate(comment: CommentType2, user: UserType2, thread: ThreadT
                     <p>${comment.comment}</p>
                 </div>
             </div>
-                <div class="commentFooter">
-                    <a href="/topic/${thread.forumId}" data-navigo>${topicTitle}</a>
+            <div class="commentFooter">
+                <a id="${thread.forumId}" href="/topic/${thread.forumId}" data-navigo>${topicTitle}</a>
                 <div class="commentButtonContainer">
                     <button class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera</button>  
                     <button class="deleteUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Radera</button>
@@ -44,8 +43,6 @@ function commentTemplate(comment: CommentType2, user: UserType2, thread: ThreadT
         </div>
     `;
 }
-
-
 
 // Kevin's code
 export async function renderUserComments(user: UserType2, router: Navigo): Promise<void> {
@@ -72,7 +69,7 @@ export async function renderUserComments(user: UserType2, router: Navigo): Promi
             attachListeners(user,router);
         } 
         router.updatePageLinks();
-    }catch(error){
+    } catch(error){
         showToast("Kunde inte hämta kommentarer", 5000);
         console.log(error);
     }
@@ -86,30 +83,31 @@ function sortCommentsByDate(commentData: CommentType2[]): CommentType2[] {
 }
 
 // Kevin's code
-async function attachListeners(user: UserType2, router:Navigo): Promise<void>{
-    const editButton = document.querySelectorAll(".editUserComment");
-    const deleteButton = document.querySelectorAll(".deleteUserComment");
-    if(!editButton || !deleteButton) return;
+async function attachListeners(user: UserType2, router: Navigo): Promise<void>{
+    const deleteButtons = document.querySelectorAll(".deleteUserComment");
+    if(!deleteButtons) return;
+    const editButtons = document.querySelectorAll(".editUserComment");
 
-    editButton.forEach((button) => {
-        button.addEventListener("click", (event)=>{
-            const commentId = (event.target as HTMLElement).dataset.commentId;
-            if(!commentId) return;
-            const commentNumber = parseInt(commentId);
-            showToast("Inte implementerat ännu ", 5000);
-
-        }); 
-    });
-    deleteButton.forEach((button) => {
-        button.addEventListener("click", (event)=>{
-            const commentId = (event.target as HTMLElement).dataset.commentId;
+    deleteButtons.forEach((deleteButton) => {
+        deleteButton.addEventListener("click", async (event) => {
+            const commentId = deleteButton.getAttribute('data-comment-id');
             if(!commentId) return;
             const commentNumber = parseInt(commentId);
             deleteButtonClickHandler(commentNumber, user, router);
         });
     });
+
+    editButtons.forEach((editButton) => {
+        editButton.addEventListener("click", async (event) => {
+            const commentId = editButton.getAttribute('data-comment-id');
+            if(!commentId) return;
+            const commentNumber = parseInt(commentId);
+            editButtonClickHandler();
+        });
+    });
 }
 
+// Kevin's code
 function deleteButtonTemplate(commentId: number): string {
     return `
         <p>Är du säker på att du vill radera inlägget?</p>
@@ -117,28 +115,54 @@ function deleteButtonTemplate(commentId: number): string {
         <button class="cancelDeleteComment">Nej</button>
     `;
 }
+function restoreButtonTemplate(commentId: number): string {
+    return `
+        <button class="editUserComment" data-comment-id="${commentId}">Redigera</button>  
+        <button class="deleteUserComment" data-comment-id="${commentId}">Radera</button>
+    `;
+}
 
 // Kevin's code
-function deleteButtonClickHandler(commentId: number, user: UserType2, router:Navigo): void{
-    const buttonContainer = document.querySelector(".commentButtonContainer");
-    if(!buttonContainer) return;
+function deleteButtonClickHandler(commentId: number, user: UserType2, router: Navigo): void {
+    const commentElement = document.querySelector(`.comment[data-comment-id="${commentId}"]`);
+    if (!commentElement) return;
+
+    const buttonContainer = commentElement.querySelector('.commentButtonContainer');
+    if (!buttonContainer) return;
+
     buttonContainer.innerHTML = deleteButtonTemplate(commentId);
 
-    const deleteButton = document.querySelector(".deleteUserComment");
-    const cancelButton = document.querySelector(".cancelDeleteComment");
-    if(!deleteButton || !cancelButton) return;
+    const deleteButton = commentElement.querySelector('.deleteUserComment');
+    const cancelButton = commentElement.querySelector('.cancelDeleteComment');
+    if (!deleteButton || !cancelButton) return;
 
-    deleteButton.addEventListener("click", async ()=>{
-        try{
+    deleteButton.addEventListener("click", async () => {
+        try {
             await deleteCommentData(commentId);
-            renderUserComments(user, router);
-        }catch(error){
+            commentElement.remove();
+        } catch (error) {
             showToast("Kunde inte radera inlägget", 5000);
             console.log(error);
         }
     });
-    cancelButton.addEventListener("click", ()=>{
-        renderUserComments(user, router);
+
+    cancelButton.addEventListener("click", () => {
+        // Restore the original button container HTML
+        console.log("cancel");
+        buttonContainer.innerHTML = restoreButtonTemplate(commentId);
+
+        // Reattach event listeners for this comment
+        attachListeners(user, router);
     });
-    
+}
+
+function editButtonClickHandler(): void{
+     const editButton = document.querySelector('.editUserComment');
+        if(!editButton) return;
+        editButton.addEventListener("click", async (event) => {
+            const commentId = editButton.getAttribute('data-comment-id');
+            if(!commentId) return;
+            showToast("Funktionen är inte implementerad", 5000);
+        }
+    );
 }

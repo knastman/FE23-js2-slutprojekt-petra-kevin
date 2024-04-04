@@ -47,7 +47,6 @@ export function handleUserProfileRoute(router: Navigo, params: RouteParams) {
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else {
-    console.log(params.data.id);
     renderMainUser(params.data.id, router);
     renderNav(router);
     renderFooter();
@@ -68,7 +67,8 @@ export function handleTopicRoute(router: Navigo, params: RouteParams) {
     router.navigate("/login");
   } 
    else { 
-
+    renderNav(router);
+    renderSideNav(router);
     renderThreads(params.data.id, router);
   }
   

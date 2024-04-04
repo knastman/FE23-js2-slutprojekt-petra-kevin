@@ -12,13 +12,13 @@ import Navigo from "navigo";
 const topicContainer = document.querySelector('#topic') as HTMLDivElement;
 const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;
 
-export function displayTopics(topics: ForumType[], router: Navigo):void{
+export async function displayTopics(topics: ForumType[], router: Navigo):Promise<void>{
   for(const topic of topics){
     displayTopicTitle(topic, router);
   }
 }
 
-function displayTopicTitle(topic:ForumType, router: Navigo):void{
+async function  displayTopicTitle(topic:ForumType, router: Navigo):Promise<void>{
   clearMain();
   const topicsContainer = document.querySelector('.topicsMenuWrapper') as HTMLDivElement;
   const topicHeaderBox = document.createElement('div');
