@@ -11,70 +11,83 @@ import { renderContact } from "../components/topNavComponents/renderContact";
 
 import { RouteParams } from "./routes";
 import { renderThreads } from "../components/renderThread";
+import { renderComments } from "../components/renderComment";
+import { renderTopics } from "../components/topNavComponents/renderTopics";
+
+
+export async function commonTasks(router: Navigo) {
+  renderNav(router);
+  await renderSideNav(router);
+  renderFooter();
+  await renderTopics(router);
+}
+
 
 
 //Kevin's code
-export function handleHomeRoute(router: Navigo) {
+export async function handleHomeRoute(router: Navigo) {
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else {
-    renderNav(router);
-    renderSideNav(router);
+    await commonTasks(router)
   }
 }
 
 //Kevin's code
-export function handleLoginRoute(router: Navigo) {
+export async function handleLoginRoute(router: Navigo) {
   if (isLoggedIn()) {
     router.navigate("/");
   } else {
     renderLoginForm(router);
-    renderSideNav(router);
-    renderNav(router);
-
+    await commonTasks(router)
   }
 }
 //Kevin's code
-export function handleRegisterRoute(router: Navigo) {
+export async function handleRegisterRoute(router: Navigo) {
   if (isLoggedIn()) {
     router.navigate("/");
   } else {
     renderRegisterForm(router);
+    await commonTasks(router)
   }
 }
 //Kevin's code
-export function handleUserProfileRoute(router: Navigo, params: RouteParams) {
+export async function handleUserProfileRoute(router: Navigo, params: RouteParams) {
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else {
-    renderMainUser(params.data.id, router);
-    renderNav(router);
-    renderFooter();
-    renderSideNav(router);
+    await renderMainUser(params.data.id, router);
+    await commonTasks(router)
   } 
 }
 //Kevin's code
-export function handleEditUserProfileRoute(router: Navigo, params: RouteParams) {
+export async function handleEditUserProfileRoute(router: Navigo, params: RouteParams) {
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else { 
-    renderEditUser(router, params.data.id);
+    await renderEditUser(router, params.data.id);
+    await commonTasks(router)
   }
 }
 //Kevin's code  //Edited by Petra TESTING
-export function handleTopicRoute(router: Navigo, params: RouteParams) { 
+export async function handleTopicRoute(router: Navigo, params: RouteParams) { 
   if (!isLoggedIn()) {//Petra's add
     router.navigate("/login");
   } 
    else { 
-    renderNav(router);
-    renderSideNav(router);
-    renderThreads(params.data.id, router);
+    await renderThreads(params.data.id, router);
+    await commonTasks(router)
   }
   
 } 
 //Kevin's code
-export function handleThreadRoute(router: Navigo, params: RouteParams) {
+export async function handleThreadRoute(router: Navigo, params: RouteParams) {
+  if (!isLoggedIn()) {
+    router.navigate("/login");
+  } else {
+    await renderComments(params.data.id, router);
+    await commonTasks(router) 
+  }
 }
 //Kevin's code
 export function handleFaqRoute() {

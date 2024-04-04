@@ -19,7 +19,6 @@ export async function displayTopics(topics: ForumType[], router: Navigo):Promise
 }
 
 async function  displayTopicTitle(topic:ForumType, router: Navigo):Promise<void>{
-  clearMain();
   const topicsContainer = document.querySelector('.topicsMenuWrapper') as HTMLDivElement;
   const topicHeaderBox = document.createElement('div');
   topicHeaderBox.classList.add('topicMenubox');
