@@ -7,7 +7,7 @@ import { ThreadType2 } from "../../types/threadType";
 import { showToast } from "../../utils/utils";
 
 
-
+//Kevin's code
 export async function renderThreads(id: string, router: Navigo){
     const idToNumber = parseInt(id);
     const mainContent = document.querySelector(".mainContent");

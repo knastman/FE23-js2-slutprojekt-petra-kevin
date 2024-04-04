@@ -49,10 +49,29 @@ const renderAllUsers = async (router: Navigo): Promise<void> => {
       liElement.appendChild(userLink);
 
     });
+    
+    
 
     router.updatePageLinks();
+    attachEventListeners(router);
   } catch (error) {
     console.error(error);
     showToast("Kunde inte hämta användare", 5000);
   }
 };
+
+
+function attachEventListeners(router: Navigo): void{
+  const userLink = document.querySelector(".userList");
+  if(!userLink) return;
+  userLink.addEventListener("click", (e: Event) => {
+    
+    e.preventDefault(); 
+
+    const target = e.target as HTMLElement;
+    const user = target.innerText;
+    
+    router.navigate(`/user/${user}`);
+  });
+}
+

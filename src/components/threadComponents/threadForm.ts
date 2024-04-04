@@ -24,7 +24,7 @@ function threadFormTemplate(topic: string) {
     </form>
   `;
 }
-
+// Kevin's code
 export function renderThreadForm(topic: string, router: Navigo) {
   const threadFormContainer = document.querySelector('#createThreadFormContainer') as HTMLDivElement;
   if (!threadFormContainer) return;
@@ -33,58 +33,58 @@ export function renderThreadForm(topic: string, router: Navigo) {
   router.updatePageLinks();
 }
 
+// Kevin's code
 async function attachEventListeners(topic: string, router: Navigo) {
     const submitButton = document.querySelector('#postSendButton') as HTMLButtonElement;
     if (!submitButton) return;
     submitButton.addEventListener('click', async (e) => {
       e.preventDefault();
-      console.log('submit button clicked');
+
       let thread = await validateAndCreateThread(topic);
       if(!thread) return;
+      
       let firstComment = await validateAndCreateFirstComment(thread);
-        if (firstComment) {
-            createThreadData(thread);
-            createCommentData(firstComment);
-            router.navigate(`/thread/${thread.id}`)
-        }   
-    });
+      if (firstComment) {
+          createThreadData(thread);
+          createCommentData(firstComment);
+          router.navigate(`/thread/${thread.id}`)
+       }   
+  });
+}
+
+  // Kevin's code
+async function validateAndCreateThread(topic: string): Promise<ThreadType2 | undefined> {
+  const userName: string | null = getLoggedInUser();
+  if (!userName) {
+    showToast('Du måste vara inloggad för att skapa en tråd');
+    return;
   }
 
-  async function validateAndCreateThread(topic: string): Promise<ThreadType2 | undefined> {
-    const userName: string | null = getLoggedInUser();
-    if (!userName) {
-        showToast('Du måste vara inloggad för att skapa en tråd');
+  try{
+      const user: UserType2[] = await getUserData();
+      const userId: number | undefined = user.find(u => u.name === userName)?.id;
+      if (!userId) return;
+    
+      const createThreadForm = document.querySelector('#createThreadForm') as HTMLFormElement;
+      if (!createThreadForm) return;
+    
+      const title = (document.querySelector('#subjectHeaderInput') as HTMLInputElement).value;
+      const forumID = parseInt(topic);
+      if (!title) {
+        showToast('Du måste ange ett ämne');
         return;
-    }
-
-    try{
-        const user: UserType2[] = await getUserData();
-        const userId: number | undefined = user.find(u => u.name === userName)?.id;
-        if (!userId) return;
+      }
     
-        const createThreadForm = document.querySelector('#createThreadForm') as HTMLFormElement;
-        if (!createThreadForm) return;
-    
-    
-        const title = (document.querySelector('#subjectHeaderInput') as HTMLInputElement).value;
-        const forumID = parseInt(topic);
-        if (!title) {
-            showToast('Du måste ange ett ämne');
-            return;
-        }
-    
-        const thread: ThreadType2 = newThread(title, userId, forumID);
-    
-        return thread;
-
-    }
-    catch(error){
-        showToast('Något gick fel, testa igen', 5000);
-    }
+      const thread: ThreadType2 = newThread(title, userId, forumID);
+      return thread;
+  }
+  catch(error){
+      showToast('Något gick fel, testa igen', 5000);
+  }
   
 }
 
-
+// Kevin's code
 async function validateAndCreateFirstComment(thread: ThreadType2): Promise<CommentType2 | undefined>{
     const userId = thread.userId;
     const threadId = thread.id;
