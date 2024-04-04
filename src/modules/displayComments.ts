@@ -1,90 +1,67 @@
 import { ThreadType, ThreadWithId } from "../types/threadType";
-import { CommentType }  from "../types/commentType";
+// import { CommentType }  from "../types/commentType";
+import { CommentType2 }  from "../types/typesv2/commentType2";
 import { formatTimestamp } from "../utils/utils";
-import { getThreadById } from "../services/threadService";
-
-
+// import { getThreadById } from "../services/threadService";
+import { getLoggedInUser, isLoggedIn } from "../components/credentialsComponents/renderLogin";
 import { showToast } from "../utils/utils";
-import { isLoggedIn } from "../components/renderLogin";
 import { getImagePath } from "../utils/imageIdentifier";
 
-// import {serverTimestamp, ref, set} from 'firebase/database';
-// import { db } from '../services/firebaseConfig';
 
-//Petra's code
+import { getUserData } from "../services/servicesv2/userService2";
+import { UserType2 } from "../types/userType";
+
+
 const postsContainer = document.querySelector('#posts') as HTMLDivElement;
 
-// function displayThreadPost(threadId:string, thread: ThreadWithId, topic:string): void {
-// export async function displayThreadPost(thread: ThreadType, topic:string): Promise<void> {
-// export function displayThreadPost(thread: ThreadType, topic:string): void{
-export function displayThreadPost(thread: ThreadWithId, topic:string): void{
-  clearPosts();
-  
-  const dateTime = formatTimestamp(thread.date);
-  const imgUrl = getImagePath(thread.user);
-  const postBox = document.createElement('article'); 
-  postBox.classList.add('post');
-  const threadHeader = document.createElement('h2'); 
-  threadHeader.innerText = thread.title;
-  postBox.innerHTML = `
-    <div class="postHeader">
-        <div class="postDate">${dateTime.date} | ${dateTime.time}</div>
-        <div class="postSubject"><a href="/topic/thread/${thread.id}" data-navigo>${thread.title}</a></div>
-    </div>
-    <div class="postBody">
-      <div class="postUserInfo">
-          <div class="postUserName">
-            <a href="/user/${thread.user}">${thread.user}</a>
-          </div>
-          <div class="postUserImg">
-            <img src="${imgUrl}" alt="userImage">
-          </div>
-      </div>
-      <div class="postText">
-        <p>${thread.postText}</p>
-      </div>
-    </div>
-    <div class="postFooter">
-      <div>
-        <span class="postTopic" data-navigo><a href="/topic/${topic}">${topic}</a></span>
-      </div>
-      <div>
-        <a href="#">Redigera inlägg</a> | <a href="#">Radera inlägg</a>
-      </div>
-    </div>
-`;
-  postsContainer.append(threadHeader, postBox);
 
-}
+// function renderUser(user: UserType2): string {
+//   user.image = getImagePath(user.image);
+//   return `
+//   <div class="userContainer">
+//       <div class="userProfile">
+//           <h1> Profil </h1>
+//           <div class="userProfileInfo">
+//               <img src="${user.image}" alt="${user.name}'s image">
+//               <h2>${firstLetterToUpperCase(user.name)}</h2>
+//           </div>
+//       </div>
+//       <div class="userProfileThreads"></div>
+//   </div>  
+//   <div class="userProfileComments"></div>
+// `
+// }
 
 
+export function displayPosts(comments: CommentType2[], topic:string, threadTitle:string):void{
+   clearPosts();
 
+  //  const userData: UserType2[] = await getUserData();
+  //  const user = userData.find((user) => user.name === userName);
 
-//Petra's code
-export function displayComments(comments: CommentType[], threadObject:ThreadWithId, topic:string, threadId:string):void{
-  console.log(threadId);
-  //  clearPosts();
-  
   for(const commentObject of comments){
-    displayComment(commentObject, topic);  
+    getUserData()
+    .then(userData => userData.find((user) => user.id === commentObject.userId)) 
+    .then(user => {displayComment(commentObject, topic, threadTitle, user!)})
+    // displayComment(commentObject, topic, threadTitle);  
   }
 }
  
-//Petra's code
-export function displayComment(comment:CommentType, topic:string):void{
+export function displayComment(comment:CommentType2, topic:string, threadTitle:string, user:UserType2):void{
   postsContainer.classList.remove('hide');
-  
-  const postBox = document.createElement('article'); 
-  postBox.classList.add('post');
 
-  const postHeader = document.createElement('div'); 
-  postHeader.classList.add('postHeader');
+  const postBox = createAndAddClass('article', 'post'); 
+  // const postBox = document.createElement('article'); 
+  // postBox.classList.add('post');
+  
+  const postHeader =  createAndAddClass('div', 'postHeader'); 
+  // const postHeader = document.createElement('div'); 
+  // postHeader.classList.add('postHeader');
   const postHeaderSubject = document.createElement('div'); 
- 
-  const postSubjectLink = document.createElement('a'); 
-  postSubjectLink.classList.add('postSubject');
-  // postSubjectLink.setAttribute('href', `/topic/thread/${thread.id}`); 
-  postSubjectLink.setAttribute('href', '#');        
+  const postSubjectLink = createAndAddClass('a', 'postSubject'); 
+  // const postSubjectLink = document.createElement('a'); 
+  // postSubjectLink.classList.add('postSubject');
+  postSubjectLink.setAttribute('href', `/topic/thread/${comment.threadId}`);   
   postSubjectLink.setAttribute('data-navigo', '');        
 
   const postDateContainer = document.createElement('div'); 
@@ -95,10 +72,9 @@ export function displayComment(comment:CommentType, topic:string):void{
   
   const userInfo = document.createElement('div');
   userInfo.classList.add('postUserInfo');
-  // const postUserName = document.createElement('div');
   const postUserName = document.createElement('a');
   postUserName.classList.add('postUserName');
-  postUserName.setAttribute('href', `/user/${comment.userName}`);        
+  postUserName.setAttribute('href', `/user/${user.name}`);  
   postUserName.setAttribute('data-navigo', ''); 
 
   const postUserImg = document.createElement('div'); 
@@ -131,18 +107,21 @@ export function displayComment(comment:CommentType, topic:string):void{
   postFooterRightDelete.setAttribute('data-navigo', '');      
 
 
-  postSubjectLink.innerText = comment.title;   
+  postSubjectLink.innerText = threadTitle;   
   const commentDate = formatTimestamp(comment.timeStamp);
-  const time = commentDate.time;
-  const date = commentDate.date;
-  let postdateAndTime = `${time} | ${date}`;
-  postDateContainer.innerText = postdateAndTime;
-  postUserName.innerText = comment.userName;
-  postUserImgSrc.src = getImagePath(comment.userName);
+  postDateContainer.innerText = `${commentDate.time} | ${commentDate.date}`;;
+  postUserName.innerText = user.name;
+  postUserImgSrc.src = getImagePath(user.image);
   postText.innerText = comment.comment;
   postTopic.innerText = topic;
-  postFooterRightEdit.innerText = 'Redigera inlägg';
-  postFooterRightDelete.innerText = 'Radera inlägg';
+
+  // postFooterRightEdit.innerText = 'Redigera inlägg';
+  //postFooterRightDelete.innerHTML = 'Radera inägg';
+
+  //Kopierat från usercomment med liten ändring
+  const isCurrentUser = user.name === getLoggedInUser();
+  postFooterRightEdit.innerHTML = `<a href class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera</a> `;
+  postFooterRightDelete.innerHTML = `<span class="deleteUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Radera</span>`;
 
   postsContainer.append(postBox);
   postBox.append(postHeader, postBody, postFooter);
@@ -156,30 +135,13 @@ export function displayComment(comment:CommentType, topic:string):void{
   postFooterDivleft.append(postTopic);
   postFooterDivRight.append(postFooterRightEdit, postFooterRightDelete);
 
-  // //Test för editering av meddelande direkt i meddelandet
-  // postText.addEventListener('keypress',  (event) => {
-  //   if (!event.shiftKey && event.key === 'Enter' ) {
-  //     postText.blur();
-  //     const updatedPostData = {
-  //       ...comment,
-  //       comment: postText,  
-  //       edited: true,//edited indikation som är en string förre timestamp
-  //       timestamp: serverTimestamp(),
-  //     };
-  //     postText.style.height= postText.scrollHeight+10+"px";
-  //     postText.scrollTop=0;
-  //     // await set(ref(db, 'posts/' + messageid), postData, newPostRef);
-  //     set(ref(db, `topics/${topic}/threads/${threadId}/comments`), updatedPostData);
-  //   }
-  // });
 }
 
 
 /*********************************
-  Clean before display
+  Clear before display
 **********************************/
-// 
-//Petra's code
+
 export function clearPosts():void{
   postsContainer.innerHTML = '';
 }
@@ -201,4 +163,21 @@ export function clearPosts():void{
 
 //   form.reset();
 // })
+
+
+
+/*********************************
+  Create append and attribute
+**********************************/
+
+
+export function createAndAddClass(type:string, className:string){
+  const element = document.createElement(type);
+  // container.append(element);
+  if(className !== undefined) {
+    element.classList.add(className);
+  }
+
+  return element;
+}
 

@@ -38,13 +38,11 @@ export function setupRoutes(router: Navigo) {
       "/kontakt": () => { handleContactRoute();
       },
       "/topic/:id": (params: RouteParams) => { handleTopicRoute(router, params);
+        // console.log(params);
       },
       "/thread/:id": (params: RouteParams) => { handleThreadRoute(router, params);
+        console.log(params);
       },
-
-      // "/topic/:title/": () => { 
-      //   console.log('info');
-      // },
     })
     .notFound(() => {
       router.navigate("/");

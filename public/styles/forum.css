@@ -80,6 +80,10 @@
   text-align: left;
   font-size: 0.87rem;
 }
+.subjects h4 a{
+  font-size: 0.87rem;
+  color: #093637;
+}
 
 .subjects h4::before {
   -moz-osx-font-smoothing: grayscale;
@@ -166,21 +170,20 @@
 
 
 /*******POSTS ******/
+#posts{
+  margin:15px auto;
+   width:95%;
+}
 
 .post{
-  width:95%;
   height:auto;
   font-size: 1em;
   color:#33353d;
-  /* background: radial-gradient(circle, #8aecce 0%, #6be8c3 51%, #6be8c3 100%); */
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   border-radius: 5px;
   display:flex;
   flex-direction: column;
   margin:20px auto;
-  /* background: linear-gradient(20deg,#00467F, #A5CC82); */
-  /* background: linear-gradient(70deg, #203A43, #2C5364); */
-  /* color:#fff; */
 } 
 
 .post a{
@@ -214,7 +217,6 @@
 .postBody{
   background-color: var(--message-background);
   display: flex;
-  
 }
 
 .postUserInfo{
@@ -245,8 +247,9 @@
 .postText{
   font-family: var(--body-font);
   padding:10px;
-  max-width:97%;
-  padding:10px 20px;
+  /* max-width:97%;
+  padding:10px 20px; */
+  margin:10px auto;
 }
 
 .postFooter{

@@ -5,7 +5,7 @@ import { renderNav } from "../components/topNavComponents/renderNav";
 import { renderSideNav } from "../components/sideNavComponents/renderSideNav";
 
 import { renderSideUser } from "../components/sideNavComponents/renderSideUser";
-import { displayStartContent } from "../modules/displayStartContent";
+// import { displayStartContent } from "../modules/displayStartContent";
 import { renderEditUser } from "../components/profileComponents/renderEditUser";
 import { renderMainUser } from "../components/profileComponents/renderMainUser";
 import { renderFooter } from "../components/renderFooter";
@@ -13,6 +13,10 @@ import { renderFaq } from "../components/topNavComponents/renderFaq";
 import { renderContact } from "../components/topNavComponents/renderContact";
 
 import { RouteParams } from "./routes";
+
+import { displayTopics } from "../modules/displayTopics";
+import { getForumData } from "../services/servicesv2/forumService2";
+
 
 
 //Kevin's code
@@ -63,8 +67,15 @@ export function handleEditUserProfileRoute(router: Navigo, params: RouteParams) 
     renderEditUser(router, params.data.id);
   }
 }
-//Kevin's code
-export function handleTopicRoute(router: Navigo, params: RouteParams) {
+//Kevin's code  //Edited by Petra TESTING
+export function handleTopicRoute(router: Navigo, params: RouteParams) { 
+  if (!isLoggedIn()) {//Petra's add
+    router.navigate("/login");
+  } 
+  // else { 
+  //    getForumData().then(displayTopics); //Petra's add
+  // }
+  
 } 
 //Kevin's code
 export function handleThreadRoute(router: Navigo, params: RouteParams) {

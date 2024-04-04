@@ -1,7 +1,7 @@
 import { getTopics } from "./services/topicService";
 import { getForumData } from "./services/servicesv2/forumService2";
-import { displayTopics } from "./modules/displayTopics2";
-import { displayStartContent } from "./modules/displayStartContent";
+import { displayTopics } from "./modules/displayTopics";
+// import { displayStartContent } from "./modules/displayStartContent";
 // import { displayPageInfo } from "./modules/displayInfoPages.ts";
 import { getAllUsers, createUser } from "./services/userService";
 // import { attachRegisterEvents } from "./components/renderRegister.js";
@@ -29,8 +29,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   Interface 
 **********************************/
 
-//Petra's code
-// getTopics().then(displayTopicsTitles);
 getForumData().then(displayTopics);
 
 

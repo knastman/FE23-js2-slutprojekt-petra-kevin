@@ -7,17 +7,21 @@
 
 .profile, .userProfile{
   margin:0 auto;
-  width: 70%;
+  width: 40%;
   max-width:800px;
   text-align: center;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   gap:30px;
   background-color: #134e5e0a;
-  padding:30px;
+  padding:15px;
 }
+.userProfileThreads{
+  width:40%;
+}
+
 
 #userProfile h2, #mainUserProfile h2{
   width: 100%;
@@ -27,8 +31,10 @@
 }
 
 #userProfile img, #mainUserProfile img{
-  max-width: 200px;;
+  max-width: 200px;
 }
+
+
 
 .userMenu{
   font-size: 1rem;
