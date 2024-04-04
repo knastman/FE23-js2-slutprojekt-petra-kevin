@@ -1,9 +1,6 @@
-import { checkUserNameAndPass } from "../../services/userService";
 import { showToast, toggleContainer, emptyContainer } from "../../utils/utils";
 import { formatChecker } from "../../utils/formatChecker";
 import Navigo from "navigo";
-import { renderNav } from "../topNavComponents/renderNav";
-import { renderSideNav } from "../sideNavComponents/renderSideNav";
 import { checkCredentials } from "../../services/servicesv2/userService2";
 
 //Kevin's code
@@ -24,21 +21,24 @@ function loginTemplate(): string {
 
 //Kevin's code
 export function renderLoginForm(router: Navigo): void {
-  const mainContentContainer = document.querySelector(".mainContent");
+  const mainContentContainer = document.querySelector(".mainContent") as HTMLDivElement;
   if (!mainContentContainer) {
     return;
   }
   mainContentContainer.innerHTML = "";
   mainContentContainer.innerHTML = loginTemplate();
   attachLoginEvents(router);
+
+  router.updatePageLinks();
 }
 
 //Kevin's code
 async function loginUser(router: Navigo): Promise<void>{
   const userName = (document.querySelector("#userName") as HTMLInputElement)
-    ?.value;
+    .value;
   const password = (document.querySelector("#password") as HTMLInputElement)
-    ?.value;
+    .value;
+    if(!userName || !password) return;
 
   if (
     formatChecker.isInputEmpty(userName) ||
@@ -60,8 +60,8 @@ async function loginUser(router: Navigo): Promise<void>{
 
 //Kevin's code
 export function attachLoginEvents(router: Navigo): void {
-  const loginButton = document.querySelector("#login");
-  const registerButton = document.querySelector("#register");
+  const loginButton = document.querySelector("#login") as HTMLButtonElement;
+  const registerButton = document.querySelector("#register") as HTMLButtonElement;
 
   if (loginButton && !loginButton.getAttribute("data-listener")) {
     loginButton.setAttribute("data-listener", "true");
@@ -84,7 +84,7 @@ export function attachLoginEvents(router: Navigo): void {
 /**
  * Removes the login from localstorage
  * Navigates to login page
- * @param router 
+ * @param router Navigo
  */
 export function logoutUser(router: Navigo): void {
   localStorage.removeItem("login");

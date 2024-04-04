@@ -1,18 +1,15 @@
-import { createUser, getUserByName } from '../../services/userService';
-import { UserType } from '../../types/userType';
 import { formatChecker } from '../../utils/formatChecker';
 import Navigo from 'navigo';
 import {
   highlightSelectedImage,
   showToast,
 } from '../../utils/utils';
-
 import blackPantherImage from '../../../public/media/black-panther.png';
 import redPandaImage from '../../../public/media/red-panda.png';
 import babirusaImage from '../../../public/media/babirusa.png';
 import { renderNav } from '../topNavComponents/renderNav';
 import { renderSideNav } from '../sideNavComponents/renderSideNav';
-import { UserType2 } from '../../types/typesv2/userType2';
+import { UserType2 } from '../../types/userType';
 import { createUserv2, newUserv2 } from '../../services/servicesv2/userService2';
 
 //Kevin's code
@@ -50,17 +47,16 @@ function registerTemplate() {
 
 //Kevin's code
 export function renderRegisterForm(router: Navigo): void {
-  const mainContentContainer = document.querySelector('.mainContent');
-  if (!mainContentContainer) {
-    return;
-  }
+  const mainContentContainer = document.querySelector('.mainContent') as HTMLDivElement;
+  if (!mainContentContainer) return;
   mainContentContainer.innerHTML = "";
   mainContentContainer.innerHTML = registerTemplate();
   attachRegisterEvents(router);
+  router.updatePageLinks();
 }
 
 //Kevin's code
-export async function registerUser(router: Navigo) {
+export async function registerUser(router: Navigo): Promise<void>{
   const userName: string = (
     document.querySelector('#regUserName') as HTMLInputElement
   ).value;
@@ -74,37 +70,15 @@ export async function registerUser(router: Navigo) {
     'input[name="profileImage"]:checked'
   ) as HTMLInputElement;
 
-  if(!formatChecker.isUserNameValid(userName)){
-    showToast('Användarnamnet får bara innehålla bokstäver,siffror och understräck', 5000);
-    return;
-  }
-  if (
-    formatChecker.isInputEmpty(userName) ||
-    formatChecker.isInputEmpty(password) ||
-    formatChecker.isInputEmpty(confirmPassword)
-  ) {
-    showToast('Alla fälten måste vara ifyllda', 5000);
-    return;
-  }
-  if (!formatChecker.isPasswordValid(password)) {
-    showToast('Lösenordet måste vara minst 6 tecken långt', 5000);
-    return;
-  }
-  if (!formatChecker.isPasswordMatch(password, confirmPassword)) {
-    showToast('Lösenorden matchar inte', 5000);
-    return;
-  }
-  if (await formatChecker.isUserNameTaken(userName)) {
-    showToast('Användarnamnet är redan taget', 5000);
-    return;
-  }
+  if (!(await isInputsValidRegister(userName, password, confirmPassword))) return;
+
   const newUser: UserType2 =  newUserv2(userName, password, selectedImage.value);
 
   createUserv2(newUser)
     .then(() => localStorage.setItem('login', userName))
     .then(() => router.navigate(`/user/${userName}`))
     .then(() => showToast('Användare skapad', 5000))
-    .then(() => renderNav())
+    .then(() => renderNav(router))
     .then(() => renderSideNav(router))
     .catch((error) => {
       console.error('Registration error:', error);
@@ -141,4 +115,33 @@ function attachRegisterEvents(router: Navigo): void {
     router.navigate('/login');
   }
   highlightSelectedImage('.regImageRadio', '.regImageLabel');
+}
+
+//Kevin's code
+async function isInputsValidRegister(userName: string, password: string, confirmPassword: string): Promise<boolean>{
+  if(!formatChecker.isUserNameValid(userName)){
+    showToast('Användarnamnet får bara innehålla bokstäver,siffror och understräck', 5000);
+    return false;
+  }
+  if (
+    formatChecker.isInputEmpty(userName) ||
+    formatChecker.isInputEmpty(password) ||
+    formatChecker.isInputEmpty(confirmPassword)
+  ) {
+    showToast('Alla fälten måste vara ifyllda', 5000);
+    return false;
+  }
+  if (!formatChecker.isPasswordValid(password)) {
+    showToast('Lösenordet måste vara minst 6 tecken långt', 5000);
+    return false;
+  }
+  if (!formatChecker.isPasswordMatch(password, confirmPassword)) {
+    showToast('Lösenorden matchar inte', 5000);
+    return false;
+  }
+  if (await formatChecker.isUserNameTaken(userName)) {
+    showToast('Användarnamnet är redan taget', 5000);
+    return false;
+  }
+  return true;
 }

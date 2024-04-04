@@ -1,5 +1,5 @@
 // import { CommentType }  from "../types/commentType";
-import { CommentType2 }  from "../types/typesv2/commentType2";
+import { CommentType2 }  from "../types/commentType";
 import { ThreadType2 } from "../types/threadType";
 // import { displayComments, displayThreadPost, clearPosts } from "./displayComments";
 import { displayPosts, clearPosts } from "./displayComments";
@@ -19,21 +19,22 @@ import { ForumType } from "../types/forumType";
 
 import { getUserData } from "../services/servicesv2/userService2";
 import { UserType2 } from "../types/userType";
+import Navigo from "navigo";
 
 /*********************************
   Display Threads in Topic
 **********************************/
 
 // export function displayThreads(threads:threadType2[]):void{
-export function displayThreads(threads:ThreadType2[], topic:ForumType):void{
+export function displayThreads(threads:ThreadType2[], topic:ForumType, router: Navigo):void{
   for(const thread of threads.slice(0, 5)){    
     getCommentData()
     // .then(console.log)
     .then(sortComments2)
     .then(commentData => commentData.find((comment) => comment.threadId === thread.id!)) 
     .then(comment => {displayThread(thread, comment!, topic)})
-    
   }
+  router.updatePageLinks();
 }
 
 

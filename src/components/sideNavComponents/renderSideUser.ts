@@ -1,17 +1,16 @@
 
 import { isLoggedIn, logoutUser } from "../credentialsComponents/renderLogin";
-import { UserType } from "../../types/userType";
 import Navigo from "navigo";
 import { firstLetterToUpperCase, showToast } from "../../utils/utils";
 import { getImagePath } from "../../utils/imageIdentifier";
 import { getUserData } from "../../services/servicesv2/userService2";
 
-import { UserType2 } from "../../types/typesv2/userType2";
+import { UserType2 } from "../../types/userType";
 import { renderSideNav } from "./renderSideNav";
 
 // Purpose: Render the side navigation for the user
 // Kevin's code
-const renderLoggedInUser = (user: UserType): string => {
+const renderLoggedInUser = (user: UserType2): string => {
   user.image = getImagePath(user.image);
   return `
     <nav class="userMenu">
@@ -54,6 +53,8 @@ export const renderSideUser = async (
     mainAsideContainer.innerHTML = renderLoggedInUser(user);
 
     attachLinkEvents(router);
+
+    router.updatePageLinks();
   } catch (error) {
     showToast("Kunde inte hämta användaren", 5000);
   }

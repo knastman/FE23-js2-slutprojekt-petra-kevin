@@ -2,7 +2,7 @@ import Navigo from "navigo";
 import { getLoggedInUser, isLoggedIn } from "../credentialsComponents/renderLogin";
 import { showToast } from "../../utils/utils";
 import { renderSideUser } from "./renderSideUser";
-import { UserType2 } from "../../types/typesv2/userType2";
+import { UserType2 } from "../../types/userType";
 import { getUserData } from "../../services/servicesv2/userService2";
 
 // Purpose: Render the side navigation for the user
@@ -43,6 +43,7 @@ const renderAllUsers = async (router: Navigo): Promise<void> => {
       const liElement = document.createElement("li");
       let userLink = document.createElement("a");
       userLink.href = `/user/${user.name}`;
+      userLink.setAttribute("data-navigo", "");
       userLink.innerText = user.name;
       ulElement.appendChild(liElement);
       liElement.appendChild(userLink);

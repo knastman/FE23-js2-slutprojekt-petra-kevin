@@ -1,4 +1,4 @@
-import { threadType2 } from "../../types/typesv2/threadType2";
+import { ThreadType2 } from "../../types/threadType";
 import { generateUniqeId, showToast } from "../../utils/utils";
 import { db } from "../firebaseConfig";
 import { ref, get, set, push, remove, DatabaseReference, DataSnapshot } from "firebase/database";
@@ -19,7 +19,7 @@ export function newThread(
     description: string,
     userId: number,
     forumId: number
-): threadType2 {
+): ThreadType2 {
     const timeStamp = Date.now();
     const id = generateUniqeId();
     return {
@@ -29,22 +29,22 @@ export function newThread(
     userId: userId,
     forumId: forumId,
     timeStamp: timeStamp
-    } as threadType2;
+    } as ThreadType2;
 }
 /** Kevin's code
  * @returns all threadObjects from firebase
  */
-export async function getThreadData(): Promise<threadType2[]> {
+export async function getThreadData(): Promise<ThreadType2[]> {
     const dataRef: DatabaseReference = ref(db, threadPath);
     try {
         const data: DataSnapshot = await get(dataRef);
         if (data.exists()) {
-            const threadData: threadType2[] = [];
+            const threadData: ThreadType2[] = [];
             data.forEach((childData) => {
                 const thread = childData.val();
                 threadData.push(thread);
             });
-            return threadData as threadType2[];
+            return threadData as ThreadType2[];
         } else {
             showToast("Inga trådar hittades", 5000);
             return [];
@@ -58,7 +58,7 @@ export async function getThreadData(): Promise<threadType2[]> {
 /** Kevin's code
  * @param thread 
  */
-export async function createThreadData(thread: threadType2): Promise<void> {
+export async function createThreadData(thread: ThreadType2): Promise<void> {
     const dataRef: DatabaseReference = ref(db, threadPath);
     try{
         await set(push(dataRef), thread);
@@ -70,7 +70,7 @@ export async function createThreadData(thread: threadType2): Promise<void> {
 /** Kevin's code
  * @param thread 
  */
-export async function updateThreadData(thread: threadType2): Promise<void> {
+export async function updateThreadData(thread: ThreadType2): Promise<void> {
     const dataRef: DatabaseReference = ref(db, `${threadPath}/${thread.id}`);
     try{
         await set(dataRef, thread);
@@ -115,11 +115,11 @@ async function findThreadById(threadId: number): Promise<string | null> {
  * @param threadId 
  * @returns  whole threadObject from database if true, null if false
  */
-export async function getThreadById(threadId: number): Promise<threadType2 | null> {
+export async function getThreadById(threadId: number): Promise<ThreadType2 | null> {
     const dataRef: DatabaseReference = ref(db, threadPath);
     const snapshot: DataSnapshot = await get(dataRef);
     if (!snapshot.exists()) return null;
-    let thread: threadType2 | null = null; 
+    let thread: ThreadType2 | null = null; 
     snapshot.forEach((childSnapshot) => {
         const threadData = childSnapshot.val();
         if (threadData.id === threadId) {

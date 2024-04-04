@@ -3,9 +3,6 @@ import { renderLoginForm, isLoggedIn } from "../components/credentialsComponents
 import { renderRegisterForm } from "../components/credentialsComponents/renderRegister";
 import { renderNav } from "../components/topNavComponents/renderNav";
 import { renderSideNav } from "../components/sideNavComponents/renderSideNav";
-
-import { renderSideUser } from "../components/sideNavComponents/renderSideUser";
-// import { displayStartContent } from "../modules/displayStartContent";
 import { renderEditUser } from "../components/profileComponents/renderEditUser";
 import { renderMainUser } from "../components/profileComponents/renderMainUser";
 import { renderFooter } from "../components/renderFooter";
@@ -13,10 +10,7 @@ import { renderFaq } from "../components/topNavComponents/renderFaq";
 import { renderContact } from "../components/topNavComponents/renderContact";
 
 import { RouteParams } from "./routes";
-
-import { displayTopics } from "../modules/displayTopics";
-import { getForumData } from "../services/servicesv2/forumService2";
-
+import { renderThreads } from "../components/renderThread";
 
 
 //Kevin's code
@@ -24,7 +18,7 @@ export function handleHomeRoute(router: Navigo) {
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else {
-    renderNav();
+    renderNav(router);
     renderSideNav(router);
   }
 }
@@ -36,7 +30,7 @@ export function handleLoginRoute(router: Navigo) {
   } else {
     renderLoginForm(router);
     renderSideNav(router);
-    renderNav();
+    renderNav(router);
 
   }
 }
@@ -52,9 +46,10 @@ export function handleRegisterRoute(router: Navigo) {
 export function handleUserProfileRoute(router: Navigo, params: RouteParams) {
   if (!isLoggedIn()) {
     router.navigate("/login");
-  } else { 
-    renderMainUser(params.data.id);
-    renderNav();
+  } else {
+    console.log(params.data.id);
+    renderMainUser(params.data.id, router);
+    renderNav(router);
     renderFooter();
     renderSideNav(router);
   } 
@@ -72,9 +67,10 @@ export function handleTopicRoute(router: Navigo, params: RouteParams) {
   if (!isLoggedIn()) {//Petra's add
     router.navigate("/login");
   } 
-  // else { 
-  //    getForumData().then(displayTopics); //Petra's add
-  // }
+   else { 
+
+    renderThreads(params.data.id, router);
+  }
   
 } 
 //Kevin's code

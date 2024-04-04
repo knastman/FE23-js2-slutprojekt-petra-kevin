@@ -1,5 +1,5 @@
 
-import { CommentType2 } from "../../types/typesv2/commentType2";
+import { CommentType2 } from "../../types/commentType";
 import { showToast, generateUniqeId } from "../../utils/utils";
 
 import { db } from "../firebaseConfig";

@@ -1,4 +1,3 @@
-import { TopicType } from "../types/topicType";
 import { ThreadType2 } from "../types/threadType";
 import { ForumType } from "../types/forumType";
 
@@ -7,18 +6,19 @@ import { displayThreads } from "../modules/displayThreads";
 
 import { showToast } from "../utils/utils";
 import { isLoggedIn } from "../components/credentialsComponents/renderLogin";
+import Navigo from "navigo";
 
 
 const topicContainer = document.querySelector('#topic') as HTMLDivElement;
 const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;
 
-export function displayTopics(topics: ForumType[]):void{
+export function displayTopics(topics: ForumType[], router: Navigo):void{
   for(const topic of topics){
-    displayTopicTitle(topic);
+    displayTopicTitle(topic, router);
   }
 }
 
-function displayTopicTitle(topic:ForumType):void{
+function displayTopicTitle(topic:ForumType, router: Navigo):void{
   clearMain();
   const topicsContainer = document.querySelector('.topicsMenuWrapper') as HTMLDivElement;
   const topicHeaderBox = document.createElement('div');
@@ -27,7 +27,7 @@ function displayTopicTitle(topic:ForumType):void{
   const topicLink = document.createElement('a'); 
   // topicLink.setAttribute('id', topic.title);
   topicLink.setAttribute('id', topic.id.toString() );
-  topicLink.setAttribute('href', `/topic/${topic.title}`);        
+  topicLink.setAttribute('href', `/topic/${topic.id}`);        
   topicLink.setAttribute('data-navigo', '');   
 
   topicLink.innerText = topic.title;
@@ -57,13 +57,15 @@ function displayTopicTitle(topic:ForumType):void{
       getThreadData()
         .then(threadData => threadData.filter((thread) => thread.forumId === topic.id))
         // .then(displayThreads)
-        .then((threads) => displayThreads(threads, topic)); 
+        .then((threads) => displayThreads(threads, topic, router)); 
 
     } 
     else {
       showToast('Du måste vara inloggad för att se inlägg!');
       return;
     }
+
+    router.updatePageLinks();
   });
 }
 

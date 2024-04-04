@@ -1,4 +1,4 @@
-import { ForumType } from "../../types/typesv2/forumType2";
+import { ForumType } from "../../types/forumType";
 import { showToast } from "../../utils/utils";
 import { db } from "../firebaseConfig";
 import {
