@@ -17,11 +17,47 @@ import { renderStart } from "../components/renderStart";
 import { renderThreadForm } from "../components/threadComponents/threadForm";
 
 
-export async function commonTasks(router: Navigo) {
+async function commonTasks(router: Navigo) {
   renderNav(router);
   await renderSideNav(router);
   renderFooter();
   await renderTopics(router);
+}
+
+// Kevin's code
+function clearTopics(): void {
+  const topicsContainer = document.querySelector("#topic");
+  const postsContainer = document.querySelector("#posts");
+  if (!topicsContainer || !postsContainer) return;
+  topicsContainer.classList.remove("flex");
+  topicsContainer.classList.add("hide");
+  postsContainer.classList.remove("flex");
+  postsContainer.classList.add("hide");
+}
+
+
+function toggleTopics(show: boolean):void{
+  const topicsContainer = document.querySelector("#topic");
+
+  if (!topicsContainer) return;
+  if(show){
+    topicsContainer.classList.remove("hide");
+    topicsContainer.classList.add("flex");
+  }else{
+    topicsContainer.classList.remove("flex");
+    topicsContainer.classList.add("hide");
+  }
+}
+
+function togglePosts(show: boolean):void{
+  const postsContainer = document.querySelector("#posts");
+
+  if (!postsContainer) return;
+  if(show){
+    postsContainer.classList.remove("hide");
+  }else{
+    postsContainer.classList.add("hide");
+  }
 }
 
 
@@ -60,6 +96,7 @@ export async function handleUserProfileRoute(router: Navigo, params: RouteParams
   } else {
     await renderMainUser(params.data.id, router);
     await commonTasks(router)
+    clearTopics();
   } 
 }
 //Kevin's code
@@ -80,6 +117,7 @@ export async function handleTopicRoute(router: Navigo, params: RouteParams) {
     await renderThreads(params.data.id, router);
     await renderThreadForm(params.data.id, router);
     await commonTasks(router)
+    toggleTopics(true);
   }
   
 } 
@@ -90,6 +128,7 @@ export async function handleThreadRoute(router: Navigo, params: RouteParams) {
   } else {
     await renderComments(params.data.id, router);
     await commonTasks(router) 
+    togglePosts(true);
   }
 }
 //Kevin's code
