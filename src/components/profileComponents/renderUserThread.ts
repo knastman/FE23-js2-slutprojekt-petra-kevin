@@ -18,7 +18,6 @@ export async function renderUserThreads(user: UserType2, router: Navigo): Promis
     const mainUserProfileThreads = document.querySelector(".userProfileThreads");
     if (!mainUserProfileThreads) return;
     mainUserProfileThreads.innerHTML = "";
-
     try {
         const threadData: ThreadType2[] = await getThreadData();
         const userThreads = threadData.filter((thread) => thread.userId === user.id);

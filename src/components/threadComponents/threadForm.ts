@@ -29,11 +29,11 @@ export function renderThreadForm(topic: string, router: Navigo) {
   const threadFormContainer = document.querySelector('#createThreadFormContainer') as HTMLDivElement;
   if (!threadFormContainer) return;
   threadFormContainer.innerHTML = threadFormTemplate(topic);
-  attachEventListeners(topic);
+  attachEventListeners(topic, router);
   router.updatePageLinks();
 }
 
-async function attachEventListeners(topic: string) {
+async function attachEventListeners(topic: string, router: Navigo) {
     const submitButton = document.querySelector('#postSendButton') as HTMLButtonElement;
     if (!submitButton) return;
     submitButton.addEventListener('click', async (e) => {
@@ -45,6 +45,7 @@ async function attachEventListeners(topic: string) {
         if (firstComment) {
             createThreadData(thread);
             createCommentData(firstComment);
+            router.navigate(`/thread/${thread.id}`)
         }   
     });
   }
