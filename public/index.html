@@ -50,46 +50,20 @@
         </section>
 
 
-        <div class="mainContent"> <!-- Borde vara id istället för class här-->
-
-          <!-- Dynamic content here depending on link -->
-
-          <!-- Fråga/kommentar från Petra: startcontent kan väl ligga här ickedynamiskt? Eller vad laddas i början? Ska vi kanske ha så folks profilsida är det första som laddas in, eller välkomsttext, eller både och?  -->
-
-
-          <!-- Ej inloggad -->
-          <!-- 
-            <section id="start"> Header and text </section>
-          <section id="loginContainer">
-             Loginform here
-          </section>
-          <section id="registerContainer">
-             Registerform here 
-          </section> 
-        -->
-
-          <!-- Inloggad -->
-          <!--
-          <section id="mainUserProfile">
-            User profile here
-          </section>
-          <section id="editUserContainer">
-            Edit user profile here 
-          </section> 
-        -->
-
-        </div>
+        <section class="mainContent"> <!-- Borde nog vara id istället för class här-->
+          <!-- Dynamic content here -->
+        </section>
       
 
      
         <section id="topic" class="hide">
           <div id="topicHeader"> 
-         dsfa
+            <!-- Topic/topicinfo content from db here -->
           </div>
           <div>
             <h3>Diskussioner</h3>
             <div class="subjects">
-              <!-- Threads hämtas från DB -->
+              <!-- Threads content from db here -->
             </div>
           </div>
 
@@ -98,8 +72,7 @@
             <h3>Gör ett inlägg</h3>
             <form id="createThreadForm">
               <div>
-                <label for="subjectHeaderInput">Ämne:</lab
-                   wel> <!-- När man valt thread så ska ämnesraden försvinna/hämtas in automatiskt o ej gå att redigera -->
+                <label for="subjectHeaderInput">Ämne:</label>
                 <input class="" type="text" name="subjectHeaderInput" placeholder="Vad handlar ditt inlägg om" id="subjectHeaderInput">
               </div>
               <div>

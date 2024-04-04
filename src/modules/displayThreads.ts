@@ -10,11 +10,15 @@ import { getCommentData } from "../services/servicesv2/commentService2";
 import { sortComments2 } from "../utils/sortComments";
 
 // import { getThreadById, createNewThread, createNewThreadWithText, addThreadToTopic } from "../services/threadService";
-import { getThreadData } from "../services/servicesv2/threadService2";
+import { getThreadData, newThread } from "../services/servicesv2/threadService2";
 
 import { showToast } from "../utils/utils";
-import { isLoggedIn } from "../components/credentialsComponents/renderLogin";
+import { getLoggedInUser, isLoggedIn } from "../components/credentialsComponents/renderLogin";
 import { ForumType } from "../types/forumType";
+
+
+import { getUserData } from "../services/servicesv2/userService2";
+import { UserType2 } from "../types/userType";
 
 /*********************************
   Display Threads in Topic
@@ -28,15 +32,18 @@ export function displayThreads(threads:ThreadType2[], topic:ForumType):void{
     .then(sortComments2)
     .then(commentData => commentData.find((comment) => comment.threadId === thread.id!)) 
     .then(comment => {displayThread(thread, comment!, topic)})
+    
   }
 }
 
 
 const threadsContainer = document.querySelector('.subjects') as HTMLDivElement;
 let threadTitle:string; //Kolla om det går få med threadtitle på bättre sätt
+let topicId:number;//Kolla om det går få med threadtitle på bättre sätt
 
 function displayThread(thread:ThreadType2, threadComment:CommentType2, topic:ForumType):void{  
   threadTitle = thread.title;
+  topicId = topic.id;
 
   const subjectBox = document.createElement('div');
   const subjectTitle = document.createElement('h4');
@@ -47,7 +54,6 @@ function displayThread(thread:ThreadType2, threadComment:CommentType2, topic:For
   subjectLink.setAttribute('href', `/thread/${thread.id}`);        
   subjectLink.setAttribute('data-navigo', '');  
   subjectLink.setAttribute('title', topic.title );
-  // subjectLink.setAttribute('title', thread.title );
 
   const subjectIncipient = document.createElement('p');
   const postUser = document.createElement('p')
@@ -60,7 +66,6 @@ function displayThread(thread:ThreadType2, threadComment:CommentType2, topic:For
   threadsContainer.append(subjectBox);
   subjectBox.append(subjectTitle, subjectIncipient );
   subjectTitle.append(subjectLink );
-
 }
 
 
@@ -68,6 +73,7 @@ threadsContainer.addEventListener('click', (event) => {
   // const postsContainer = document.querySelector('#posts') as HTMLDivElement;
   event.preventDefault();
   clearPosts();
+  createThreadForm();
 
   const threadId = parseInt(((event.target as HTMLAnchorElement).id));
   const topic = ((event.target as HTMLElement).title);  
@@ -77,25 +83,67 @@ threadsContainer.addEventListener('click', (event) => {
   .then(sortComments2)
   .then((comments) => displayPosts(comments, topic, threadTitle ));  
 
+  // formContainer.innerHTML = '';
 
 });
 
 
+/*********************************
+  Form for threads
+**********************************/
 
-
-// // Formulär för threads
+//EJ KLAR
+const formContainer = document.querySelector('#createThreadFormContainer') as HTMLDivElement;
 // const form = document.querySelector('#createThreadForm') as HTMLDivElement;
 
-// form.addEventListener('submit', (event) => {
-//   event.preventDefault();
+function createThreadForm():void{
+  const form = document.createElement('form');
+  form.setAttribute('id', 'createThreadForm');
 
-//   const subjectInput:string = (form.querySelector('#subjectHeaderInput') as HTMLInputElement).value.trim();
-//   const postTextInput:string = (form.querySelector('#postText') as HTMLInputElement).value.trim();
+  form.innerHTML = `
+      <div>
+      <label for="subjectHeaderInput">Ämne:</label>
+      <input class="" type="text" name="subjectHeaderInput" placeholder="Vad handlar ditt inlägg om" id="subjectHeaderInput">
+    </div>
+    <div>
+      <label for="postText">Inlägg:</label>
+      <textarea id="postTextInput" name="Meddelande" placeholder="Ditt inlägg här" rows="5" cols="33" required minlength="4" maxlength="600"></textarea>
+    </div>
+    <div><button type="submit" id="postSendButton">Skicka</button></div>
+  `
+  formContainer.append(form);
 
-//   createNewThreadWithText(subjectInput, postTextInput, 'Petra'); //Lägg till dynamiskt
+  //EJ KLAR
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+  
+    const currentUser = getLoggedInUser();
+    console.log(currentUser);
 
-//   form.reset();
-// })
+    getUserData()
+    .then(userData => userData.find((user) => user.name === currentUser)) 
+    .then();
+    
+    const subjectInput:string = (form.querySelector('#subjectHeaderInput') as HTMLInputElement).value.trim();
+    const postTextInput = (form.querySelector('#postTextInput') as HTMLInputElement);
+
+    // newThread({
+    //   title: subjectInput,
+    //   description: '',
+    //   userId: user.id,
+    //   forumId: topicId
+    // })
+
+    newThread(subjectInput, '', 8688981, topicId) //Denna måste innehålla postdata också
+    // .then(displayPosts)
+
+
+    form.reset();
+  })
+
+}
+
+
 
 
 // export function getThreadsAfterPosting(){
@@ -105,21 +153,5 @@ threadsContainer.addEventListener('click', (event) => {
 //   getThreadById(threadId, topic)
 //   .then(displayThreadPost);
 //   // .catch(displayError)
-
-// }
-
-
-  // addThreadToTopic({user:'Petra', title:'Testar göra thread', postText:'Testar lite Text'}, 'Samhälle');
-
- 
-  // const newTask = {
-  //   assigned: "",
-  //   category: category, 
-  //   status: "to do", 
-  //   task: task 
-  // }
-
-  // postTask(newTask)
-  //   .then(clearAndGetTasks)
 
 // }

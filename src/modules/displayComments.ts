@@ -1,49 +1,25 @@
-import { ThreadType, ThreadWithId } from "../types/threadType";
-// import { CommentType }  from "../types/commentType";
-import { CommentType2 }  from "../types/typesv2/commentType2";
+import { CommentType2 }  from "../types/commentType";
 import { formatTimestamp } from "../utils/utils";
 // import { getThreadById } from "../services/threadService";
 import { getLoggedInUser, isLoggedIn } from "../components/credentialsComponents/renderLogin";
 import { showToast } from "../utils/utils";
 import { getImagePath } from "../utils/imageIdentifier";
 
-
 import { getUserData } from "../services/servicesv2/userService2";
 import { UserType2 } from "../types/userType";
 
 
-const postsContainer = document.querySelector('#posts') as HTMLDivElement;
-
-
-// function renderUser(user: UserType2): string {
-//   user.image = getImagePath(user.image);
-//   return `
-//   <div class="userContainer">
-//       <div class="userProfile">
-//           <h1> Profil </h1>
-//           <div class="userProfileInfo">
-//               <img src="${user.image}" alt="${user.name}'s image">
-//               <h2>${firstLetterToUpperCase(user.name)}</h2>
-//           </div>
-//       </div>
-//       <div class="userProfileThreads"></div>
-//   </div>  
-//   <div class="userProfileComments"></div>
-// `
-// }
-
+const postsContainer = document.querySelector('#posts') as HTMLDivElement
 
 export function displayPosts(comments: CommentType2[], topic:string, threadTitle:string):void{
    clearPosts();
-
-  //  const userData: UserType2[] = await getUserData();
-  //  const user = userData.find((user) => user.name === userName);
+   clearThreadForm();
+  //  createCommentForm();
 
   for(const commentObject of comments){
     getUserData()
     .then(userData => userData.find((user) => user.id === commentObject.userId)) 
     .then(user => {displayComment(commentObject, topic, threadTitle, user!)})
-    // displayComment(commentObject, topic, threadTitle);  
   }
 }
  
@@ -51,58 +27,33 @@ export function displayComment(comment:CommentType2, topic:string, threadTitle:s
   postsContainer.classList.remove('hide');
 
   const postBox = createAndAddClass('article', 'post'); 
-  // const postBox = document.createElement('article'); 
-  // postBox.classList.add('post');
-  
-  const postHeader =  createAndAddClass('div', 'postHeader'); 
-  // const postHeader = document.createElement('div'); 
-  // postHeader.classList.add('postHeader');
+  const postHeader = createAndAddClass('div', 'postHeader'); 
   const postHeaderSubject = document.createElement('div'); 
   const postSubjectLink = createAndAddClass('a', 'postSubject'); 
-  // const postSubjectLink = document.createElement('a'); 
-  // postSubjectLink.classList.add('postSubject');
   postSubjectLink.setAttribute('href', `/topic/thread/${comment.threadId}`);   
-  postSubjectLink.setAttribute('data-navigo', '');        
+  postSubjectLink.setAttribute('data-navigo', '');   
+  const postDateContainer = createAndAddClass('div', 'postDate'); 
 
-  const postDateContainer = document.createElement('div'); 
-  postDateContainer.classList.add('postDate');
-
-  const postBody = document.createElement('div'); 
-  postBody.classList.add('postBody');
-  
-  const userInfo = document.createElement('div');
-  userInfo.classList.add('postUserInfo');
-  const postUserName = document.createElement('a');
-  postUserName.classList.add('postUserName');
+  const postBody = createAndAddClass('div', 'postBody'); 
+  const userInfo = createAndAddClass('div', 'postUserInfo');
+  const postUserName = createAndAddClass('a', 'postUserName');
   postUserName.setAttribute('href', `/user/${user.name}`);  
   postUserName.setAttribute('data-navigo', ''); 
-
   const postUserImg = document.createElement('div'); 
-  const postUserImgSrc = document.createElement('img'); 
-  postUserImg.classList.add('postUserImg');
-
+  const postUserImgSrc = createAndAddClass('img', 'postUserImg'); 
   const postTextDiv = document.createElement('div'); 
-  const postText = document.createElement('p'); 
-  postText.classList.add('postText');
+  const postText = createAndAddClass('p', 'postText');
 
-  const postFooter = document.createElement('div'); 
-  postFooter.classList.add('postFooter');
+  const postFooter = createAndAddClass('div', 'postFooter');
   const postFooterDivleft = document.createElement('div'); 
-  const postTopic = document.createElement('a');
+  const postTopic = createAndAddClass('a', 'postTopic');
   postTopic.setAttribute('href', `/topic/${topic}`);        
   postTopic.setAttribute('data-navigo', '');      
-  postTopic.classList.add('postTopic');
- 
   const postFooterDivRight = document.createElement('div'); 
-  const postFooterRightEdit = document.createElement('a'); 
-  const postFooterRightDelete = document.createElement('a'); 
-  const postFooterRight = document.createElement('a'); 
-
-  postFooterRightEdit.classList.add('postFooterLink');
+  const postFooterRightEdit =  createAndAddClass('a', 'postFooterLink');
+  const postFooterRightDelete = createAndAddClass('a', 'postFooterLink');
   postFooterRightEdit.setAttribute('href', "#");        
   postFooterRightEdit.setAttribute('data-navigo', '');
-
-  postFooterRightDelete.classList.add('postFooterLink');      
   postFooterRightDelete.setAttribute('href', "#");        
   postFooterRightDelete.setAttribute('data-navigo', '');      
 
@@ -145,24 +96,16 @@ export function displayComment(comment:CommentType2, topic:string, threadTitle:s
 export function clearPosts():void{
   postsContainer.innerHTML = '';
 }
+export function clearThreadForm():void{
+  const createThreadForm = document.querySelector('#createThreadForm') as HTMLDivElement;
+  createThreadForm.innerHTML = '';
+}
 
 
 /*********************************
   Form for comments
 **********************************/
 
-// // Formulär för comments
-// const form = document.querySelector('#createCommentsForm') as HTMLDivElement;
-
-// form.addEventListener('submit', (event) => {
-//   event.preventDefault();
-
-//   const commentText:string = (createThreadForm.querySelector('#postText') as HTMLInputElement).value.trim();
-
-//   createNewThreadWithText(subjectIntput, subjectText, 'Petra'); //Lägg till dynamiskt
-
-//   form.reset();
-// })
 
 
 
