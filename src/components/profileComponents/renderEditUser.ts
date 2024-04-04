@@ -8,7 +8,7 @@ import blackPantherImage from '../../../public/media/black-panther.png';
 import redPandaImage from '../../../public/media/red-panda.png';
 import babirusaImage from '../../../public/media/babirusa.png';
 import { getLoggedInUser, logoutUser } from '../credentialsComponents/renderLogin';
-import { UserType2 } from '../../types/typesv2/userType2';
+import { UserType2 } from '../../types/userType';
 import { deleteUserv2, getUserData, updateUserv2 } from '../../services/servicesv2/userService2';
 
 
@@ -69,6 +69,8 @@ export async function renderEditUser(
     }
     mainContentContainer.innerHTML = editUserTemplate(user);
     attachEditEvents(router, user);
+
+    router.updatePageLinks();
   } catch (error) {
     showToast('Kunde inte hämta användaren', 5000);
   }

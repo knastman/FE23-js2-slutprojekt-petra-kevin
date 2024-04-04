@@ -1,5 +1,5 @@
 import { getUserData } from "../services/servicesv2/userService2";
-import { UserType2 } from "../types/typesv2/userType2";
+import { UserType2 } from "../types/userType";
 
 // Kevin's code
 /**

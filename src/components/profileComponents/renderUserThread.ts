@@ -1,10 +1,11 @@
+import Navigo from "navigo";
 import { getThreadData } from "../../services/servicesv2/threadService2";
-import { threadType2 } from "../../types/typesv2/threadType2";
-import { UserType2 } from "../../types/typesv2/userType2";
+import { ThreadType2 } from "../../types/threadType";
+import { UserType2 } from "../../types/userType";
 import { showToast } from "../../utils/utils";
 
 //Kevin's code
-function threadTemplate(thread: threadType2, user: UserType2): string {
+function threadTemplate(thread: ThreadType2): string {
     return `
     <div class="thread">
             <a href="/threads/${thread.id}" data-navigo>${thread.title}</a>
@@ -13,13 +14,12 @@ function threadTemplate(thread: threadType2, user: UserType2): string {
 }
 
 //Kevin's code
-export async function renderUserThreads(user: UserType2): Promise<void> {
+export async function renderUserThreads(user: UserType2, router: Navigo): Promise<void> {
     const mainUserProfileThreads = document.querySelector(".userProfileThreads");
     if (!mainUserProfileThreads) return;
     mainUserProfileThreads.innerHTML = "";
-
     try {
-        const threadData: threadType2[] = await getThreadData();
+        const threadData: ThreadType2[] = await getThreadData();
         const userThreads = threadData.filter((thread) => thread.userId === user.id);
         const sortedThreads = sortThreadsByDate(userThreads);
         const slicedThreads = sortedThreads.slice(0, 3);
@@ -29,14 +29,16 @@ export async function renderUserThreads(user: UserType2): Promise<void> {
         mainUserProfileThreads.innerHTML = "<h2>Trådar</h2>";
         }
         for (const thread of slicedThreads) {
-            mainUserProfileThreads.innerHTML += threadTemplate(thread, user);
+            mainUserProfileThreads.innerHTML += threadTemplate(thread);
         }
+
+        router.updatePageLinks();
     } catch (error) {
         console.error(error);
         showToast("Något gick fel, försök igen senare", 5000);
     }
 }
 //Kevin's code
-function sortThreadsByDate(threads: threadType2[]): threadType2[] {
+function sortThreadsByDate(threads: ThreadType2[]): ThreadType2[] {
     return threads.sort((a, b) => b.timeStamp - a.timeStamp);
 }

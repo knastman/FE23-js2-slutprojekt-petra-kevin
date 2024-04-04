@@ -1,5 +1,5 @@
 
-import { CommentType2 } from "../../types/typesv2/commentType2";
+import { CommentType2 } from "../../types/commentType";
 import { showToast, generateUniqeId } from "../../utils/utils";
 
 import { db } from "../firebaseConfig";
@@ -8,14 +8,12 @@ import { ref, get, push, remove, DatabaseReference, DataSnapshot } from "firebas
 const commentPath = "commentsv2";
 
 /** Kevin's code
- * @param userName required
  * @param commentText required
  * @param threadId required
  * @param userId required
  * @returns CommentType2
  */
 export function newComment(
-    userName: string,
     commentText: string,
     threadId:number,
     userId:number
@@ -24,7 +22,6 @@ export function newComment(
     const id = generateUniqeId();
     return {
         id: id,
-        userName: userName,
         comment: commentText,
         timeStamp: timeStamp,
         threadId: threadId,

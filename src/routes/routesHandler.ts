@@ -3,9 +3,6 @@ import { renderLoginForm, isLoggedIn } from "../components/credentialsComponents
 import { renderRegisterForm } from "../components/credentialsComponents/renderRegister";
 import { renderNav } from "../components/topNavComponents/renderNav";
 import { renderSideNav } from "../components/sideNavComponents/renderSideNav";
-
-import { renderSideUser } from "../components/sideNavComponents/renderSideUser";
-// import { displayStartContent } from "../modules/displayStartContent";
 import { renderEditUser } from "../components/profileComponents/renderEditUser";
 import { renderMainUser } from "../components/profileComponents/renderMainUser";
 import { renderFooter } from "../components/renderFooter";
@@ -13,72 +10,87 @@ import { renderFaq } from "../components/topNavComponents/renderFaq";
 import { renderContact } from "../components/topNavComponents/renderContact";
 
 import { RouteParams } from "./routes";
+import { renderThreads } from "../components/threadComponents/renderThread";
+import { renderComments } from "../components/commentComponents/renderComment";
+import { renderTopics } from "../components/topNavComponents/renderTopics";
+import { renderStart } from "../components/renderStart";
+import { renderThreadForm } from "../components/threadComponents/threadForm";
 
-import { displayTopics } from "../modules/displayTopics";
-import { getForumData } from "../services/servicesv2/forumService2";
 
+export async function commonTasks(router: Navigo) {
+  renderNav(router);
+  await renderSideNav(router);
+  renderFooter();
+  await renderTopics(router);
+}
 
 
 //Kevin's code
-export function handleHomeRoute(router: Navigo) {
+export async function handleHomeRoute(router: Navigo) {
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else {
-    renderNav();
-    renderSideNav(router);
+    await commonTasks(router)
+    renderStart();
   }
 }
 
 //Kevin's code
-export function handleLoginRoute(router: Navigo) {
+export async function handleLoginRoute(router: Navigo) {
   if (isLoggedIn()) {
     router.navigate("/");
   } else {
     renderLoginForm(router);
-    renderSideNav(router);
-    renderNav();
-
+    await commonTasks(router)
   }
 }
 //Kevin's code
-export function handleRegisterRoute(router: Navigo) {
+export async function handleRegisterRoute(router: Navigo) {
   if (isLoggedIn()) {
     router.navigate("/");
   } else {
     renderRegisterForm(router);
+    await commonTasks(router)
   }
 }
 //Kevin's code
-export function handleUserProfileRoute(router: Navigo, params: RouteParams) {
+export async function handleUserProfileRoute(router: Navigo, params: RouteParams) {
   if (!isLoggedIn()) {
     router.navigate("/login");
-  } else { 
-    renderMainUser(params.data.id);
-    renderNav();
-    renderFooter();
-    renderSideNav(router);
+  } else {
+    await renderMainUser(params.data.id, router);
+    await commonTasks(router)
   } 
 }
 //Kevin's code
-export function handleEditUserProfileRoute(router: Navigo, params: RouteParams) {
+export async function handleEditUserProfileRoute(router: Navigo, params: RouteParams) {
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else { 
-    renderEditUser(router, params.data.id);
+    await renderEditUser(router, params.data.id);
+    await commonTasks(router)
   }
 }
 //Kevin's code  //Edited by Petra TESTING
-export function handleTopicRoute(router: Navigo, params: RouteParams) { 
+export async function handleTopicRoute(router: Navigo, params: RouteParams) { 
   if (!isLoggedIn()) {//Petra's add
     router.navigate("/login");
   } 
-  // else { 
-  //    getForumData().then(displayTopics); //Petra's add
-  // }
+   else { 
+    await renderThreads(params.data.id, router);
+    await renderThreadForm(params.data.id, router);
+    await commonTasks(router)
+  }
   
 } 
 //Kevin's code
-export function handleThreadRoute(router: Navigo, params: RouteParams) {
+export async function handleThreadRoute(router: Navigo, params: RouteParams) {
+  if (!isLoggedIn()) {
+    router.navigate("/login");
+  } else {
+    await renderComments(params.data.id, router);
+    await commonTasks(router) 
+  }
 }
 //Kevin's code
 export function handleFaqRoute() {

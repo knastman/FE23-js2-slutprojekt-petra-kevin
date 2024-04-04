@@ -6,32 +6,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/3a14b5ad60.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/3a14b5ad60.js" crossorigin="anonymous" defer></script>
     <link rel="stylesheet" href="./styles/mainstyles.css" />
     <link rel="stylesheet" href="./styles/forum.css" />
     <link rel="stylesheet" href="./styles/user.css" />
     <link rel="stylesheet" href="./styles/login.css" />
-    <script src="../src/main.ts" type="module"></script> 
-    <script src="//unpkg.com/navigo"></script>
+    <script src="../src/main.ts" type="module" defer></script> 
+    <script src="//unpkg.com/navigo" defer></script>
     <title>JS Slutprojekt - Social Media</title>
   </head>
   <body>
     <header>
       <div class="main-nav">
         <nav class="mainMenu">
-          <ul class="menu ">
-            <li><a href="./">Hem</a></li>
-            <li><a href="/faq">FAQ</a></li>
-            <li><a href="/kontakt">Kontakt</a></li>
-          </ul>
+
         </nav>
-        <div id="search">
-          <form>
-            <!-- <label for="search"><i class="fa-solid fa-magnifying-glass"></i></label> -->
-            <input class="" type="text" name="search" placeholder="Sök ämne, inlägg osv" id="search">
-            <button type="submit">Search</button> 
-          </form>
-        </div>
         <nav id="topMenuUser">
           <a href="./user.html">Red panda</a>
         </nav>
@@ -69,19 +58,6 @@
 
           <div id="createThreadFormContainer">
           <!-- <div id="subjectForm"> -->
-            <h3>Gör ett inlägg</h3>
-            <form id="createThreadForm">
-              <div>
-                <label for="subjectHeaderInput">Ämne:</label>
-                <input class="" type="text" name="subjectHeaderInput" placeholder="Vad handlar ditt inlägg om" id="subjectHeaderInput">
-              </div>
-              <div>
-                <label for="postText">Inlägg:</label>
-                <textarea id="postText" name="Meddelande" placeholder="Ditt inlägg här" rows="5" cols="33" required minlength="4" maxlength="600"></textarea>
-                
-              </div>
-              <div><button type="submit" id="postSendButton">Skicka</button></div>
-            </form>
           </div>
         </section>
 

@@ -1,5 +1,6 @@
+import Navigo from "navigo";
 import { getUserData } from "../../services/servicesv2/userService2";
-import { UserType2 } from "../../types/typesv2/userType2";
+import { UserType2 } from "../../types/userType";
 import { getImagePath } from "../../utils/imageIdentifier";
 import { firstLetterToUpperCase, showToast } from "../../utils/utils";
 import { isLoggedIn,  } from "../credentialsComponents/renderLogin";
@@ -26,8 +27,10 @@ function renderUser(user: UserType2): string {
 `
 }
 
+
+
 // Kevin's code
-export async function renderMainUser(userName: string): Promise<void> {
+export async function renderMainUser(userName: string, router: Navigo): Promise<void> {
     const mainContentContainer = document.querySelector(".mainContent");
     if (!mainContentContainer) return;
     mainContentContainer.innerHTML = "";
@@ -37,14 +40,17 @@ export async function renderMainUser(userName: string): Promise<void> {
         }
         const userData: UserType2[] = await getUserData();
         const user = userData.find((user) => user.name === userName);
+        console.log(user);
         if (!user) {
             showToast("Användaren finns inte", 5000);
             return;
         }
         mainContentContainer.innerHTML = renderUser(user);
+        
+        renderUserThreads(user, router);
+        renderUserComments(user, router);
 
-        renderUserThreads(user);
-        renderUserComments(user);
+        router.updatePageLinks();
 
     } catch (error) {
         showToast("Något gick fel, försök igen", 5000);

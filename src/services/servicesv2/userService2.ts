@@ -1,4 +1,4 @@
-import { UserType2 } from "../../types/typesv2/userType2";
+import { UserType2 } from "../../types/userType";
 import { generateUniqeId, showToast } from "../../utils/utils";
 import { db } from "../firebaseConfig";
 import { ref, get, push, remove, set, DatabaseReference, DataSnapshot } from "firebase/database";
