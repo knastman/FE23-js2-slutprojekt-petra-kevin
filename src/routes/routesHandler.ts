@@ -13,6 +13,7 @@ import { RouteParams } from "./routes";
 import { renderThreads } from "../components/renderThread";
 import { renderComments } from "../components/renderComment";
 import { renderTopics } from "../components/topNavComponents/renderTopics";
+import { renderStart } from "../components/renderStart";
 
 
 export async function commonTasks(router: Navigo) {
@@ -23,13 +24,13 @@ export async function commonTasks(router: Navigo) {
 }
 
 
-
 //Kevin's code
 export async function handleHomeRoute(router: Navigo) {
   if (!isLoggedIn()) {
     router.navigate("/login");
   } else {
     await commonTasks(router)
+    renderStart();
   }
 }
 
