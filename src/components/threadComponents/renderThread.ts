@@ -1,10 +1,10 @@
 import Navigo from "navigo";
-import { displayThreads } from "../modules/displayThreads";
-import { getForumData } from "../services/servicesv2/forumService2";
-import { getThreadData } from "../services/servicesv2/threadService2";
-import { ForumType } from "../types/forumType";
-import { ThreadType2 } from "../types/threadType";
-import { showToast } from "../utils/utils";
+import { displayThreads } from "../../modules/displayThreads";
+import { getForumData } from "../../services/servicesv2/forumService2";
+import { getThreadData } from "../../services/servicesv2/threadService2";
+import { ForumType } from "../../types/forumType";
+import { ThreadType2 } from "../../types/threadType";
+import { showToast } from "../../utils/utils";
 
 
 

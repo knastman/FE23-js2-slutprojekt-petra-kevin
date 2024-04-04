@@ -35,23 +35,24 @@ export function renderLoginForm(router: Navigo): void {
 //Kevin's code
 async function loginUser(router: Navigo): Promise<void>{
   const userName = (document.querySelector("#userName") as HTMLInputElement)
-    .value;
-  const password = (document.querySelector("#password") as HTMLInputElement)
-    .value;
+  const password = (document.querySelector("#password") as HTMLInputElement)  
     if(!userName || !password) return;
 
+  const userNameValue = userName.value;
+  const passwordValue = password.value;
+
   if (
-    formatChecker.isInputEmpty(userName) ||
-    formatChecker.isInputEmpty(password)
+    formatChecker.isInputEmpty(userNameValue) ||
+    formatChecker.isInputEmpty(passwordValue)
   ) {
     showToast("Alla fälten måste vara ifyllda", 5000);
     return;
   }
 
-  const loginSuccessful = await checkCredentials(userName, password);
+  const loginSuccessful = await checkCredentials(userNameValue, passwordValue);
   if (loginSuccessful) {
-    localStorage.setItem("login", userName);
-    router.navigate(`/user/${userName}`);
+    localStorage.setItem("login", userNameValue);
+    router.navigate(`/user/${userNameValue}`);
     console.log("router", router);
   } else {
     showToast("Fel användarnamn eller lösenord", 5000);

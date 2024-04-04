@@ -9,14 +9,12 @@ const threadPath = "threadsv2";
 
 /** Kevin's code
  * @param title required
- * @param description required
  * @param userId required
  * @param forumId required
  * @returns threadObject
  */
 export function newThread(
     title: string,
-    description: string,
     userId: number,
     forumId: number
 ): ThreadType2 {
@@ -24,7 +22,6 @@ export function newThread(
     const id = generateUniqeId();
     return {
     title: title,
-    description: description,
     id: id,
     userId: userId,
     forumId: forumId,

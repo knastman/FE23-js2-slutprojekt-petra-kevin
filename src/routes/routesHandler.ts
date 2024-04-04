@@ -10,10 +10,11 @@ import { renderFaq } from "../components/topNavComponents/renderFaq";
 import { renderContact } from "../components/topNavComponents/renderContact";
 
 import { RouteParams } from "./routes";
-import { renderThreads } from "../components/renderThread";
-import { renderComments } from "../components/renderComment";
+import { renderThreads } from "../components/threadComponents/renderThread";
+import { renderComments } from "../components/commentComponents/renderComment";
 import { renderTopics } from "../components/topNavComponents/renderTopics";
 import { renderStart } from "../components/renderStart";
+import { renderThreadForm } from "../components/threadComponents/threadForm";
 
 
 export async function commonTasks(router: Navigo) {
@@ -77,6 +78,7 @@ export async function handleTopicRoute(router: Navigo, params: RouteParams) {
   } 
    else { 
     await renderThreads(params.data.id, router);
+    await renderThreadForm(params.data.id, router);
     await commonTasks(router)
   }
   
