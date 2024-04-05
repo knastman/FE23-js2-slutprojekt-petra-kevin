@@ -19,18 +19,22 @@
     <header>
       <div class="main-nav">
         <nav class="mainMenu">
-
+          <ul class="menu">
+            <li><a href="./" data-navigo>Hem</a></li>
+            <li><a href="/faq" data-navigo>FAQ</a></li>
+            <li><a href="/kontakt" data-navigo>Kontakt</a></li>
+          </ul>
         </nav>
+
         <nav id="topMenuUser">
-          
+          <!-- Ddepending on loggedin status -->
         </nav>
       </div>  
     </header>
     
-
     <div class="pageWrapper">
-
       <main>
+
         <section class="topicsMenu">
           <h2>Ämnen</h2>
           <div class="topicsMenuWrapper">
@@ -38,54 +42,36 @@
           </div>
         </section>
 
-
         <section class="mainContent">
           <!-- Dynamic content here -->
         </section>
       
-
-     
         <section id="topic" class="hide">
           <div id="topicHeader"> 
             <!-- Topic/topicinfo content from db here -->
           </div>
           <div>
-            <h3>Diskussioner</h3>
             <div class="subjects">
               <!-- Threads content from db here -->
             </div>
           </div>
-
-          <div id="createThreadFormContainer">
-          <!-- <div id="subjectForm"> -->
+          <div id="formContainer">
+            <!-- <div id="subjectForm"> -->
           </div>
         </section>
 
  
-
         <section id="posts" class="hide">
-          <!-- Posts hämtas från DB - från rätt topic/thread-->
-
-
-
+          <!-- Posts from db here -->
         </section>
       </main>
 
       <aside class="mainAside">
       </aside>
+
       <div id="toastContainer"></div>
     </div>
-    
 
-    <!-- <footer class="mainFooter">
-      <ul>
-        <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-        <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
-        <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
-        <li><a href="#"><i class="fa-brands fa-github"></i></a></li>
-      </ul>
-      &copy; nånting
-    </footer> -->
 
     <footer class="mainFooter">
       <ul class="footerMenu">

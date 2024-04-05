@@ -1,18 +1,18 @@
 import { ThreadType2 } from "../types/threadType";
 import { ForumType } from "../types/forumType";
 
-import { getThreadData, getThreadById } from "../services/servicesv2/threadService2";
+import { clearAll, clearMain} from "./clearContent";
+
+import { getThreadData } from "../services/servicesv2/threadService2";
 import { displayThreads } from "../modules/displayThreads";
 
 import { showToast } from "../utils/utils";
 import { isLoggedIn } from "../components/credentialsComponents/renderLogin";
 import Navigo from "navigo";
 
-
-const topicContainer = document.querySelector('#topic') as HTMLDivElement;
 const topicHeaderContainer = document.querySelector('#topicHeader') as HTMLDivElement;
 
-export  function displayTopics(topics: ForumType[], router: Navigo):void{
+export function displayTopics(topics: ForumType[], router: Navigo):void{
   for(const topic of topics){
     displayTopicTitle(topic, router);
   }
@@ -34,8 +34,7 @@ function  displayTopicTitle(topic:ForumType, router: Navigo):void{
   topicsContainer.append(topicHeaderBox);
   topicHeaderBox.append(topicLink);
 
-
-
+  
   topicLink.addEventListener('click', (event) => {
     event.preventDefault();
 
@@ -73,31 +72,30 @@ function  displayTopicTitle(topic:ForumType, router: Navigo):void{
  Clear before display
 **********************************/
 
-//Petra's code
-export function clearAll():void{
-  topicContainer.classList.remove('hide');
-  topicContainer.classList.add('flex');
-  const startContainer = document.querySelector('.startWrapper') as HTMLDivElement;
-  const postsContainer = document.querySelector('#posts') as HTMLDivElement;
-  const subjects = document.querySelector('.subjects') as HTMLDivElement;
+// export function clearAll():void{
+//   topicContainer.classList.remove('hide');
+//   topicContainer.classList.add('flex');
+//   const startContainer = document.querySelector('.startWrapper') as HTMLDivElement;
+//   const postsContainer = document.querySelector('#posts') as HTMLDivElement;
+//   const subjects = document.querySelector('.subjects') as HTMLDivElement;
 
-  // startContainer.innerHTML = '';
-  postsContainer.innerHTML = '';
-  subjects.innerHTML = '';
-  topicHeaderContainer.innerHTML = '';
+//   // startContainer.innerHTML = '';
+//   postsContainer.innerHTML = '';
+//   subjects.innerHTML = '';
+//   topicHeaderContainer.innerHTML = '';
 
-  const userContainer = document.querySelector('.userContainer') as HTMLDivElement;
-  const userProfileComments = document.querySelector('.userProfileComments') as HTMLDivElement;
+//   const userContainer = document.querySelector('.userContainer') as HTMLDivElement;
+//   const userProfileComments = document.querySelector('.userProfileComments') as HTMLDivElement;
 
-  if (!userContainer) return;   
-    userContainer.innerHTML = '';
-  if (!userProfileComments) return; 
-    userProfileComments.innerHTML = '';
+//   if (!userContainer) return;   
+//     userContainer.innerHTML = '';
+//   if (!userProfileComments) return; 
+//     userProfileComments.innerHTML = '';
 
-}
+// }
 
-export function clearMain():void{
-  const mainContent = document.querySelector('.mainContent') as HTMLDivElement;
-  mainContent.innerHTML = '';
-}
+// export function clearMain():void{
+//   const mainContent = document.querySelector('.mainContent') as HTMLDivElement;
+//   mainContent.innerHTML = '';
+// }
 
