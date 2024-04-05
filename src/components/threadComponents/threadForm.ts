@@ -10,6 +10,8 @@ import { createCommentData, newComment } from "../../services/servicesv2/comment
 import { getForumData } from "../../services/servicesv2/forumService2";
 import { ForumType } from "../../types/forumType";
 
+
+// Kevin's code
 function threadFormTemplate(topic: string) { // Hämtar in numret på topic, men behöver hämta namnet. Eller skippa 
   return `
     <h3>Gör ett inlägg i ${topic}</h3>
@@ -37,11 +39,18 @@ export async function renderThreadForm(topic: string, router: Navigo) {
   router.updatePageLinks();
 }
 
+// Kevin's code
 async function getTopicName(topic: string): Promise<string> {
-  const forumData: ForumType[]  = await getForumData();
-  const forum = forumData.find(forum => forum.id === parseInt(topic));
-  if (!forum) return 'forum';
-  return forum.title;
+  try{
+    const forumData: ForumType[]  = await getForumData();
+    const forum = forumData.find(forum => forum.id === parseInt(topic));
+    if (!forum) return 'forum';
+    return forum.title;
+  }
+  catch(error){
+    showToast('Något gick fel, testa igen', 5000);
+    return 'forum';
+  }
 }
 
 // Kevin's code

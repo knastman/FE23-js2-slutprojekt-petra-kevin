@@ -8,7 +8,7 @@ import { ThreadType2 } from "../../types/threadType";
 import { getThreadData } from "../../services/servicesv2/threadService2";
 import { showToast } from "../../utils/utils";
 
-
+//Kevin's code
 export async function renderComments(id: string, router: Navigo){
     const idToNumber: number = parseInt(id);
     const mainContent = document.querySelector(".mainContent") as HTMLDivElement;
@@ -29,7 +29,6 @@ export async function renderComments(id: string, router: Navigo){
         if (!forumName) return;
     
         displayPosts(topicComments, forumName ,threadTitle);
-
     }catch(error){
         showToast('Kunde inte hämta kommentarer', 5000);
     }

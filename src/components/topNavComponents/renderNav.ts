@@ -19,8 +19,7 @@ export const renderNav = (router: Navigo): void => {
 
   let userLinks;
   if (isLoggedInUser && loggedInUser) {
-      // userLinks = `<a href=/user/${loggedInUser} data-navigo>Se profil${firstLetterToUpperCase(loggedInUser)}</a>`;
-      userLinks = `<a href=/user/${loggedInUser} data-navigo>Se profilsida</a>`; //Ett förslag, blir mer logiskt och bättre ux
+      userLinks = `<a href=/user/${loggedInUser} data-navigo>Se profilsida</a>`;
   } else {
       userLinks = `<a href="/login" data-navigo>Logga in</a>`;
   }

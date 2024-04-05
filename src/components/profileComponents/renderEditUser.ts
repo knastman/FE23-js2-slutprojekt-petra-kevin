@@ -10,7 +10,6 @@ import babirusaImage from '../../../public/media/babirusa.png';
 import { getLoggedInUser, logoutUser } from '../credentialsComponents/renderLogin';
 import { UserType2 } from '../../types/userType';
 import { deleteUserv2, getUserData, updateUserv2 } from '../../services/servicesv2/userService2';
-import { renderSideNav } from '../sideNavComponents/renderSideNav';
 
 
 //Kevin's code

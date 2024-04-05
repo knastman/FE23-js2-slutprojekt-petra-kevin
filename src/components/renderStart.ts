@@ -9,7 +9,7 @@ export function startTemplate(): string  {
 `;
 }
        
-
+// Kevin's code
 export function renderStart(): void {
     const mainContent = document.querySelector("#mainContent");
     if (!mainContent) return;

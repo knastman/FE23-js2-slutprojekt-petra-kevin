@@ -48,15 +48,10 @@ const renderAllUsers = async (router: Navigo): Promise<void> => {
       userLink.innerText = user.name;
       ulElement.appendChild(liElement);
       liElement.appendChild(userLink);
-
-    });
-    
-    
-
-    router.updatePageLinks();
+    });  
     attachEventListeners(router);
+    router.updatePageLinks();
   } catch (error) {
-    console.error(error);
     showToast("Kunde inte hämta användare", 5000);
   }
 };
