@@ -15,7 +15,7 @@ import { ForumType } from "../../types/forumType";
 function threadFormTemplate(topic: string) { // Hämtar in numret på topic, men behöver hämta namnet. Eller skippa 
   return `
     <h3>Gör ett inlägg i ${topic}</h3>
-    <form id="formContainer">
+    <form id="threadContainer">
       <div>
         <label for="subjectHeaderInput">Ämne:</label>
         <input class="" type="text" name="subjectHeaderInput" placeholder="Vad handlar ditt inlägg om" id="subjectHeaderInput">
@@ -69,8 +69,21 @@ async function attachEventListeners(topic: string, router: Navigo) {
           createThreadData(thread);
           createCommentData(firstComment);
           router.navigate(`/thread/${thread.id}`)
+          showToast('Inlägget skapat', 5000);
+          resetForm();
        }   
   });
+}
+
+function resetForm(): void {
+  const form = document.querySelector('#threadContainer') as HTMLFormElement;
+  console.log('Form:', form);
+  if (!form) {
+    console.error('Form container not found');
+    return;
+  }
+  form.reset();
+  console.log('Form reset');
 }
 
   // Kevin's code
@@ -86,7 +99,7 @@ async function validateAndCreateThread(topic: string): Promise<ThreadType2 | und
       const userId: number | undefined = user.find(u => u.name === userName)?.id;
       if (!userId) return;
     
-      const createThreadForm = document.querySelector('#formContainer') as HTMLFormElement;
+      const createThreadForm = document.querySelector('#threadContainer') as HTMLFormElement;
       if (!createThreadForm) return;
     
       const title = (document.querySelector('#subjectHeaderInput') as HTMLInputElement).value;
