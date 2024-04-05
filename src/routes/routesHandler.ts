@@ -121,6 +121,7 @@ export async function handleThreadRoute(router: Navigo, params: RouteParams) {
     await renderComments(params.data.id, router);
     await commonTasks(router) 
     togglePosts(true);
+    toggleTopics(false);
   }
 }
 //Kevin's code
