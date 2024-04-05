@@ -1,4 +1,4 @@
-import { clearAll, clearMain, clearPosts} from "./clearContent";
+import { clearAll, clearMain, clearPosts, clearFormContainer} from "./clearContent";
 import { CommentType2 }  from "../types/commentType";
 import { formatTimestamp } from "../utils/utils";
 import { getLoggedInUser, isLoggedIn } from "../components/credentialsComponents/renderLogin";
@@ -13,25 +13,37 @@ const postsContainer = document.querySelector('#posts') as HTMLDivElement
 // const formContainer = document.querySelector('#formContainer') as HTMLDivElement;
 
 export function displayPosts(comments: CommentType2[], topic:string, threadTitle:string):void{
-  const threadHeader = document.createElement('h4');
-  threadHeader.innerText = threadTitle;
-  postsContainer.append(threadHeader );
+  // const threadHeader = document.createElement('h4'); //Hämtar bara senaste, behöver hämta via id
+  // threadHeader.innerText = threadTitle;
+  // postsContainer.append(threadHeader );
   // formContainer.innerHTML = '';
   // console.log(threadTitle);
   // displayCommentForm(threadTitle);
 
 
   const formContainer = document.querySelector('#formContainer') as HTMLDivElement;
-  if (!formContainer) return;
-  displayCommentForm(threadTitle);
+
   // router.updatePageLinks();
 
 
-
   for(const commentObject of comments){
+    if (!formContainer) return;
+   
+ 
+
     getUserData()
     .then(userData => userData.find((user) => user.id === commentObject.userId)) 
     .then(user => {displayComment(commentObject, topic, threadTitle, user!)})
+
+    // const commentObjectThreadId = parseInt(commentObject.threadId);
+    const commentObjectThreadId = commentObject.threadId;
+    console.log(commentObjectThreadId);
+    
+    // clearPosts();
+    // formContainer.innerHTML = '';
+    // displayCommentForm(commentObject.threadId);
+    // displayCommentForm(parseInt(commentObject.threadI));
+    displayCommentForm(commentObjectThreadId);
   }
 }
  
@@ -108,14 +120,15 @@ export function displayComment(comment:CommentType2, topic:string, threadTitle:s
 
 
 // function displayCommentForm(threadTitle:string, threadId:number):void{
-function displayCommentForm(threadTitle:string):void{
-  console.log(threadTitle);
+function displayCommentForm(threadId:number):void{
+  console.log('threadId i form'); 
+  console.log(threadId); 
 
   const formContainer = document.querySelector('#formContainer') as HTMLDivElement;
   const formHeader = document.createElement('h3');
   const commentsForm = document.createElement('form');
   commentsForm.setAttribute('id', 'commentsForm');
-  formHeader.innerHTML =  `Skriv en kommentar i <br/> "${threadTitle}"`;
+  formHeader.innerHTML =  `Skriv en kommentar i <br/> "${threadId}"`;
 
   commentsForm.innerHTML = `
     <div>

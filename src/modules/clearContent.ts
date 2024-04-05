@@ -37,18 +37,28 @@ export function clearMain():void{
 export function clearPosts():void{
   postsContainer.innerHTML = '';
 }
+// export function clearFormContainer():void{
+//   const formContainer = document.querySelector('formContainer') as HTMLDivElement;
+//   formContainer.innerHTML = '';
+// }
 
 
 // TEST
 export function clearForStart():void{ 
-  topicContainer.classList.add('hide')
-  const startContainer = document.querySelector('.startWrapper') as HTMLDivElement;
+  // const startContainer = document.querySelector('.startWrapper') as HTMLDivElement;
+  const topicContainer = document.querySelector('#topic') as HTMLDivElement;
   const postsContainer = document.querySelector('#posts') as HTMLDivElement;
   const subjects = document.querySelector('.subjects') as HTMLDivElement;
-  const formContainer = document.querySelector('#createThreadForm') as HTMLDivElement;
-  formContainer.innerHTML = '';
+  // const createformContainer = document.querySelector('#createThreadForm') as HTMLDivElement;
+  // const formContainer = document.querySelector('formContainer') as HTMLDivElement;
+  topicContainer.classList.add('hide')
+  // formContainer.classList.add('hide')
+  postsContainer.classList.add('hide')
+ 
 
   // startContainer.innerHTML = '';
+  // createformContainer.innerHTML = '';
+  // formContainer.innerHTML = '';
   postsContainer.innerHTML = '';
   subjects.innerHTML = '';
   topicHeaderContainer.innerHTML = '';
