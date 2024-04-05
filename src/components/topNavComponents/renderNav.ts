@@ -25,15 +25,12 @@ export const renderNav = (router: Navigo): void => {
       userLinks = `<a href="/login" data-navigo>Logga in</a>`;
   }
   
-
-  //Jag la in detta i html-filen istället som jag pratade om /P
-
-  // navContainer.innerHTML = `
-  // <ul class="menu">
-  //   <li><a href="/" data-navigo>Hem</a></li>
-  //   <li><a href="/faq" data-navigo>FAQ</a></li>
-  //   <li><a href="/kontakt" data-navigo>Kontakt</a></li>
-  // </ul>`;
+  navContainer.innerHTML = `
+  <ul class="menu">
+    <li><a href="/" data-navigo>Hem</a></li>
+    <li><a href="/faq" data-navigo>FAQ</a></li>
+    <li><a href="/kontakt" data-navigo>Kontakt</a></li>
+  </ul>`;
   
   userContainer.innerHTML = `${userLinks}`;
   router.updatePageLinks();

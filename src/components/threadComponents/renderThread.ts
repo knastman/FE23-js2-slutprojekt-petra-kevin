@@ -8,7 +8,7 @@ import { showToast } from "../../utils/utils";
 
 
 //Kevin's code
-export async function renderThreads(id: string, router: Navigo){ //När används denna? 
+export async function renderThreads(id: string, router: Navigo){
     const idToNumber = parseInt(id);
     const mainContent = document.querySelector(".mainContent");
     if (!mainContent) return;
@@ -22,7 +22,7 @@ export async function renderThreads(id: string, router: Navigo){ //När används
         const chosenForum: ForumType | undefined  = allForums.find((forum) => forum.id === idToNumber)
         if(!chosenForum) return;
        
-    displayThreads(topicThreads, chosenForum, router); 
+    displayThreads(topicThreads, chosenForum, router);
     } catch (error) {
         showToast('Kunde inte hämta trådar', 5000);
     }

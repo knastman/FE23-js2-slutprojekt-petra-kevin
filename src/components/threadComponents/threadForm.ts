@@ -27,9 +27,9 @@ function threadFormTemplate(topic: string) { // Hämtar in numret på topic, men
 
 // Kevin's code
 export function renderThreadForm(topic: string, router: Navigo) {
-  const formContainer = document.querySelector('#formContainer') as HTMLDivElement; //Bytt namn
-  if (!formContainer) return;
-  formContainer.innerHTML = threadFormTemplate(topic);
+  const threadFormContainer = document.querySelector('#createThreadFormContainer') as HTMLDivElement;
+  if (!threadFormContainer) return;
+  threadFormContainer.innerHTML = threadFormTemplate(topic);
   attachEventListeners(topic, router);
   router.updatePageLinks();
 }
@@ -40,7 +40,7 @@ async function attachEventListeners(topic: string, router: Navigo) {
     const submitButton = document.querySelector('#postSendButton') as HTMLButtonElement;
     if (!submitButton) return;
 
-    submitButton.addEventListener('click', async (e) => { //Tror det måste sitta på form? För formläret rensas inte
+    submitButton.addEventListener('click', async (e) => {
       e.preventDefault();
 
       let thread = await validateAndCreateThread(topic);

@@ -10,8 +10,6 @@ import {
   handleTopicRoute,
   handleThreadRoute,
 } from "./routesHandler";
-// import { clearForStart} from "../modules/clearContent";
-// import { renderStart } from "../components/renderStart";
 
 
 export type RouteParams = {
@@ -26,8 +24,6 @@ export function setupRoutes(router: Navigo) {
   router
     .on({
       "/": () => { handleHomeRoute(router)
-        // clearForStart(); //petra's add TEST
-        // renderStart()//petra's add TEST
       },
       "/login": () => { handleLoginRoute(router);
       },

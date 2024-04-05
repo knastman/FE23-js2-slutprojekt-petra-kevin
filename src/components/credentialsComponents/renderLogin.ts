@@ -3,8 +3,6 @@ import { formatChecker } from "../../utils/formatChecker";
 import Navigo from "navigo";
 import { checkCredentials } from "../../services/servicesv2/userService2";
 
-import { clearAll } from "../../modules/clearContent";
-
 //Kevin's code
 function loginTemplate(): string {
   return `
@@ -92,7 +90,6 @@ export function attachLoginEvents(router: Navigo): void {
 export function logoutUser(router: Navigo): void {
   localStorage.removeItem("login");
   router.navigate("/login");
-  clearAll(); // Petras tillägg (tillfälligt inför bättre lösning), för threadboxen syns om man är inne i en tråd och loggar ut
 }
 
 // Kevin's code

@@ -1,6 +1,6 @@
-import { clearAll, clearMain, clearPosts} from "./clearContent";
 import { CommentType2 }  from "../types/commentType";
 import { formatTimestamp } from "../utils/utils";
+// import { getThreadById } from "../services/threadService";
 import { getLoggedInUser, isLoggedIn } from "../components/credentialsComponents/renderLogin";
 import { showToast } from "../utils/utils";
 import { getImagePath } from "../utils/imageIdentifier";
@@ -10,23 +10,11 @@ import { UserType2 } from "../types/userType";
 
 
 const postsContainer = document.querySelector('#posts') as HTMLDivElement
-// const formContainer = document.querySelector('#formContainer') as HTMLDivElement;
 
 export function displayPosts(comments: CommentType2[], topic:string, threadTitle:string):void{
-  const threadHeader = document.createElement('h4');
-  threadHeader.innerText = threadTitle;
-  postsContainer.append(threadHeader );
-  // formContainer.innerHTML = '';
-  // console.log(threadTitle);
-  // displayCommentForm(threadTitle);
-
-
-  const formContainer = document.querySelector('#formContainer') as HTMLDivElement;
-  if (!formContainer) return;
-  displayCommentForm(threadTitle);
-  // router.updatePageLinks();
-
-
+   clearPosts();
+  //  clearThreadForm();
+  //  createCommentForm();
 
   for(const commentObject of comments){
     getUserData()
@@ -36,14 +24,14 @@ export function displayPosts(comments: CommentType2[], topic:string, threadTitle
 }
  
 export function displayComment(comment:CommentType2, topic:string, threadTitle:string, user:UserType2):void{
+  
   postsContainer.classList.remove('hide');
 
   const postBox = createAndAddClass('article', 'post'); 
   const postHeader = createAndAddClass('div', 'postHeader'); 
   const postHeaderSubject = createAndAddClass('div', 'postSubject'); 
-  const postSubjectLink = document.createElement('span'); 
-  // const postSubjectLink = document.createElement('a'); 
-  // postSubjectLink.setAttribute('href', `/topic/thread/${comment.threadId}`); //Borde kanske inte vara länk när man är i en thread...   
+  const postSubjectLink = document.createElement('a'); 
+  postSubjectLink.setAttribute('href', `/topic/thread/${comment.threadId}`); //Borde kanske inte vara länk när man är i en thread...   
   postSubjectLink.setAttribute('data-navigo', '');   
   const postDateContainer = createAndAddClass('div', 'postDate'); 
 
@@ -54,6 +42,7 @@ export function displayComment(comment:CommentType2, topic:string, threadTitle:s
   postUserName.setAttribute('data-navigo', ''); 
   const postUserImg = document.createElement('div'); 
   const postUserImgSrc = createAndAddClass('img', 'postUserImg'); 
+
   const postTextDiv = createAndAddClass('div', 'postText');
   const postText = document.createElement('p'); 
 
@@ -69,6 +58,7 @@ export function displayComment(comment:CommentType2, topic:string, threadTitle:s
   postFooterRightEdit.setAttribute('data-navigo', '');
   postFooterRightDelete.setAttribute('href', "#");        
   postFooterRightDelete.setAttribute('data-navigo', '');      
+
 
   postSubjectLink.innerText = threadTitle;   
   const commentDate = formatTimestamp(comment.timeStamp);
@@ -101,71 +91,38 @@ export function displayComment(comment:CommentType2, topic:string, threadTitle:s
 }
 
 
+/*********************************
+  Clear before display
+**********************************/
+
+export function clearPosts():void{
+  postsContainer.innerHTML = '';
+}
+export function clearThreadForm():void{
+  const createThreadForm = document.querySelector('#createThreadForm') as HTMLDivElement;
+  createThreadForm.innerHTML = '';
+}
+
 
 /*********************************
   Form for comments
 **********************************/
 
 
-// function displayCommentForm(threadTitle:string, threadId:number):void{
-function displayCommentForm(threadTitle:string):void{
-  console.log(threadTitle);
-
-  const formContainer = document.querySelector('#formContainer') as HTMLDivElement;
-  const formHeader = document.createElement('h3');
-  const commentsForm = document.createElement('form');
-  commentsForm.setAttribute('id', 'commentsForm');
-  formHeader.innerHTML =  `Skriv en kommentar i <br/> "${threadTitle}"`;
-
-  commentsForm.innerHTML = `
-    <div>
-      <label for="postText">Inlägg:</label>
-      <textarea id="postTextInput" name="Meddelande" placeholder="Din kommentar i tråden här" rows="5" cols="33" required minlength="4" maxlength="600"></textarea>
-    </div>
-    <div><button type="submit" id="postSendButton">Skicka</button></div>
-  `
-  formContainer.append(formHeader, commentsForm);
-
-  // EJ KLAR
-  commentsForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-      
-    const postTextInput = (commentsForm.querySelector('#postTextInput') as HTMLInputElement);
-
-    const currentUser = getLoggedInUser();
-    console.log(currentUser);
-
-    // getUserData()
-    // .then(userData => userData.find((user) => user.name === currentUser)) 
-    // .then();
-
-    // const comment: CommentType2 = newComment(threadId, postTextInput userId )
-
-    // newComment(threadId, postTextInput userId )
-    // .then(displayPosts)
-
-    commentsForm.reset();
-  
-  })
-
-}
-// const commentsFormGet = document.querySelector('#commentsForm') as HTMLDivElement;
-
-
-
-
 
 
 /*********************************
-  Create and add class
+  Create append and attribute
 **********************************/
 
 
-export function createAndAddClass(type:string, className:string):HTMLElement{
+export function createAndAddClass(type:string, className:string){
   const element = document.createElement(type);
   // container.append(element);
   if(className !== undefined) {
     element.classList.add(className);
   }
+
   return element;
 }
+
