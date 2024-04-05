@@ -15,7 +15,7 @@ import { ForumType } from "../../types/forumType";
 function threadFormTemplate(topic: string) { // Hämtar in numret på topic, men behöver hämta namnet. Eller skippa 
   return `
     <h3>Gör ett inlägg i ${topic}</h3>
-    <form id="createThreadForm">
+    <form id="formContainer">
       <div>
         <label for="subjectHeaderInput">Ämne:</label>
         <input class="" type="text" name="subjectHeaderInput" placeholder="Vad handlar ditt inlägg om" id="subjectHeaderInput">
@@ -31,7 +31,7 @@ function threadFormTemplate(topic: string) { // Hämtar in numret på topic, men
 
 // Kevin's code
 export async function renderThreadForm(topic: string, router: Navigo) {
-  const threadFormContainer = document.querySelector('#createThreadFormContainer') as HTMLDivElement;
+  const threadFormContainer = document.querySelector('#formContainer') as HTMLDivElement;
   const forumName = await getTopicName(topic);
   if (!threadFormContainer) return;
   threadFormContainer.innerHTML = threadFormTemplate(forumName);
@@ -86,7 +86,7 @@ async function validateAndCreateThread(topic: string): Promise<ThreadType2 | und
       const userId: number | undefined = user.find(u => u.name === userName)?.id;
       if (!userId) return;
     
-      const createThreadForm = document.querySelector('#createThreadForm') as HTMLFormElement;
+      const createThreadForm = document.querySelector('#formContainer') as HTMLFormElement;
       if (!createThreadForm) return;
     
       const title = (document.querySelector('#subjectHeaderInput') as HTMLInputElement).value;

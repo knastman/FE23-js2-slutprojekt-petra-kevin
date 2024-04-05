@@ -120,11 +120,11 @@
 
 /******* POST FORM ****/
 
-#createThreadFormContainer, #createCommentsFormContainer{
+#formContainer{
   padding-right:25px;
 }
 
-#createThreadFormContainer form, #createCommentsFormContainer form{ 
+#formContainer form{ 
   display: grid;
   flex-direction: column;
   text-align: left;
@@ -137,11 +137,11 @@
   /* background-color: #134E5E; */
 }
 
-#createThreadFormContainer form div:last-child, #createCommentsFormContainer form div:last-child{
+#formContainer form div:last-child{
   justify-self: end;
 }
 
-#createThreadForm input, #createThreadForm textarea , #createCommentsFormContainer input, #createCommentsFormContainer textarea {
+#createThreadForm input, #createThreadForm textarea , #formContainer input, #formContainer textarea {
   border: 1px solid #ccc;
   border-radius: 3px;
   width: 100%;
@@ -151,7 +151,7 @@
   font-family: inherit;
 }
 
-#createThreadForm button, #createCommentsFormContainer button {
+#createThreadForm button, #formContainer button {
   background-image: linear-gradient(#f7f8fa, #e7e9ec);
   border-color: #7a7e84 #797c82 #5a5959#5a5959;
   border-width: 1px;
@@ -163,7 +163,7 @@
   justify-self: end;
 }
 
-#createThreadForm button:hover, #createCommentsFormContainer button:hover {
+#createThreadForm button:hover, #formContainer button:hover {
   border-bottom-style: solid;
   border-bottom-color: #a2a6ac;
 }
