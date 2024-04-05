@@ -67,6 +67,7 @@ export async function handleHomeRoute(router: Navigo) {
     router.navigate("/login");
   } else {
     await commonTasks(router)
+    togglePosts(false);
     renderStart();
   }
 }

@@ -13,6 +13,7 @@ export const renderSideNav = async (router: Navigo): Promise<void> => {
 
   const user: string | null = getLoggedInUser();
   if (user === null) { 
+    sideNavContainer.innerHTML = "";
     return;
   }
   else {  

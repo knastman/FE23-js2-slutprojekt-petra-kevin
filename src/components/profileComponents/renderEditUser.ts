@@ -10,6 +10,7 @@ import babirusaImage from '../../../public/media/babirusa.png';
 import { getLoggedInUser, logoutUser } from '../credentialsComponents/renderLogin';
 import { UserType2 } from '../../types/userType';
 import { deleteUserv2, getUserData, updateUserv2 } from '../../services/servicesv2/userService2';
+import { renderSideNav } from '../sideNavComponents/renderSideNav';
 
 
 //Kevin's code
@@ -117,7 +118,6 @@ const attachEditEvents = (router: Navigo, user: UserType2): void => {
     logoutUser(router);
     router.navigate('/login');
     showToast('Användaren borttagen', 5000);
-    toggleContainer(false, '#editUserContainer');
   });
   highlightSelectedImage('.editImageRadio', '.editImageLabel');
 };

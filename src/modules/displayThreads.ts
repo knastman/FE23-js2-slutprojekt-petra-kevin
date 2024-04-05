@@ -23,6 +23,7 @@ import Navigo from "navigo";
 
 // export function displayThreads(threads:threadType2[]):void{
 export function displayThreads(threads:ThreadType2[], topic:ForumType, router: Navigo): void{
+  console.log("displaying threads")
   for(const thread of threads.slice(0, 5)){    
     getCommentData()
     // .then(console.log)
@@ -30,6 +31,8 @@ export function displayThreads(threads:ThreadType2[], topic:ForumType, router: N
     .then(commentData => commentData.find((comment) => comment.threadId === thread.id!)) 
     .then(comment => {displayThread(thread, comment!, topic)})
   }
+
+  router.updatePageLinks();
 }
 
 
