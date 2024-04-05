@@ -53,7 +53,6 @@ async function loginUser(router: Navigo): Promise<void>{
   if (loginSuccessful) {
     localStorage.setItem("login", userNameValue);
     router.navigate(`/user/${userNameValue}`);
-    console.log("router", router);
   } else {
     showToast("Fel användarnamn eller lösenord", 5000);
   }

@@ -24,17 +24,6 @@ async function commonTasks(router: Navigo) {
   await renderTopics(router);
 }
 
-// Kevin's code
-function clearTopics(): void {
-  const topicsContainer = document.querySelector("#topic");
-  const postsContainer = document.querySelector("#posts");
-  if (!topicsContainer || !postsContainer) return;
-  topicsContainer.classList.remove("flex");
-  topicsContainer.classList.add("hide");
-  postsContainer.classList.remove("flex");
-  postsContainer.classList.add("hide");
-}
-
 
 function toggleTopics(show: boolean):void{
   const topicsContainer = document.querySelector("#topic");
@@ -97,7 +86,8 @@ export async function handleUserProfileRoute(router: Navigo, params: RouteParams
   } else {
     await renderMainUser(params.data.id, router);
     await commonTasks(router)
-    clearTopics();
+    togglePosts(false);
+    toggleTopics(false);
   } 
 }
 //Kevin's code
@@ -107,6 +97,8 @@ export async function handleEditUserProfileRoute(router: Navigo, params: RoutePa
   } else { 
     await renderEditUser(router, params.data.id);
     await commonTasks(router)
+    togglePosts(false);
+    toggleTopics(false);
   }
 }
 //Kevin's code  //Edited by Petra TESTING
@@ -135,8 +127,12 @@ export async function handleThreadRoute(router: Navigo, params: RouteParams) {
 //Kevin's code
 export function handleFaqRoute() {
   renderFaq();
+  toggleTopics(false);
+  togglePosts(false);
 }
 //Kevin's code
 export function handleContactRoute() {
   renderContact();
+  toggleTopics(false);
+  togglePosts(false);
 }

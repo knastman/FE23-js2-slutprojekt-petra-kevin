@@ -73,7 +73,6 @@ export async function createUserv2(user: UserType2): Promise<void> {
  */
 export async function updateUserv2(user: UserType2): Promise<void> {
     const firebaseUserId = await findUserKeyByUserName(user.name);
-    console.log(firebaseUserId);
     if (firebaseUserId) {
         const dataRef: DatabaseReference = ref(db, `${userPath}/${firebaseUserId}`);
         try {
