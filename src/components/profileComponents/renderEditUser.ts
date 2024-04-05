@@ -117,7 +117,6 @@ const attachEditEvents = (router: Navigo, user: UserType2): void => {
     logoutUser(router);
     router.navigate('/login');
     showToast('Användaren borttagen', 5000);
-    toggleContainer(false, '#editUserContainer');
   });
   highlightSelectedImage('.editImageRadio', '.editImageLabel');
 };

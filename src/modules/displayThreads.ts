@@ -30,6 +30,8 @@ export function displayThreads(threads:ThreadType2[], topic:ForumType, router: N
     .then(commentData => commentData.find((comment) => comment.threadId === thread.id!)) 
     .then(comment => {displayThread(thread, comment!, topic)})
   }
+
+  router.updatePageLinks();
 }
 
 

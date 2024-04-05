@@ -1,4 +1,4 @@
-import { ThreadType2 } from "../types/threadType";
+
 import { ForumType } from "../types/forumType";
 
 import { getThreadData, getThreadById } from "../services/servicesv2/threadService2";
@@ -16,6 +16,7 @@ export  function displayTopics(topics: ForumType[], router: Navigo):void{
   for(const topic of topics){
     displayTopicTitle(topic, router);
   }
+  router.updatePageLinks();
 }
 
 function  displayTopicTitle(topic:ForumType, router: Navigo):void{
@@ -53,18 +54,12 @@ function  displayTopicTitle(topic:ForumType, router: Navigo):void{
      
       topicHeaderContainer.append(topicHeader, topicDescription);
 
-      getThreadData()
-        .then(threadData => threadData.filter((thread) => thread.forumId === topic.id))
-        // .then(displayThreads)
-        .then((threads) => displayThreads(threads, topic, router)); 
-
     } 
     else {
       showToast('Du måste vara inloggad för att se inlägg!');
       return;
     }
 
-    router.updatePageLinks();
   });
 }
 

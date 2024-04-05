@@ -8,7 +8,6 @@ import { renderMainUser } from "../components/profileComponents/renderMainUser";
 import { renderFooter } from "../components/renderFooter";
 import { renderFaq } from "../components/topNavComponents/renderFaq";
 import { renderContact } from "../components/topNavComponents/renderContact";
-
 import { RouteParams } from "./routes";
 import { renderThreads } from "../components/threadComponents/renderThread";
 import { renderComments } from "../components/commentComponents/renderComment";
@@ -16,7 +15,7 @@ import { renderTopics } from "../components/topNavComponents/renderTopics";
 import { renderStart } from "../components/renderStart";
 import { renderThreadForm } from "../components/threadComponents/threadForm";
 
-
+//Kevin's code
 async function commonTasks(router: Navigo) {
   renderNav(router);
   await renderSideNav(router);
@@ -24,18 +23,7 @@ async function commonTasks(router: Navigo) {
   await renderTopics(router);
 }
 
-// Kevin's code
-function clearTopics(): void {
-  const topicsContainer = document.querySelector("#topic");
-  const postsContainer = document.querySelector("#posts");
-  if (!topicsContainer || !postsContainer) return;
-  topicsContainer.classList.remove("flex");
-  topicsContainer.classList.add("hide");
-  postsContainer.classList.remove("flex");
-  postsContainer.classList.add("hide");
-}
-
-
+//Kevin's code
 function toggleTopics(show: boolean):void{
   const topicsContainer = document.querySelector("#topic");
 
@@ -48,7 +36,7 @@ function toggleTopics(show: boolean):void{
     topicsContainer.classList.add("hide");
   }
 }
-
+//Kevin's code
 function togglePosts(show: boolean):void{
   const postsContainer = document.querySelector("#posts");
 
@@ -67,6 +55,7 @@ export async function handleHomeRoute(router: Navigo) {
     router.navigate("/login");
   } else {
     await commonTasks(router)
+    togglePosts(false);
     renderStart();
   }
 }
@@ -96,7 +85,8 @@ export async function handleUserProfileRoute(router: Navigo, params: RouteParams
   } else {
     await renderMainUser(params.data.id, router);
     await commonTasks(router)
-    clearTopics();
+    togglePosts(false);
+    toggleTopics(false);
   } 
 }
 //Kevin's code
@@ -106,11 +96,13 @@ export async function handleEditUserProfileRoute(router: Navigo, params: RoutePa
   } else { 
     await renderEditUser(router, params.data.id);
     await commonTasks(router)
+    togglePosts(false);
+    toggleTopics(false);
   }
 }
-//Kevin's code  //Edited by Petra TESTING
+//Kevin's code  
 export async function handleTopicRoute(router: Navigo, params: RouteParams) { 
-  if (!isLoggedIn()) {//Petra's add
+  if (!isLoggedIn()) {
     router.navigate("/login");
   } 
    else { 
@@ -134,8 +126,12 @@ export async function handleThreadRoute(router: Navigo, params: RouteParams) {
 //Kevin's code
 export function handleFaqRoute() {
   renderFaq();
+  toggleTopics(false);
+  togglePosts(false);
 }
 //Kevin's code
 export function handleContactRoute() {
   renderContact();
+  toggleTopics(false);
+  togglePosts(false);
 }

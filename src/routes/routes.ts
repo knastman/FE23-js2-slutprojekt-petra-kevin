@@ -11,14 +11,14 @@ import {
   handleThreadRoute,
 } from "./routesHandler";
 
-
+// Kevin's code
+// RouteParams is a type that defines the structure of the parameters that are passed to the route handlers
 export type RouteParams = {
   data: {
     id: string;
   };
 };
 
-// INTE FÄRDIGT
 //Kevin's code
 export function setupRoutes(router: Navigo) {
   router

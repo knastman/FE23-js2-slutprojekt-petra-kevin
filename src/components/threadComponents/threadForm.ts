@@ -7,7 +7,11 @@ import { showToast } from "../../utils/utils";
 import { getLoggedInUser } from "../credentialsComponents/renderLogin";
 import { CommentType2 } from "../../types/commentType";
 import { createCommentData, newComment } from "../../services/servicesv2/commentService2";
+import { getForumData } from "../../services/servicesv2/forumService2";
+import { ForumType } from "../../types/forumType";
 
+
+// Kevin's code
 function threadFormTemplate(topic: string) { // Hämtar in numret på topic, men behöver hämta namnet. Eller skippa 
   return `
     <h3>Gör ett inlägg i ${topic}</h3>
@@ -26,14 +30,28 @@ function threadFormTemplate(topic: string) { // Hämtar in numret på topic, men
 }
 
 // Kevin's code
-export function renderThreadForm(topic: string, router: Navigo) {
+export async function renderThreadForm(topic: string, router: Navigo) {
   const threadFormContainer = document.querySelector('#createThreadFormContainer') as HTMLDivElement;
+  const forumName = await getTopicName(topic);
   if (!threadFormContainer) return;
-  threadFormContainer.innerHTML = threadFormTemplate(topic);
+  threadFormContainer.innerHTML = threadFormTemplate(forumName);
   attachEventListeners(topic, router);
   router.updatePageLinks();
 }
 
+// Kevin's code
+async function getTopicName(topic: string): Promise<string> {
+  try{
+    const forumData: ForumType[]  = await getForumData();
+    const forum = forumData.find(forum => forum.id === parseInt(topic));
+    if (!forum) return 'forum';
+    return forum.title;
+  }
+  catch(error){
+    showToast('Något gick fel, testa igen', 5000);
+    return 'forum';
+  }
+}
 
 // Kevin's code
 async function attachEventListeners(topic: string, router: Navigo) {

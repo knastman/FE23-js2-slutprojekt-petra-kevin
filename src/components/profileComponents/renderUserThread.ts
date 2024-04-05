@@ -8,7 +8,7 @@ import { showToast } from "../../utils/utils";
 function threadTemplate(thread: ThreadType2): string {
     return `
     <div class="thread">
-            <a href="/threads/${thread.id}" data-navigo>${thread.title}</a>
+            <a href="/thread/${thread.id}" data-navigo>${thread.title}</a>
     </div>
     `;
 }

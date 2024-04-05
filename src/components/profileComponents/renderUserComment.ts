@@ -11,35 +11,34 @@ import Navigo from "navigo";
 // Kevin's code
 function commentTemplate(comment: CommentType2, user: UserType2, thread: ThreadType2, topicTitle:string): string {
     const dateTime = formatTimestamp(comment.timeStamp);
-    const isCurrentUser = user.name === getLoggedInUser(); // Ska vara article men slutelementet är inte med här? 
+    const isCurrentUser = user.name === getLoggedInUser();
     return `
-      <article class="post" data-comment-id="${comment.id}"> 
-        <div class="postHeader">
-          <div class="postDate">${dateTime.date} | ${dateTime.time}</div>
-          <div class="postSubject"><a href="/thread/${comment.threadId}" data-navigo>${thread.title}</a></div>
-        </div>
-        <div class="postBody">
-          <div class="postUserInfo">
-            <div><a href="/user/${user.name}" data-navigo>${user.name}</a></div>
-            <div><img class="postUserImg" src="${user.image}" alt="userImage"></div>
-          </div>
-          <div class="postText">
-            <p>${comment.comment}</p>
-          </div>
-        </div>
-        <div class="postFooter">
-          <div>
-            <a id="${thread.forumId}" href="/topic/${thread.forumId}" data-navigo>${topicTitle}</a>
-          </div>
-          <div>
-            <button class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera</button>  
-            <button class="deleteUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Radera</button>
-          </div>
-        </div>
-      </article>
+    <article class="post" data-comment-id="${comment.id}"> 
+    <div class="postHeader">
+      <div class="postDate">${dateTime.date} | ${dateTime.time}</div>
+      <div class="postSubject"><a href="/thread/${comment.threadId}" data-navigo>${thread.title}</a></div>
+    </div>
+    <div class="postBody">
+      <div class="postUserInfo">
+        <div><a href="/user/${user.name}" data-navigo>${user.name}</a></div>
+        <div><img class="postUserImg" src="${user.image}" alt="userImage"></div>
+      </div>
+      <div class="postText">
+        <p>${comment.comment}</p>
+      </div>
+    </div>
+    <div class="postFooter">
+      <div>
+        <a id="${thread.forumId}" href="/topic/${thread.forumId}" data-navigo>${topicTitle}</a>
+      </div>
+      <div class="buttonContainer">
+        <button class="editUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Redigera</button>  
+        <button class="deleteUserComment" data-comment-id="${comment.id}" ${isCurrentUser ? '' : 'style="display:none;"'}>Radera</button>
+      </div>
+    </div>
+  </article>
     `;
 }
-
 
 // Kevin's code
 export async function renderUserComments(user: UserType2, router: Navigo): Promise<void> {
@@ -121,10 +120,10 @@ function restoreButtonTemplate(commentId: number): string {
 
 // Kevin's code
 function deleteButtonClickHandler(commentId: number, user: UserType2, router: Navigo): void {
-    const commentElement = document.querySelector(`.comment[data-comment-id="${commentId}"]`);
+    const commentElement = document.querySelector(`.post[data-comment-id="${commentId}"]`); // Adjusted selector
     if (!commentElement) return;
 
-    const buttonContainer = commentElement.querySelector('.commentButtonContainer');
+    const buttonContainer = commentElement.querySelector('.buttonContainer');
     if (!buttonContainer) return;
 
     buttonContainer.innerHTML = deleteButtonTemplate(commentId);
@@ -144,11 +143,8 @@ function deleteButtonClickHandler(commentId: number, user: UserType2, router: Na
     });
 
     cancelButton.addEventListener("click", () => {
-        // Restore the original button container HTML
-        console.log("cancel");
         buttonContainer.innerHTML = restoreButtonTemplate(commentId);
 
-        // Reattach event listeners for this comment
         attachListeners(user, router);
     });
 }
